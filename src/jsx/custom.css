@@ -902,11 +902,11 @@ border-radius: 4px;
 /* Media Page start here */
 
 .empty-media-img {
-  max-width: 300px;
+  max-width: 350px;
   margin-bottom: 20px;
 }
 .empty-media-img img {
-  max-width: 300px;
+  max-width: 350px;
 }
 .empty-media {
   padding: 50px 0 0;
@@ -920,20 +920,33 @@ border-radius: 4px;
 }
 .empty-media h3  {
   font-style: normal;
-font-weight: 800;
-font-size: 28px;
-line-height: 44px;
-font-family: var(--font-manrope);
-color: var(--table-td-color);
-margin-bottom: 10px;
+  font-weight: 800;
+  font-size: 27px;
+  line-height: initial;
+  font-family: var(--font-manrope);
+  color: var(--table-td-color);
+  margin-bottom: 10px;
 }
 .empty-media p  {
   font-style: normal;
-font-weight: 500;
-font-size: 16px;
-line-height:24px;
-color: var(--table-td-color);
-font-family: var(--font-manrope);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+  color: var(--table-td-color);
+  font-family: var(--font-manrope);
+  margin-bottom: 0;
+}
+
+.name-img {
+  width: 40px;
+  height: 40px;
+}
+.name-img img {
+  width: 40px;
+  height: 40px;
+}
+.table.custom-table .td-content.name-td-content {
+  flex-direction: inherit;
 }
 /* Media page end here */
 
@@ -962,6 +975,13 @@ font-family: var(--font-manrope);
   .revover-password {
     margin-bottom: 25px;
   }
+  .empty-media-img {
+    max-width: 200px;
+    margin-bottom: 20px;
+  }
+  .empty-media-img img {
+    max-width: 200px;
+  }
 }
 @media (max-width: 1200px) {
   .login-form-bx .box-skew.login-rightpanel .authincation-content {
@@ -977,6 +997,7 @@ font-family: var(--font-manrope);
   .nav-header.navbar-header-custom {
     z-index: 1 !important;
 }
+
 }
 @media (max-width: 991px) {
   .login-center-img {

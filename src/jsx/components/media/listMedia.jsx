@@ -2,7 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Table, Dropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import AddNewTagModal from "../../modals/AddNewTagModal";
+import downArrow from "../../../img/down-arrow.png";
+import menuIcon from "../../../img/menu-icon.png";
+import veiwDetailIcon from "../../../img/view-detail-icon.png";
+import defaultComparisonIcon from "../../../img/default-comparison-icon.png";
+import assignIcon from "../../../img/assign-icon.png";
+import takeScreenshotIcon from "../../../img/tack-screenshot-icon.png";
 import emptyMediaImg from "../../../img/addmedia-empty-img.png";
+import nameAvatar from "../../../img/assets-avatar-img.png";
 
 const ListMedia = () => {
   const [test, settest] = useState(false);
@@ -37,52 +44,62 @@ const ListMedia = () => {
 
   return (
     <>
-      <div className="empty-media text-center">
+      {/* <div className="empty-media text-center">
         <div class="empty-media-img mx-auto">
-        <img
-                      className="media-img img-fluid"
-                      src={emptyMediaImg}
-                      alt="media-img"
-                    />
+          <img
+            className="media-img img-fluid"
+            src={emptyMediaImg}
+            alt="media-img"
+          />
         </div>
         <h3>Add Media</h3>
         <p>
-          Upload your favourite images and videos from the local storage<br/> of your
-          device
+          Upload your favourite images and videos from the local storage
+          <br /> of your device
         </p>
-      </div>
+      </div> */}
 
-      {/* <Table responsive className="custom-table">
+      <Table responsive className="custom-table">
         <thead>
           <tr>
-            <th>Screen</th>
-            <th>Last Seen</th>
-            <th>Default Composition</th>
-            <th>Current Schedule</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Uploaded Date</th>
+            <th>Properties</th>
             <th>Tags</th>
-            <th>Groups</th>
             <th>More</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>
-              <span className="td-content">
-                <strong>Christan Gray</strong>
-                <span>Oflice, New York</span>
-              </span>
-            </td>
-            <td>
-              <span className="d-flex align-items-center">
-                <span className="status status-green"></span>
-                <span className="td-content">
-                  <strong>Christan Gray</strong>
-                  <span>Oflice, New York</span>
+              <span className="td-content d-flex name-td-content">
+                <span className="name-img mr-2">
+                  <img
+                    className="media-img img-fluid"
+                    src={nameAvatar}
+                    alt="media-img"
+                  />
+                </span>
+                <span className="name-content d-flex flex-column flex-grow-1">
+                  <strong>My_image_name</strong>
+                  <span>Added by Gauri Batra</span>
                 </span>
               </span>
             </td>
-            <td>Default Compo. </td>
-            <td>No Schedule</td>
+            <td>Image</td>
+            <td>
+              <span className="td-content">
+                <strong>2 Apr,2023</strong>
+                <span>12:54 PM</span>
+              </span>
+            </td>
+            <td>
+              <span className="td-content">
+                <strong>700*610px</strong>
+                <span>0.04 MB</span>
+              </span>
+            </td>
             <td>
               <span className="my-phone-tag">My Phone is..</span>
               <span
@@ -98,7 +115,6 @@ const ListMedia = () => {
                 />
               </span>
             </td>
-            <td>-</td>
             <td>
               <Dropdown className="dropdown-toggle-menu">
                 <Dropdown.Toggle variant="" className="p-0  mb-2">
@@ -187,22 +203,33 @@ const ListMedia = () => {
           </tr>
           <tr>
             <td>
-              <span className="td-content">
-                <strong>Christan Gray</strong>
-                <span>Oflice, New York</span>
-              </span>
-            </td>
-            <td>
-              <span className="d-flex align-items-center">
-                <span className="status status-red"></span>
-                <span className="td-content">
-                  <strong>Christan Gray</strong>
-                  <span>Oflice, New York</span>
+              <span className="td-content d-flex name-td-content">
+                <span className="name-img mr-2">
+                  <img
+                    className="media-img img-fluid"
+                    src={nameAvatar}
+                    alt="media-img"
+                  />
+                </span>
+                <span className="name-content d-flex flex-column flex-grow-1">
+                  <strong>My_image_name</strong>
+                  <span>Added by Gauri Batra</span>
                 </span>
               </span>
             </td>
-            <td>Default Compo. </td>
-            <td>No Schedule</td>
+            <td>Image</td>
+            <td>
+              <span className="td-content">
+                <strong>2 Apr,2023</strong>
+                <span>12:54 PM</span>
+              </span>
+            </td>
+            <td>
+              <span className="td-content">
+                <strong>700*610px</strong>
+                <span>0.04 MB</span>
+              </span>
+            </td>
             <td>
               <span className="my-phone-tag">My Phone is..</span>
               <span
@@ -218,7 +245,6 @@ const ListMedia = () => {
                 />
               </span>
             </td>
-            <td>-</td>
             <td>
               <Dropdown className="dropdown-toggle-menu">
                 <Dropdown.Toggle variant="" className="p-0  mb-2">
@@ -306,7 +332,7 @@ const ListMedia = () => {
             </td>
           </tr>
         </tbody>
-      </Table> */}
+      </Table>
       <AddNewTagModal
         showNewTagModal={showNewTagModal}
         setNewTagModal={setNewTagModal}
