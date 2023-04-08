@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Table, Dropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import AddNewTagModal from "../../modals/AddNewTagModal";
 import downArrow from "../../../img/down-arrow.png";
 import menuIcon from "../../../img/menu-icon.png";
 import veiwDetailIcon from "../../../img/view-detail-icon.png";
@@ -8,8 +9,10 @@ import defaultComparisonIcon from "../../../img/default-comparison-icon.png";
 import assignIcon from "../../../img/assign-icon.png";
 import takeScreenshotIcon from "../../../img/tack-screenshot-icon.png";
 
+
 const ListScreen = () => {
   const [test, settest] = useState(false);
+  const [showNewTagModal, setNewTagModal] = useState(false);
   // use effect
   useEffect(() => {
     setTimeout(() => {
@@ -73,7 +76,9 @@ const ListScreen = () => {
             <td>No Schedule</td>
             <td>
               <span className="my-phone-tag">My Phone is..</span>
-              <span className="down-arrow">
+              <span className="down-arrow"  onClick={() => {
+            setNewTagModal(true);
+          }}>
                 <img
                   className="down-arrow-img img-fluid"
                   src={downArrow}
@@ -188,7 +193,9 @@ const ListScreen = () => {
             <td>No Schedule</td>
             <td>
               <span className="my-phone-tag">My Phone is..</span>
-              <span className="down-arrow">
+              <span className="down-arrow"   onClick={() => {
+            setNewTagModal(true);
+          }}>
                 <img
                   className="down-arrow-img img-fluid"
                   src={downArrow}
@@ -285,6 +292,11 @@ const ListScreen = () => {
           </tr>
         </tbody>
       </Table>
+      <AddNewTagModal
+          showNewTagModal={showNewTagModal}
+          setNewTagModal={setNewTagModal}
+        />
+       
     </>
   );
 };
