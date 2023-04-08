@@ -29,8 +29,8 @@ const Markup = () => {
   const routes = [
     /// Dashboard
     { url: "", component: Screen },
-    { url: "screen", component: Screen },
-    { url: "media", component: Media },
+    { url: "display", component: Screen },
+    { url: "assets", component: Media },
   ]
 
   return (
