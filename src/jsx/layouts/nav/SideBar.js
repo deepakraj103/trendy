@@ -57,7 +57,7 @@ class SideBar extends Component {
         "", "screen",
       ], media = ['media'];
     return (
-      <div className="deznav sidebar-nav-common">
+      <div className="deznav sidebar-nav-common"> 
         <PerfectScrollbar className="deznav-scroll">
           <MM className="metismenu" id="menu">    
             <li className={`${screen.includes(path) ? "mm-active" : ""}`}>
