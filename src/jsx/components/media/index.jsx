@@ -14,7 +14,7 @@ const Media = () => {
   return (
     <>
       <div className="custom-content-heading d-flex flex-wrap">
-        <h1>Media</h1>
+        <h1>Assets</h1>
       </div>
       <div className="form-head d-flex mb-3 align-items-start">
         <Button
@@ -24,7 +24,7 @@ const Media = () => {
             setShowScreenModal(true);
           }}
         >
-          Add New Screen
+          Add Media
           <span className="btn-icon-right">
             <div class="glyph-icon flaticon-381-add-1"></div>
           </span>

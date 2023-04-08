@@ -2,13 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Table, Dropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import AddNewTagModal from "../../modals/AddNewTagModal";
-import downArrow from "../../../img/down-arrow.png";
-import menuIcon from "../../../img/menu-icon.png";
-import veiwDetailIcon from "../../../img/view-detail-icon.png";
-import defaultComparisonIcon from "../../../img/default-comparison-icon.png";
-import assignIcon from "../../../img/assign-icon.png";
-import takeScreenshotIcon from "../../../img/tack-screenshot-icon.png";
-
+import emptyMediaImg from "../../../img/addmedia-empty-img.png";
 
 const ListMedia = () => {
   const [test, settest] = useState(false);
@@ -43,7 +37,22 @@ const ListMedia = () => {
 
   return (
     <>
-      <Table responsive className="custom-table">
+      <div className="empty-media text-center">
+        <div class="empty-media-img mx-auto">
+        <img
+                      className="media-img img-fluid"
+                      src={emptyMediaImg}
+                      alt="media-img"
+                    />
+        </div>
+        <h3>Add Media</h3>
+        <p>
+          Upload your favourite images and videos from the local storage<br/> of your
+          device
+        </p>
+      </div>
+
+      {/* <Table responsive className="custom-table">
         <thead>
           <tr>
             <th>Screen</th>
@@ -76,9 +85,12 @@ const ListMedia = () => {
             <td>No Schedule</td>
             <td>
               <span className="my-phone-tag">My Phone is..</span>
-              <span className="down-arrow"  onClick={() => {
-            setNewTagModal(true);
-          }}>
+              <span
+                className="down-arrow"
+                onClick={() => {
+                  setNewTagModal(true);
+                }}
+              >
                 <img
                   className="down-arrow-img img-fluid"
                   src={downArrow}
@@ -193,9 +205,12 @@ const ListMedia = () => {
             <td>No Schedule</td>
             <td>
               <span className="my-phone-tag">My Phone is..</span>
-              <span className="down-arrow"   onClick={() => {
-            setNewTagModal(true);
-          }}>
+              <span
+                className="down-arrow"
+                onClick={() => {
+                  setNewTagModal(true);
+                }}
+              >
                 <img
                   className="down-arrow-img img-fluid"
                   src={downArrow}
@@ -291,12 +306,11 @@ const ListMedia = () => {
             </td>
           </tr>
         </tbody>
-      </Table>
+      </Table> */}
       <AddNewTagModal
-          showNewTagModal={showNewTagModal}
-          setNewTagModal={setNewTagModal}
-        />
-       
+        showNewTagModal={showNewTagModal}
+        setNewTagModal={setNewTagModal}
+      />
     </>
   );
 };
