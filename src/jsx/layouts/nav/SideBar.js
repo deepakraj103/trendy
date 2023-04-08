@@ -13,7 +13,8 @@ import integrationIcon from "../../../img/integration.png";
 import reportIcon from "../../../img/report.png";
 import subscriptionIcon from "../../../img/subscription.png";
 import settingIcon from "../../../img/setting.png";
-import logoutIcon from "../../../img/logout.png";
+
+import Logout from "./Logout";
 
 class MM extends Component {
   componentDidMount() {
@@ -54,20 +55,20 @@ class SideBar extends Component {
     path = path[path.length - 1];
     /// Active menu
     let screen = [
-        "", "screen",
-      ], media = ['media'];
+        "", "display",
+      ], media = ['assets'];
     return (
-      <div className="deznav sidebar-nav-common"> 
+      <div className="deznav sidebar-nav-common">
         <PerfectScrollbar className="deznav-scroll">
           <MM className="metismenu" id="menu">    
             <li className={`${screen.includes(path) ? "mm-active" : ""}`}>
-              <Link to="screen" className="ai-icon" >
+              <Link to="display" className="ai-icon" >
                 <span className="nav-menu-icon"> <img className="sidebar-menu-icon" src={monitorIcon} alt="menu-icon" /></span>
                 <span className="nav-text">Display</span>
               </Link>
             </li>
             <li className={`${media.includes(path) ? "mm-active" : ""}`}>
-              <Link to="media" className="ai-icon" >
+              <Link to="assets" className="ai-icon" >
                 <span className="nav-menu-icon"> <img className="sidebar-menu-icon" src={assetsIcon} alt="menu-icon" /></span>
                 <span className="nav-text">Assets</span>
               </Link>
@@ -109,14 +110,7 @@ class SideBar extends Component {
               </Link>
             </li>
           </MM>
-          <ul className="logout-link">
-          <li className={`${media.includes(path) ? "mm-active" : ""}`}>
-              <Link to="settings" className="ai-icon" >
-                <span className="nav-menu-icon"> <img className="sidebar-menu-icon" src={logoutIcon} alt="menu-icon" /></span>
-                <span className="nav-text">Log out </span>
-              </Link>
-            </li>
-          </ul>
+          <Logout />
       
 			</PerfectScrollbar>
       </div>
