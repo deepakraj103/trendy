@@ -56,7 +56,13 @@ class SideBar extends Component {
     /// Active menu
     let screen = [
         "", "display",
-      ], media = ['assets'];
+      ], media = ['assets'],
+      layouts = ['layouts'],
+      push = ['push'],
+      integrations = ['integrations'],
+      reports = ['reports'],
+      subscriptions = ['subscriptions'],
+      settings = ['settings'];
     return (
       <div className="deznav sidebar-nav-common">
         <PerfectScrollbar className="deznav-scroll">
@@ -73,37 +79,37 @@ class SideBar extends Component {
                 <span className="nav-text">Assets</span>
               </Link>
             </li>
-            <li className={`${media.includes(path) ? "mm-active" : ""}`}>
-              <Link to="composition" className="ai-icon" >
+            <li className={`${layouts.includes(path) ? "mm-active" : ""}`}>
+              <Link to="layouts" className="ai-icon" >
                 <span className="nav-menu-icon"> <img className="sidebar-menu-icon" src={layoutIcon} alt="menu-icon" /></span>
                 <span className="nav-text">Layouts</span>
               </Link>
             </li>
-            <li className={`${media.includes(path) ? "mm-active" : ""}`}>
-              <Link to="publish" className="ai-icon" >
+            <li className={`${push.includes(path) ? "mm-active" : ""}`}>
+              <Link to="push" className="ai-icon" >
                 <span className="nav-menu-icon"> <img className="sidebar-menu-icon" src={pushIcon} alt="menu-icon" /></span>
                 <span className="nav-text">Push</span>
               </Link>
             </li>
-            <li className={`${media.includes(path) ? "mm-active" : ""}`}>
-              <Link to="apps" className="ai-icon" >
+            <li className={`${integrations.includes(path) ? "mm-active" : ""}`}>
+              <Link to="integrations" className="ai-icon" >
                 <span className="nav-menu-icon"> <img className="sidebar-menu-icon" src={integrationIcon} alt="menu-icon" /></span>
                 <span className="nav-text">Integrations</span>
               </Link>
             </li>
-            <li className={`${media.includes(path) ? "mm-active" : ""}`}>
+            <li className={`${reports.includes(path) ? "mm-active" : ""}`}>
               <Link to="reports" className="ai-icon" >
                 <span className="nav-menu-icon"> <img className="sidebar-menu-icon" src={reportIcon} alt="menu-icon" /></span>
                 <span className="nav-text">Reports</span>
               </Link>
             </li>
-            <li className={`${media.includes(path) ? "mm-active" : ""}`}>
-              <Link to="plan" className="ai-icon" >
+            <li className={`${subscriptions.includes(path) ? "mm-active" : ""}`}>
+              <Link to="subscriptions" className="ai-icon" >
                 <span className="nav-menu-icon"> <img className="sidebar-menu-icon" src={subscriptionIcon} alt="menu-icon" /></span>
                 <span className="nav-text">My Subscriptions</span>
               </Link>
             </li>
-            <li className={`${media.includes(path) ? "mm-active" : ""}`}>
+            <li className={`${settings.includes(path) ? "mm-active" : ""}`}>
               <Link to="settings" className="ai-icon" >
                 <span className="nav-menu-icon"> <img className="sidebar-menu-icon" src={settingIcon} alt="menu-icon" /></span>
                 <span className="nav-text">Settings</span>

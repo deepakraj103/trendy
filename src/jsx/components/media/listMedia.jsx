@@ -45,7 +45,7 @@ const ListMedia = () => {
 
   return (
     <>
-      {/* <div className="empty-media text-center">
+      <div className="empty-media text-center">
         <div class="empty-media-img mx-auto">
           <img
             className="media-img img-fluid"
@@ -58,9 +58,9 @@ const ListMedia = () => {
           Upload your favourite images and videos from the local storage
           <br /> of your device
         </p>
-      </div> */}
+      </div>
 
-      <Table responsive className="custom-table">
+      {/* <Table responsive className="custom-table">
         <thead>
           <tr>
             <th>Name</th>
@@ -275,7 +275,7 @@ const ListMedia = () => {
             </td>
           </tr>
         </tbody>
-      </Table>
+      </Table> */}
       <AddNewTagModal
         showNewTagModal={showNewTagModal}
         setNewTagModal={setNewTagModal}
