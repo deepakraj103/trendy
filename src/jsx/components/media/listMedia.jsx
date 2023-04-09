@@ -10,6 +10,7 @@ import assignIcon from "../../../img/assign-icon.png";
 import takeScreenshotIcon from "../../../img/tack-screenshot-icon.png";
 import emptyMediaImg from "../../../img/addmedia-empty-img.png";
 import nameAvatar from "../../../img/assets-avatar-img.png";
+import deleteIcon from "../../../img/delete-icon.png";
 
 const ListMedia = () => {
   const [test, settest] = useState(false);
@@ -102,18 +103,6 @@ const ListMedia = () => {
             </td>
             <td>
               <span className="my-phone-tag">My Phone is..</span>
-              <span
-                className="down-arrow"
-                onClick={() => {
-                  setNewTagModal(true);
-                }}
-              >
-                <img
-                  className="down-arrow-img img-fluid"
-                  src={downArrow}
-                  alt="arrow"
-                />
-              </span>
             </td>
             <td>
               <Dropdown className="dropdown-toggle-menu">
@@ -129,24 +118,7 @@ const ListMedia = () => {
                 <Dropdown.Menu>
                   <Dropdown.Item href="#" className="dropdown-list-item">
                     <div className="d-flex">
-                      <div className="dropdown-list-icon">
-                        <img
-                          className="dropdown-list-img img-fluid"
-                          src={veiwDetailIcon}
-                          alt="menu-icon"
-                        />
-                      </div>
-                      <div className="dropdown-menu-list">
-                        <span className="menu-heading">View Details</span>
-                        <span className="menu-description">
-                          Get to know more about screen info
-                        </span>
-                      </div>
-                    </div>
-                  </Dropdown.Item>
-                  <Dropdown.Item href="#" className="dropdown-list-item">
-                    <div className="d-flex">
-                      <div className="dropdown-list-icon">
+                    <div className="dropdown-list-icon">
                         <img
                           className="dropdown-list-img img-fluid"
                           src={defaultComparisonIcon}
@@ -154,45 +126,28 @@ const ListMedia = () => {
                         />
                       </div>
                       <div className="dropdown-menu-list">
+                        <span className="menu-heading">Publish on Screen</span>
+                        <span className="menu-description">
+                        Get to know more about screen info
+                        </span>
+                      </div>
+                    </div>
+                  </Dropdown.Item>
+                  <Dropdown.Item href="#" className="dropdown-list-item">
+                    <div className="d-flex">
+                      <div className="dropdown-list-icon">
+                        <img
+                          className="dropdown-list-img img-fluid"
+                          src={deleteIcon}
+                          alt="menu-icon"
+                        />
+                      </div>
+                      <div className="dropdown-menu-list">
                         <span className="menu-heading">
-                          Change Default Composition
+                        Delete
                         </span>
                         <span className="menu-description">
-                          Get to know more about screen info
-                        </span>
-                      </div>
-                    </div>
-                  </Dropdown.Item>
-                  <Dropdown.Item href="#" className="dropdown-list-item">
-                    <div className="d-flex">
-                      <div className="dropdown-list-icon">
-                        <img
-                          className="dropdown-list-img img-fluid"
-                          src={assignIcon}
-                          alt="menu-icon"
-                        />
-                      </div>
-                      <div className="dropdown-menu-list">
-                        <span className="menu-heading">Assign Quickplay</span>
-                        <span className="menu-description">
-                          Get to know more about screen info
-                        </span>
-                      </div>
-                    </div>
-                  </Dropdown.Item>
-                  <Dropdown.Item href="#" className="dropdown-list-item">
-                    <div className="d-flex">
-                      <div className="dropdown-list-icon">
-                        <img
-                          className="dropdown-list-img img-fluid"
-                          src={takeScreenshotIcon}
-                          alt="menu-icon"
-                        />
-                      </div>
-                      <div className="dropdown-menu-list">
-                        <span className="menu-heading">Take Screenshot</span>
-                        <span className="menu-description">
-                          Get to know more about screen info
+                        Get to know more about screen info
                         </span>
                       </div>
                     </div>
@@ -232,18 +187,6 @@ const ListMedia = () => {
             </td>
             <td>
               <span className="my-phone-tag">My Phone is..</span>
-              <span
-                className="down-arrow"
-                onClick={() => {
-                  setNewTagModal(true);
-                }}
-              >
-                <img
-                  className="down-arrow-img img-fluid"
-                  src={downArrow}
-                  alt="arrow"
-                />
-              </span>
             </td>
             <td>
               <Dropdown className="dropdown-toggle-menu">
