@@ -1,6 +1,6 @@
 import { Button, Modal } from "react-bootstrap";
 import cancelIcon from "../../img/cancel-icon.png";
-import uploadImg from "../../img/cloud-computing-icon.png";
+import FileUploadWithPreview from "../components/media/fileUploadWithPreview";
 
 const UploadMediaModal = ({ showUploadMediaModal, setUploadMediaModal }) => {
   return (
@@ -20,13 +20,8 @@ const UploadMediaModal = ({ showUploadMediaModal, setUploadMediaModal }) => {
         </Button>
       </Modal.Header>
       <Modal.Body>
-        <div className="upload-file-container relative d-flex align-items-center justify-content-center flex-column">
-          <div className="upload-flie-img">
-            <img className="upload-file" src={uploadImg} alt="upload-img" />
-          </div>
-          <h6>Click here to upload files</h6>
-          <input type="file" className="upload-file-textfield" />
-        </div>
+
+        <FileUploadWithPreview/>
         <div class="add-screen-paragraph text-center font-weight-500">
           <p>We support JPEG, PNG, MP4 dummy text.</p>
         </div>

@@ -21,27 +21,7 @@ const ListMedia = () => {
       settest(true);
     }, 2000);
   }, [test]);
-  const chackbox = document.querySelectorAll(".custom-checkbox input");
-  const motherChackBox = document.querySelector("#checkbox1_exam_all");
-  const chackboxFun = (type) => {
-    for (let i = 0; i < chackbox.length; i++) {
-      const element = chackbox[i];
-      if (type === "all") {
-        if (motherChackBox.checked) {
-          element.checked = true;
-        } else {
-          element.checked = false;
-        }
-      } else {
-        if (!element.checked) {
-          motherChackBox.checked = false;
-          break;
-        } else {
-          motherChackBox.checked = true;
-        }
-      }
-    }
-  };
+
 
   return (
     <>
@@ -103,6 +83,15 @@ const ListMedia = () => {
             </td>
             <td>
               <span className="my-phone-tag">My Phone is..</span>
+              <span className="down-arrow"   onClick={() => {
+            setNewTagModal(true);
+          }}>
+                <img
+                  className="down-arrow-img img-fluid"
+                  src={downArrow}
+                  alt="arrow"
+                />
+              </span>
             </td>
             <td>
               <Dropdown className="dropdown-toggle-menu">
@@ -187,6 +176,15 @@ const ListMedia = () => {
             </td>
             <td>
               <span className="my-phone-tag">My Phone is..</span>
+              <span className="down-arrow"   onClick={() => {
+            setNewTagModal(true);
+          }}>
+                <img
+                  className="down-arrow-img img-fluid"
+                  src={downArrow}
+                  alt="arrow"
+                />
+              </span>
             </td>
             <td>
               <Dropdown className="dropdown-toggle-menu">

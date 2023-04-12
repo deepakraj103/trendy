@@ -1254,6 +1254,86 @@ color: var(--table-td-color);
 }
 }
 
+
 @media (max-width: 480px) {
 
 }
+
+
+.settings-default{
+  display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+  padding: 7rem 2rem 0;
+  width: 100%;
+  align-items: center;
+  padding-bottom: 2rem;
+}
+
+
+.thumbnail {
+  width: 426px;
+  height: 240px;
+  float: right;
+  margin-right: 20px;
+  border-radius: 18px;
+  position: relative;
+  overflow: hidden;
+  position: relative;
+  overflow: hidden;
+}
+.imgContent{
+  width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: contain;
+    vertical-align: middle;
+    border-style: none;
+}
+.commonBtn {
+  color: var(--content-heading-color) !important;
+  font-family: var(--font-stack);
+}
+
+.image-container {
+  position: relative;
+}
+
+.image-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16px;
+  color: #1A1A1A;
+  text-align: center;
+}
+.image-text2 {
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 22px;
+  color: #1A1A1A;
+  text-align: center;
+}
+
+
+.devicebg{
+  height: 200px;
+  border: 1px solid;
+  border-radius: 20px;
+}
+
+.screenText{
+  font-family: 'Manrope';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 148.7%;
+/* or 24px */
+color: #1A1A1A;
+margin: 15px;
+}
+
