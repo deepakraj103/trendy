@@ -11,10 +11,13 @@ import {
   getDatetimeIn12Hours,
   humanReadableFormattedDateString,
 } from "../../../utils/UtilsService";
+import DeleteConfirmation from "../../modals/DeleteConfirmation";
+import { deleteMedia } from "../../../utils/api";
 
-const ListMedia = ({ allMedia }) => {
+const ListMedia = ({ allMedia,callAllMediaApi }) => {
   const [test, settest] = useState(false);
   const [showNewTagModal, setNewTagModal] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
   const [selectedMedia, setSelectedMedia] = useState("");
   // use effect
   useEffect(() => {
@@ -22,6 +25,12 @@ const ListMedia = ({ allMedia }) => {
       settest(true);
     }, 2000);
   }, [test]);
+console.log("deleteModal", selectedMedia)
+  const handleDelete = async () => {
+    setDeleteModal(false)
+    await deleteMedia(selectedMedia._id)
+    callAllMediaApi()
+   };
   return (
     <>
       {allMedia !== "" ? (
@@ -119,9 +128,12 @@ const ListMedia = ({ allMedia }) => {
                             </div>
                           </div>
                         </Dropdown.Item>
-                        <Dropdown.Item href="#" className="dropdown-list-item">
+                        <Dropdown.Item href="#" className="dropdown-list-item" onClick={()=>{
+                              setSelectedMedia(media)
+                              setDeleteModal(true)
+                            }}>
                           <div className="d-flex">
-                            <div className="dropdown-list-icon">
+                            <div className="dropdown-list-icon" >
                               <img
                                 className="dropdown-list-img img-fluid"
                                 src={deleteIcon}
@@ -168,6 +180,7 @@ const ListMedia = ({ allMedia }) => {
           
         />
       )}
+      {deleteModal && <DeleteConfirmation setDeleteModal={setDeleteModal} callbackFunction={handleDelete}/>}
     </>
   );
 };

@@ -7,7 +7,7 @@ import searchIcon from "../../../img/search.png";
 import listIcon from "../../../img/list-icon.png";
 import uploadIcon from "../../../img/upload-icon.png";
 import canvaIcon from "../../../img/canva-icon.png";
-import { getAllMedia } from "../../../utils/api";
+import { deleteMedia, getAllMedia } from "../../../utils/api";
 
 const Media = () => {
   const [showFilterModal, setFilterModal] = useState(false);
@@ -23,7 +23,7 @@ const Media = () => {
     setAllMedia(list);
   };
 
-  console.log("allMedia", allMedia)
+
   return (
     <>
       <div className="custom-content-heading d-flex flex-wrap">
@@ -106,9 +106,10 @@ const Media = () => {
          <UploadMediaModal
           showUploadMediaModal={showUploadMediaModal}
           setUploadMediaModal={setUploadMediaModal}
+          callAllMediaApi={callAllMediaApi}
         />
       </div>
-      <ListMedia allMedia={allMedia} />
+      <ListMedia allMedia={allMedia}  callAllMediaApi={callAllMediaApi}/>
     </>
   );
 };

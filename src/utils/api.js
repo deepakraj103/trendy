@@ -72,3 +72,7 @@ export async function addMedia(formData) {
       }
     });
 }
+export async function deleteMedia(id) {
+
+    const response = await fetchClient.delete(`${BASE_URL}/vendor/display/media?mediaId=${id}`);
+}

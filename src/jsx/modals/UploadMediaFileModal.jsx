@@ -4,7 +4,7 @@ import FileUploadWithPreview from "../components/media/fileUploadWithPreview";
 import { useState } from "react";
 import { addMedia } from "../../utils/api";
 
-const UploadMediaModal = ({ showUploadMediaModal, setUploadMediaModal }) => {
+const UploadMediaModal = ({ showUploadMediaModal, setUploadMediaModal, callAllMediaApi }) => {
   const [file, setFile] = useState(null);
   const handleUpload = async () => {
     const formData = new FormData();
@@ -19,6 +19,8 @@ const UploadMediaModal = ({ showUploadMediaModal, setUploadMediaModal }) => {
       return false;
     }
      await addMedia(formData)
+     callAllMediaApi()
+     setUploadMediaModal(false)
   };
   const bytesToMB = (bytes) => {
     return (bytes / (1024 * 1024)).toFixed(2);
