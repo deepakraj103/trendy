@@ -47,3 +47,35 @@ export async function addScreenCode(deviceToken) {
     );
     return response.data.data
 }
+
+export async function validateScreenCode(code) {
+    const postData = {
+        code :code 
+    };
+
+    try {
+        const response = await fetchClient.post(
+            `${BASE_URL}/vendor/display/deviceCode`,
+            postData,
+        );
+        return response.data.statusCode === 200 
+      } catch (error) {
+       return false
+      }
+}
+
+export async function addMedia(code) {
+    const postData = {
+        code :code 
+    };
+
+    try {
+        const response = await fetchClient.post(
+            `${BASE_URL}/vendor/display/media`,
+            postData,
+        );
+        return response.data.statusCode === 200 
+      } catch (error) {
+       return false
+      }
+}

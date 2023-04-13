@@ -1,4 +1,4 @@
-import { Button, Modal, Row, Col } from "react-bootstrap";
+import { Button, Modal, Row, Col, Alert } from "react-bootstrap";
 import cancelIcon from "../../img/cancel-icon.png";
 import TagInputField from "../components/screen/tagInputField";
 import { useState } from "react";
@@ -6,7 +6,7 @@ import DeviceBG from "../../img/DeviceBG.png";
 import webScreen from "../../img/webScreen.png";
 import { v4 as uuidv4 } from 'uuid';
 
-import { addScreen } from "../../utils/api";
+import { addScreen, validateScreenCode } from "../../utils/api";
 
 const AddScreenModal = ({ setShowScreenModal, callAllScreenApi }) => {
   const [step, setStep] = useState(1);
@@ -15,22 +15,57 @@ const AddScreenModal = ({ setShowScreenModal, callAllScreenApi }) => {
   const [screenLocation, setScreenLocation] = useState("");
   const [googleLocation, setGoogleLocation] = useState("");
   const [tags, setTags] = useState([]);
+  const [codeError, setCodeError] = useState(false);
+  const [nameError, setNameError] = useState(false);
+  const [screenLocationError, setScreenLocationError] = useState(false);
+  const [googleLocationError, setGoogleLocationError] = useState(false);
+  const [showError, setShowError] = useState("");
+
   const handleCodeChange = (event) => {
     setCode(event.target.value);
   };
 
   const saveScreen = async () => {
+    setShowError("")
+    setCodeError(false)
+    setNameError(false)
+    setScreenLocationError(false)
+    setGoogleLocationError(false)
     if (step === 1) {
-      setStep(2);
+      if(code.trim().length === 0){
+        setCodeError(true)
+        return false;
+      }
+      const validateCode =  await validateScreenCode(code)
+      if(validateCode){
+        setStep(2);
+      } else {
+        setCodeError(true)
+        setShowError("Invalid registration code!")
+      }
       return;
     }
     if(step === 2){
+      let hassError = false
+      if(name.trim().length === 0){
+        setNameError(true)
+        hassError = true
+      }
+      if(screenLocation.trim().length === 0){
+        setScreenLocationError(true)
+        hassError = true
+      }
+      if(googleLocation.trim().length === 0){
+        setGoogleLocationError(true)
+        hassError = true
+      }
+      if(hassError) return false
       const finalScreenData = {
         code: code,
         name: name,
         screenLocation: screenLocation,
         googleLocation: googleLocation,
-        tags: tags,
+        ...(tags.length ? { tags: tags } : {})
       };
       await addScreen(finalScreenData);
       await callAllScreenApi();
@@ -85,7 +120,8 @@ const AddScreenModal = ({ setShowScreenModal, callAllScreenApi }) => {
                 <input
                   value={code}
                   type="text"
-                  className="form-control input-default form-field"
+                  
+                  className={`${codeError ? 'invalid' : ''} form-control input-default form-field`}
                   placeholder="Enter Code"
                   onChange={handleCodeChange}
                 />
@@ -107,8 +143,9 @@ const AddScreenModal = ({ setShowScreenModal, callAllScreenApi }) => {
                 <div className="form-group">
                   <input
                     type="text"
-                    className="form-control input-default form-field"
-                    placeholder="Screen Code"
+                    
+                    className={`${nameError ? 'invalid' : ''} form-control input-default form-field`}
+                    placeholder="Screen Name"
                     value={name}
                     onChange={(event) => {
                       setName(event.target.value);
@@ -120,7 +157,7 @@ const AddScreenModal = ({ setShowScreenModal, callAllScreenApi }) => {
                 <div className="form-group">
                   <input
                     type="text"
-                    className="form-control input-default form-field"
+                    className={`${screenLocationError ? 'invalid' : ''} form-control input-default form-field`}
                     placeholder="Screen Location"
                     value={screenLocation}
                     onChange={(event) => {
@@ -133,7 +170,7 @@ const AddScreenModal = ({ setShowScreenModal, callAllScreenApi }) => {
                 <div className="form-group">
                   <input
                     type="text"
-                    className="form-control input-default form-field"
+                    className={`${googleLocationError ? 'invalid' : ''} form-control input-default form-field`}
                     placeholder="Google Location"
                     value={googleLocation}
                     onChange={(event) => {
@@ -182,6 +219,14 @@ const AddScreenModal = ({ setShowScreenModal, callAllScreenApi }) => {
       </Modal.Body>
       {step !== 3 && (
         <Modal.Footer>
+        {showError !== "" &&              <div className="errorSection"> <Alert
+                  
+                  variant={"danger"}
+                  className='solid alert-dismissible fade show'
+                >
+                   {showError}
+                  
+                </Alert></div>}
           <Button
             variant=""
             type="button"

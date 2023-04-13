@@ -1487,3 +1487,18 @@ button#Fullscreen {
 .webrowerTextSection{
   margin: 50px;
 }
+.errorSection {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.errorSection .alert{
+  background: #fff !important;
+    color: #f72b50 !important;
+    border-radius: 0.375rem;
+    padding: 10px;
+}
+.invalid {
+  border: 2px solid red !important
+}
