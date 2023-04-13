@@ -56,9 +56,7 @@ export function formatError(errorResponse) {
 }
 
 export function saveTokenInLocalStorage(tokenDetails) {
-    tokenDetails.expireDate = new Date(
-        new Date().getTime() + tokenDetails.expiresIn * 1000,
-    );
+
     localStorage.setItem('userDetails', JSON.stringify(tokenDetails));
 }
 
@@ -77,6 +75,7 @@ export function checkAutoLogin(dispatch, history) {
     }
 
     tokenDetails = JSON.parse(tokenDetailsString);
+    console.log("tokenDetails", tokenDetails)
     let expireDate = new Date(tokenDetails.expireDate);
     let todaysDate = new Date();
 

@@ -1,4 +1,5 @@
 export const isAuthenticated = (state) => {
-    if (state.auth.auth.idToken) return true;
+    console.log("state", state)
+    if (state.auth?.auth?.token?.token) return true;
     return false;
 };
