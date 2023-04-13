@@ -75,16 +75,16 @@ export function checkAutoLogin(dispatch, history) {
     }
 
     tokenDetails = JSON.parse(tokenDetailsString);
-    console.log("tokenDetails", tokenDetails)
-    let expireDate = new Date(tokenDetails.expireDate);
+    let expireDate = tokenDetails.token.expires;
     let todaysDate = new Date();
 
     if (todaysDate > expireDate) {
+        console.log("logout",todaysDate , expireDate )
         dispatch(logout(history));
         return;
     }
     dispatch(loginConfirmedAction(tokenDetails));
 
-    const timer = expireDate.getTime() - todaysDate.getTime();
-    runLogoutTimer(dispatch, timer, history);
+    // const timer = expireDate - todaysDate.getTime();
+    // runLogoutTimer(dispatch, timer, history);
 }

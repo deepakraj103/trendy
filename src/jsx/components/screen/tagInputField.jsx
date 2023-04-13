@@ -2,10 +2,8 @@ import React, { useState } from "react";
 import "./tagInputField.css";
 import { Badge } from "react-bootstrap";
 import tagCloseIcon from "../../../img/tag-close-icon.png";
-function TagInputField() {
-  const [tags, setTags] = useState([]);
+function TagInputField({tags, setTags}) {
   const [inputValue, setInputValue] = useState("");
-
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
   };
