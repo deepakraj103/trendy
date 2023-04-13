@@ -23,6 +23,13 @@ export async function getAllScreens() {
     return response.data.data 
 }
 
+export async function getAllMedia() {
+    const response = await fetchClient.get(
+        BASE_URL + `/display/media`
+    )
+    return response.data.data.media 
+}
+
 export function addScreen(data) {
     return fetchClient.post(
         `${BASE_URL}/display/screen`,

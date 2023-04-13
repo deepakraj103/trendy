@@ -1337,3 +1337,86 @@ color: #1A1A1A;
 margin: 15px;
 }
 
+.alternetTextSection{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.alternetTextSection  span{
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  color: #1A1A1A;
+
+}
+
+
+.alternetTextSection p{
+  font-family: 'Manrope';
+font-style: normal;
+font-weight: 700;
+font-size: 12px;
+line-height: 16px;
+cursor: pointer;
+color: #B3005E;
+}
+.font20{
+  font-size: 20px !important;
+}
+
+.webBrowserOptionSection{
+  display: flex;
+  align-items: center;
+  margin-bottom: 25px;
+  cursor: pointer;
+  box-shadow: 0 0px 0px rgba(0, 0, 0, 0.16), 0 0px 0px rgba(0, 0, 0, 0.23);
+  transition: box-shadow 129ms;
+  width: 80%;
+  background-color: white;
+  padding: 8px;
+  border-radius: 7px;
+}
+.try-card-img{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45%;
+  margin: 19px 0;
+}
+
+.try-card-info{
+
+  align-items: center;
+  justify-content: center;
+  width: 60%;
+  margin: 19px 0;
+}
+.tryBrowser{
+  display: block;
+  font-weight: 700;
+font-size: 12px;
+line-height: 16px;
+
+/* text */
+
+color: #1A1A1A;
+}
+.tryBrowserText{
+  display: block;
+  font-weight: 400;
+font-size: 12px;
+line-height: 16px;
+
+/* text */
+
+color: #1A1A1A;
+}
+
+.browserImg{
+  max-height: 200px;
+  margin-right: 14px;
+}

@@ -1,20 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Dropdown } from "react-bootstrap";
 import ListMedia from "./listMedia";
-import AddScreenModal from "../../modals/AddScreenModal";
 import FilterModal from "../../modals/FilterModal";
 import UploadMediaModal from "../../modals/UploadMediaFileModal";
-import addImg from "../../../img/add-icon.png";
 import searchIcon from "../../../img/search.png";
 import listIcon from "../../../img/list-icon.png";
 import uploadIcon from "../../../img/upload-icon.png";
 import canvaIcon from "../../../img/canva-icon.png";
+import { getAllMedia } from "../../../utils/api";
 
 const Media = () => {
-  const [showScreenModal, setShowScreenModal] = useState(false);
   const [showFilterModal, setFilterModal] = useState(false);
   const [showUploadMediaModal, setUploadMediaModal] = useState(false);
+  const [allMedia, setAllMedia] = useState("");
+  // use effect
+  useEffect(() => {
+    callAllMediaApi();
+  }, []);
+  const callAllMediaApi = async () => {
+    const list = await getAllMedia();
+    console.log("list", list)
+    setAllMedia(list);
+  };
 
+  console.log("allMedia", allMedia)
   return (
     <>
       <div className="custom-content-heading d-flex flex-wrap">
@@ -90,10 +99,6 @@ const Media = () => {
             <img className="icon-icon" src={listIcon} alt="list-icon" />
           </Button>
         </div>
-        <AddScreenModal
-          showScreenModal={showScreenModal}
-          setShowScreenModal={setShowScreenModal}
-        />
         <FilterModal
           showFilterModal={showFilterModal}
           setFilterModal={setFilterModal}
@@ -103,7 +108,7 @@ const Media = () => {
           setUploadMediaModal={setUploadMediaModal}
         />
       </div>
-      <ListMedia />
+      <ListMedia allMedia={allMedia} />
     </>
   );
 };

@@ -8,8 +8,9 @@ import defaultComparisonIcon from "../../../img/default-comparison-icon.png";
 import assignIcon from "../../../img/assign-icon.png";
 import takeScreenshotIcon from "../../../img/tack-screenshot-icon.png";
 
-const ListScreen = ({allScreens}) => {
+const ListScreen = ({ allScreens }) => {
   const [showNewTagModal, setNewTagModal] = useState(false);
+  const [selectedScreen, setSelectedScreen] = useState("");
 
   return (
     <>
@@ -26,148 +27,149 @@ const ListScreen = ({allScreens}) => {
           </tr>
         </thead>
         <tbody>
-          {allScreens !== "" && allScreens.map((screen) => {
-            return (
-              <tr>
-                <td>
-                  <span className="td-content">
-                    <strong>{screen.name}</strong>
-                    <span>{screen.screenLocation}</span>
-                  </span>
-                </td>
-                <td>
-                  <span className="d-flex align-items-center">
-                    <span className="status status-green"></span>
+          {allScreens !== "" &&
+            allScreens.map((screen) => {
+              return (
+                <tr>
+                  <td>
                     <span className="td-content">
-                    <strong>{screen.name}</strong>
-                    <span>{screen.screenLocation}</span>
+                      <strong>{screen.name}</strong>
+                      <span>{screen.screenLocation}</span>
                     </span>
-                  </span>
-                </td>
-                <td>Default Compo. </td>
-                <td>No Schedule</td>
-                <td>
-                {screen.tags.map((tag)=>{
-                  return (
-                    <span className="my-phone-tag ml-1">{tag}</span>
-                  )
-                })}
-                  <span
-                    className="down-arrow"
-                    onClick={() => {
-                      setNewTagModal(true);
-                    }}
-                  >
-                    <img
-                      className="down-arrow-img img-fluid"
-                      src={downArrow}
-                      alt="arrow"
-                    />
-                  </span>
-                </td>
-                <td>                {screen.groups.map((group)=>{
-                  return (
-                    <span className="my-phone-tag ml-1">{group}</span>
-                  )
-                })}</td>
-                <td>
-                  <Dropdown className="dropdown-toggle-menu">
-                    <Dropdown.Toggle variant="" className="p-0  mb-2">
-                      <span className="table-menu-icon">
-                        <img
-                          className="menu-img img-fluid"
-                          src={menuIcon}
-                          alt="menu-icon"
-                        />
+                  </td>
+                  <td>
+                    <span className="d-flex align-items-center">
+                      <span className="status status-green"></span>
+                      <span className="td-content">
+                        <strong>{screen.name}</strong>
+                        <span>{screen.screenLocation}</span>
                       </span>
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu>
-                      <Dropdown.Item href="#" className="dropdown-list-item">
-                        <div className="d-flex">
-                          <div className="dropdown-list-icon">
-                            <img
-                              className="dropdown-list-img img-fluid"
-                              src={veiwDetailIcon}
-                              alt="menu-icon"
-                            />
+                    </span>
+                  </td>
+                  <td>Default Compo. </td>
+                  <td>No Schedule</td>
+                  <td>
+                    {screen.tags.map((tag) => {
+                      return <span className="my-phone-tag ml-1">{tag}</span>;
+                    })}
+                    <span
+                      className="down-arrow"
+                      onClick={() => {
+                        setSelectedScreen(screen)
+                        setNewTagModal(true);
+                      }}
+                    >
+                      <img
+                        className="down-arrow-img img-fluid"
+                        src={downArrow}
+                        alt="arrow"
+                      />
+                    </span>
+                  </td>
+                  <td>
+                    {screen.groups.map((group) => {
+                      return <span className="my-phone-tag ml-1">{group}</span>;
+                    })}
+                  </td>
+                  <td>
+                    <Dropdown className="dropdown-toggle-menu">
+                      <Dropdown.Toggle variant="" className="p-0  mb-2">
+                        <span className="table-menu-icon">
+                          <img
+                            className="menu-img img-fluid"
+                            src={menuIcon}
+                            alt="menu-icon"
+                          />
+                        </span>
+                      </Dropdown.Toggle>
+                      <Dropdown.Menu>
+                        <Dropdown.Item href="#" className="dropdown-list-item">
+                          <div className="d-flex">
+                            <div className="dropdown-list-icon">
+                              <img
+                                className="dropdown-list-img img-fluid"
+                                src={veiwDetailIcon}
+                                alt="menu-icon"
+                              />
+                            </div>
+                            <div className="dropdown-menu-list">
+                              <span className="menu-heading">View Details</span>
+                              <span className="menu-description">
+                                Get to know more about screen info
+                              </span>
+                            </div>
                           </div>
-                          <div className="dropdown-menu-list">
-                            <span className="menu-heading">View Details</span>
-                            <span className="menu-description">
-                              Get to know more about screen info
-                            </span>
+                        </Dropdown.Item>
+                        <Dropdown.Item href="#" className="dropdown-list-item">
+                          <div className="d-flex">
+                            <div className="dropdown-list-icon">
+                              <img
+                                className="dropdown-list-img img-fluid"
+                                src={defaultComparisonIcon}
+                                alt="menu-icon"
+                              />
+                            </div>
+                            <div className="dropdown-menu-list">
+                              <span className="menu-heading">
+                                Change Default Composition
+                              </span>
+                              <span className="menu-description">
+                                Get to know more about screen info
+                              </span>
+                            </div>
                           </div>
-                        </div>
-                      </Dropdown.Item>
-                      <Dropdown.Item href="#" className="dropdown-list-item">
-                        <div className="d-flex">
-                          <div className="dropdown-list-icon">
-                            <img
-                              className="dropdown-list-img img-fluid"
-                              src={defaultComparisonIcon}
-                              alt="menu-icon"
-                            />
+                        </Dropdown.Item>
+                        <Dropdown.Item href="#" className="dropdown-list-item">
+                          <div className="d-flex">
+                            <div className="dropdown-list-icon">
+                              <img
+                                className="dropdown-list-img img-fluid"
+                                src={assignIcon}
+                                alt="menu-icon"
+                              />
+                            </div>
+                            <div className="dropdown-menu-list">
+                              <span className="menu-heading">
+                                Assign Quickplay
+                              </span>
+                              <span className="menu-description">
+                                Get to know more about screen info
+                              </span>
+                            </div>
                           </div>
-                          <div className="dropdown-menu-list">
-                            <span className="menu-heading">
-                              Change Default Composition
-                            </span>
-                            <span className="menu-description">
-                              Get to know more about screen info
-                            </span>
+                        </Dropdown.Item>
+                        <Dropdown.Item href="#" className="dropdown-list-item">
+                          <div className="d-flex">
+                            <div className="dropdown-list-icon">
+                              <img
+                                className="dropdown-list-img img-fluid"
+                                src={takeScreenshotIcon}
+                                alt="menu-icon"
+                              />
+                            </div>
+                            <div className="dropdown-menu-list">
+                              <span className="menu-heading">
+                                Take Screenshot
+                              </span>
+                              <span className="menu-description">
+                                Get to know more about screen info
+                              </span>
+                            </div>
                           </div>
-                        </div>
-                      </Dropdown.Item>
-                      <Dropdown.Item href="#" className="dropdown-list-item">
-                        <div className="d-flex">
-                          <div className="dropdown-list-icon">
-                            <img
-                              className="dropdown-list-img img-fluid"
-                              src={assignIcon}
-                              alt="menu-icon"
-                            />
-                          </div>
-                          <div className="dropdown-menu-list">
-                            <span className="menu-heading">
-                              Assign Quickplay
-                            </span>
-                            <span className="menu-description">
-                              Get to know more about screen info
-                            </span>
-                          </div>
-                        </div>
-                      </Dropdown.Item>
-                      <Dropdown.Item href="#" className="dropdown-list-item">
-                        <div className="d-flex">
-                          <div className="dropdown-list-icon">
-                            <img
-                              className="dropdown-list-img img-fluid"
-                              src={takeScreenshotIcon}
-                              alt="menu-icon"
-                            />
-                          </div>
-                          <div className="dropdown-menu-list">
-                            <span className="menu-heading">
-                              Take Screenshot
-                            </span>
-                            <span className="menu-description">
-                              Get to know more about screen info
-                            </span>
-                          </div>
-                        </div>
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
-                </td>
-              </tr>
-            );
-          })}
+                        </Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  </td>
+                </tr>
+              );
+            })}
         </tbody>
       </Table>
-      <AddNewTagModal
-        showNewTagModal={showNewTagModal}
-        setNewTagModal={setNewTagModal}
-      />
+     {showNewTagModal && <AddNewTagModal
+setNewTagModal={setNewTagModal}
+allScreens={allScreens}
+selected={selectedScreen}
+/>} 
     </>
   );
 };
