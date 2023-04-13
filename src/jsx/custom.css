@@ -1420,3 +1420,70 @@ color: #1A1A1A;
   max-height: 200px;
   margin-right: 14px;
 }
+.web-player-body{
+  margin-right: 245px !important;
+}
+button#Fullscreen {
+  border: none;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: 0 0;
+}
+.full-text {
+  display: flex;
+  background: #333;
+  margin: 0 -7px;
+  padding: 0 15px;
+  border-radius: 7px;
+}
+.sec-block {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  border: 1px solid #fff;
+  margin: 6px 0;
+  padding: 2px 4px;
+  border-radius: 33px;
+  cursor: pointer;
+}
+.sec-block p {
+  margin: 0!important;
+  padding: 0!important;
+  font-family: Rubik,sans-serif;
+  font-weight: 300;
+  font-size: 13px;
+}
+.sec-block i {
+  width: 25px;
+  margin-right: 10px
+}
+
+.main-block {
+  text-align: center;
+  margin-top: 10vh;
+  width: 40%;
+  margin-left: 30%;
+}
+
+.registration-block {
+  margin-top: 2vh;
+  background-color: black;
+  width: 100%;
+  padding: 13px 0px;
+  border-radius: 10px;
+  border: 1px solid white;
+}
+.registration-title {
+  font-size: 16px;
+  color: #D6D6D6 !important;
+}
+.code {
+  font-size: 20px;
+  color: #D6D6D6 !important;
+  font-weight: 400;
+}
+
+.webrowerTextSection{
+  margin: 50px;
+}

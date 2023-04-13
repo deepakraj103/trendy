@@ -189,6 +189,7 @@ const AddScreenModal = ({ setShowScreenModal, callAllScreenApi }) => {
             onClick={() => saveScreen()}
           >
             {step === 1 && "Done"}
+            {step === 2 && "Add Screen"}
             {step === 4 && "Okay"}
           </Button>
           {step === 1 && (
