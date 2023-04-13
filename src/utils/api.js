@@ -64,18 +64,11 @@ export async function validateScreenCode(code) {
       }
 }
 
-export async function addMedia(code) {
-    const postData = {
-        code :code 
-    };
+export async function addMedia(formData) {
 
-    try {
-        const response = await fetchClient.post(
-            `${BASE_URL}/vendor/display/media`,
-            postData,
-        );
-        return response.data.statusCode === 200 
-      } catch (error) {
-       return false
+    const response = await fetchClient.post(`${BASE_URL}/vendor/display/media`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
       }
+    });
 }

@@ -1,8 +1,28 @@
 import { Button, Modal } from "react-bootstrap";
 import cancelIcon from "../../img/cancel-icon.png";
 import FileUploadWithPreview from "../components/media/fileUploadWithPreview";
+import { useState } from "react";
+import { addMedia } from "../../utils/api";
 
 const UploadMediaModal = ({ showUploadMediaModal, setUploadMediaModal }) => {
+  const [file, setFile] = useState(null);
+  const handleUpload = async () => {
+    const formData = new FormData();
+    formData.append('file', file);
+    // formData.append('title', file.name);
+    formData.append('properties', bytesToMB(file.size));
+    if (file.type.includes('image')) {
+      formData.append('type', "image");
+    } else if (file.type.includes('video')) {
+      formData.append('type', "video");
+    } else {
+      return false;
+    }
+     await addMedia(formData)
+  };
+  const bytesToMB = (bytes) => {
+    return (bytes / (1024 * 1024)).toFixed(2);
+  };
   return (
     <Modal
       className="fade bd-example-modal-lg mt-4 custom-modal custom-modal-medium"
@@ -21,7 +41,7 @@ const UploadMediaModal = ({ showUploadMediaModal, setUploadMediaModal }) => {
       </Modal.Header>
       <Modal.Body>
 
-        <FileUploadWithPreview/>
+        <FileUploadWithPreview file={file}  setFile={setFile}/>
         <div class="add-screen-paragraph text-center font-weight-500">
           <p>We support JPEG, PNG, MP4 dummy text.</p>
         </div>
@@ -31,7 +51,7 @@ const UploadMediaModal = ({ showUploadMediaModal, setUploadMediaModal }) => {
           variant=""
           type="button"
           className="btn btn-primary btn-block primary-btn"
-          onClick={() => setUploadMediaModal(false)}
+          onClick={() => handleUpload()}
         >
           Upload
         </Button>

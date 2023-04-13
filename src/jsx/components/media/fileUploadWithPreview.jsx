@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import uploadImg from "../../../img/cloud-computing-icon.png";
-function FileUploadWithPreview() {
-  const [file, setFile] = useState(null);
+function FileUploadWithPreview({file, setFile}) {
+ 
   const [preview, setPreview] = useState(null);
 
   const handleFileChange = (event) => {
