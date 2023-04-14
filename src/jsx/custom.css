@@ -1382,8 +1382,8 @@ color: var(--table-td-color);
   color: var(--primary);
   cursor: pointer;
 }
-.font20{
-  font-size: 20px !important;
+.font22 {
+  font-size: 22px !important;
 }
 
 .webBrowserOptionSection{
@@ -1402,36 +1402,29 @@ color: var(--table-td-color);
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 45%;
-  margin: 19px 0;
+  margin: auto;
 }
-
-.try-card-info{
-
-  align-items: center;
-  justify-content: center;
-  width: 60%;
-  margin: 19px 0;
+.try-card-img img {
+max-width: 186px;
+width: 100%;
+margin: auto;
 }
 .tryBrowser{
-  display: block;
+  font-style: normal;
   font-weight: 700;
-font-size: 12px;
-line-height: 16px;
-
-/* text */
-
-color: #1A1A1A;
+  font-size: 12px;
+  line-height: 16px;
+color: var(--table-td-color);
+font-family: var(--font-manrope);
+margin-bottom: 6px;
 }
 .tryBrowserText{
-  display: block;
+  font-style: normal;
   font-weight: 400;
-font-size: 12px;
-line-height: 16px;
-
-/* text */
-
-color: #1A1A1A;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--table-td-color);
+font-family: var(--font-manrope);
 }
 
 .browserImg{

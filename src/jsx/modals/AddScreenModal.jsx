@@ -85,7 +85,7 @@ const AddScreenModal = ({ setShowScreenModal, callAllScreenApi }) => {
       size="md"
     >
       <Modal.Header>
-        <Modal.Title className={step === 3 ? " font20" : ""}>
+        <Modal.Title className={step === 3 ? " font22" : ""}>
           {step === 1 && "Register your screen"}
           {step === 2 && "Add Screen"}
           {step === 3 && "Try following if you don’t have display screen"}
@@ -184,22 +184,29 @@ const AddScreenModal = ({ setShowScreenModal, callAllScreenApi }) => {
           </>
         )}
         {step === 3 && (
-          <div className="webBrowserOptionSection" onClick={()=>{
+          <div className="webBrowserOptionSection w-100" onClick={()=>{
             setStep(4)
           }}>
+            <Row>
+            <Col lg={6} md={6} sm={6} xs={12} className="d-flex align-items-center">
             <div className="try-card-img">
               <img className="browserImg" src={webScreen} alt="web screen" />
             </div>
-            <div className="try-card-info">
+              </Col>
+              <Col lg={6} md={6} sm={6} xs={12} className="d-flex align-items-center flex-wrap pl-0">
+              <div className="try-card-info">
               <p className="tryBrowser">Try browser based Webplayer</p>
-              <p className="tryBrowserText">Works on all types of browsers</p>
-              <p>(Ideal for quick start)</p>
+              <p className="tryBrowserText">Works on all types of browsers (Ideal for quick start)</p>
             </div>
+              </Col>
+            </Row>
+            
+         
           </div>
         )}
         {step === 4 && (
           <div>
-            <div className="relative d-flex align-items-center justify-content-center flex-column">
+            {/* <div className="relative d-flex align-items-center justify-content-center flex-column">
               <div className="upload-flie-img">
                 <div className="image-container">
                   <img className="devicebg" src={DeviceBG} alt="upload-img" />
@@ -207,7 +214,14 @@ const AddScreenModal = ({ setShowScreenModal, callAllScreenApi }) => {
                   <div className="image-text2">ABDHSG</div>
                 </div>
               </div>
-            </div>
+            </div> */}
+              <div className="image-container d-flex align-items-center justify-content-center flex-column mx-auto">
+                  <div className="image-container-content">
+                  <div className="image-text">Registration Code </div>
+                  <div className="image-text2">ABDHSG</div>
+                  </div>
+                
+                </div>
             <div className="screenText">
               Enter the ‘Screen Registration Code’ as shown on your signage
               screen
