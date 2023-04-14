@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import { addScreenCode } from "../../../utils/api";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Col } from "react-bootstrap";
+import webPlayerImg from "../../../img/web-player-bg.png";
 
 const Webplayer = () => {
   const [deviceCode, setDeviceCode] = useState("");
@@ -47,31 +48,68 @@ const Webplayer = () => {
             </button>
           </div>
         </div>
-        <div ref={divRef} style={{ backgroundColor: "white" }}>
-          <div className="basic-list-group">
+        <div ref={divRef}>
+          <div className="basic-list-group d-none">
             <div className="main-block">
               <div className="registration-block">
                 <p className="registration-title">Screen Registration Code </p>
-                <p className="code">
-                {deviceCode}
-                </p>
+                <p className="code">{deviceCode}</p>
               </div>
             </div>
             <div className="webrowerTextSection">
-              <div>How to register this screen ?</div>
-              <div>
-                1. Login to console.pickcel.com on your internet browser{" "}
+              <div className="how-to-register">
+                How to register this screen ?
               </div>
-              <div>
-                2. Go to 'Screen' section &gt; Click on '+Add Screen' &gt; Enter
-                above Screen Registration Code &gt; Click on 'Next'
+              <div className="guidelines-login">
+                1. Login to{" "}
+                <Link>
+                  <span className="white-color">console.pickcel.com</span>
+                </Link>{" "}
+                on your internet browser{" "}
+              </div>
+              <div className="guidelines-login">
+                2. Go to 'Screen' section &gt; Click on{" "}
+                <Link>
+                  <span className="white-color">'+Add Screen</span>'
+                </Link>{" "}
+                &gt; Enter above{" "}
+                <Link>
+                  <span className="white-color">Screen Registration Code</span>
+                </Link>{" "}
+                &gt; Click on{" "}
+                <Link>
+                  <span className="white-color">'Next'</span>
+                </Link>
               </div>
 
-              <div>
-                3. Enter screen name and other details &gt; Click on 'Register
-                Screen'
+              <div className="guidelines-login">
+                3. Enter screen name and other details &gt; Click on
+                <Link>
+                  <span className="white-color"> 'Register Screen'</span>
+                </Link>
               </div>
             </div>
+          </div>
+          <div className="basic-list-group video-container d-none">
+            <iframe
+              width="100%"
+              height="440px"
+              src="https://www.youtube.com/embed/tgbNymZ7vqY"
+            ></iframe>
+          </div>
+          <div className="basic-list-group image-preview-container">
+            <img
+              className="webplayer-preview-img"
+              src={webPlayerImg}
+              alt="media-img"
+            />
+          </div>
+
+          <div class="console-reg" id="consoleReg">
+            <p>
+              Copy paste above Screen Registration Code in console{" "}
+              <em class="ti-arrow-circle-up"></em>
+            </p>
           </div>
         </div>
       </div>
