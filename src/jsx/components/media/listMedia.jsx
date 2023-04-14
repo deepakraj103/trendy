@@ -81,7 +81,7 @@ console.log("deleteModal", selectedMedia)
                   </td>
                   <td>
                     {media.tags.map((tag) => {
-                      return <span className="my-phone-tag ml-1">{tag}</span>;
+                      return <span className="my-phone-tag text-truncate ml-1">{tag}</span>;
                     })}
                     <span
                       className="down-arrow"

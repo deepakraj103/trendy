@@ -80,7 +80,7 @@ const AddScreenModal = ({ setShowScreenModal, callAllScreenApi }) => {
   };
   return (
     <Modal
-      className="fade bd-example-modal-lg mt-4 custom-modal custom-modal-medium"
+      className="fade bd-example-modal-lg custom-modal custom-modal-medium"
       show={true}
       size="md"
     >
@@ -102,21 +102,20 @@ const AddScreenModal = ({ setShowScreenModal, callAllScreenApi }) => {
       <Modal.Body>
         {step === 1 && (
           <div>
-            <div className="relative d-flex align-items-center justify-content-center flex-column">
-              <div className="upload-flie-img">
-                <div className="image-container">
-                  <img className="devicebg" src={DeviceBG} alt="upload-img" />
+                <div className="image-container d-flex align-items-center justify-content-center flex-column mx-auto">
+                  {/* <img className="devicebg" src={DeviceBG} alt="upload-img" /> */}
+                  <div className="image-container-content">
                   <div className="image-text">Registration Code </div>
                   <div className="image-text2">******</div>
+                  </div>
+                
                 </div>
-              </div>
-            </div>
             <div className="screenText">
               Enter the ‘Screen Registration Code’ as shown on your signage
               screen
             </div>
-            <Col lg={12} md={12} sm={12} xs={12}>
-              <div className="form-group">
+              <div className="form-group enter-code-textfield">
+                <label>Enter Code</label>
                 <input
                   value={code}
                   type="text"
@@ -126,7 +125,6 @@ const AddScreenModal = ({ setShowScreenModal, callAllScreenApi }) => {
                   onChange={handleCodeChange}
                 />
               </div>
-            </Col>
           </div>
         )}
         {step === 2 && (
@@ -230,7 +228,7 @@ const AddScreenModal = ({ setShowScreenModal, callAllScreenApi }) => {
           <Button
             variant=""
             type="button"
-            className="btn btn-primary btn-block primary-btn"
+            className="btn btn-primary btn-block primary-btn mx-0 register-screen-modal"
             onClick={() => saveScreen()}
           >
             {step === 1 && "Done"}

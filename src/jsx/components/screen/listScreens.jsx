@@ -14,7 +14,7 @@ const ListScreen = ({ allScreens }) => {
 
   return (
     <>
-      <Table responsive className="custom-table">
+      <Table responsive className="custom-table screen-table">
         <thead>
           <tr>
             <th>Screen</th>
@@ -48,10 +48,13 @@ const ListScreen = ({ allScreens }) => {
                   </td>
                   <td>Default Compo. </td>
                   <td>No Schedule</td>
-                  <td>
+                  <td style={{width:'180px'}}>
+                    <span className="tag-container">
                     {screen.tags.map((tag) => {
-                      return <span className="my-phone-tag ml-1">{tag}</span>;
+                      return <span className="my-phone-tag text-truncate ml-1 mr-1 mb-1">{tag}</span>;
                     })}
+                    </span>
+                    
                     <span
                       className="down-arrow"
                       onClick={() => {
@@ -68,7 +71,7 @@ const ListScreen = ({ allScreens }) => {
                   </td>
                   <td>
                     {screen.groups.map((group) => {
-                      return <span className="my-phone-tag ml-1">{group}</span>;
+                      return <span className="my-phone-tag text-truncate ml-1">{group}</span>;
                     })}
                   </td>
                   <td>

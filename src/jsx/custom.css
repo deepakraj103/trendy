@@ -333,7 +333,7 @@ body {
   overflow: hidden;
 }
 .content-body-custom .table-responsive {
-  overflow: visible;
+  overflow: auto;
 }
 .content-body-custom .table-responsive {
   flex: 1;
@@ -661,6 +661,9 @@ body {
   font-size: 14px;
   line-height: 19px;
   font-family: var(--font-manrope);
+  display: inline-block;
+  vertical-align: middle;
+  width: 70px;
 }
 .table.custom-table .down-arrow {
   width: 16px;
@@ -1295,28 +1298,43 @@ color: var(--table-td-color);
   color: var(--content-heading-color) !important;
   font-family: var(--font-stack);
 }
-
 .image-container {
-  position: relative;
+  background: #F4F4F4;
+  box-shadow: 0px 2px 4px rgba(0, 21, 64, 0.05), 0px 0px 2px rgba(0, 21, 64, 0.14);
+  border: 1px solid #3A4245;
+  width: 233px;
+  height: 152px;
+  border-radius: 20px;
+
 }
+
 
 .image-text {
-  position: absolute;
+  /* position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); */
+  font-style: normal;
+  font-weight: 600;
   font-size: 16px;
-  color: #1A1A1A;
+  line-height: 22px;
   text-align: center;
+  color: var(--table-td-color);
+  margin-bottom: 16px;
+  font-family: var(--font-manrope);
 }
 .image-text2 {
-  position: absolute;
+  /* position: absolute;
   top: 70%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 22px;
-  color: #1A1A1A;
+  transform: translate(-50%, -50%); */
+  font-style: normal;
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 38px;
   text-align: center;
+  color: var(--table-td-color);
+  font-family: var(--font-manrope);
 }
 
 
@@ -1327,14 +1345,14 @@ color: var(--table-td-color);
 }
 
 .screenText{
-  font-family: 'Manrope';
-font-style: normal;
-font-weight: 400;
-font-size: 16px;
-line-height: 148.7%;
-/* or 24px */
-color: #1A1A1A;
-margin: 15px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+line-height: 24px;
+font-family: var(--font-manrope);
+color: var(--table-td-color);
+margin-top: 20px;
+margin-bottom: 20px;
 }
 
 .alternetTextSection{
@@ -1345,24 +1363,24 @@ margin: 15px;
 }
 
 .alternetTextSection  span{
-  font-family: 'Manrope';
+  font-family:var(--font-manrope);
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
   line-height: 16px;
-  color: #1A1A1A;
-
+color: var(--table-td-color);
 }
 
 
 .alternetTextSection p{
-  font-family: 'Manrope';
-font-style: normal;
-font-weight: 700;
-font-size: 12px;
-line-height: 16px;
-cursor: pointer;
-color: #B3005E;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 16px;
+  font-family:var(--font-manrope);
+  margin-bottom: 0;
+  color: var(--primary);
+  cursor: pointer;
 }
 .font20{
   font-size: 20px !important;
@@ -1501,4 +1519,37 @@ button#Fullscreen {
 }
 .invalid {
   border: 2px solid red !important
+}
+.tag-container {
+  display: inline-flex;
+  max-width: 160px;
+  flex-wrap: wrap;
+}
+.form-group.enter-code-textfield label {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 22px;
+  font-family: var(--font-manrope);
+  color: #606060;
+}
+.form-group.enter-code-textfield .form-field.form-control {
+  padding: 7px 0;
+  height: 42px;
+  border: none;
+  border-radius: 0;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 22px;
+  font-family: var(--font-manrope);
+  color: var(--table-td-color);
+  border-bottom: 1px solid #D8D8D8;
+  margin-bottom: 20px;
+}
+.form-group.enter-code-textfield .form-field.form-control.invalid {
+  border: none !important;
+  border-bottom: 1px solid red !important;
+}
+.btn.btn-primary.primary-btn.register-screen-modal {
+  margin-bottom: 20px;
 }
