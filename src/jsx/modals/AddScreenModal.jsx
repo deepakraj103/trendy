@@ -187,7 +187,7 @@ const AddScreenModal = ({ setShowScreenModal, callAllScreenApi }) => {
           <div className="webBrowserOptionSection w-100" onClick={()=>{
             setStep(4)
           }}>
-            <Row>
+            <Row className="w-100">
             <Col lg={6} md={6} sm={6} xs={12} className="d-flex align-items-center">
             <div className="try-card-img">
               <img className="browserImg" src={webScreen} alt="web screen" />
@@ -196,7 +196,7 @@ const AddScreenModal = ({ setShowScreenModal, callAllScreenApi }) => {
               <Col lg={6} md={6} sm={6} xs={12} className="d-flex align-items-center flex-wrap pl-0">
               <div className="try-card-info">
               <p className="tryBrowser">Try browser based Webplayer</p>
-              <p className="tryBrowserText">Works on all types of browsers (Ideal for quick start)</p>
+              <p className="tryBrowserText">Works on all types of browsers <br/>(Ideal for quick start)</p>
             </div>
               </Col>
             </Row>
@@ -222,10 +222,15 @@ const AddScreenModal = ({ setShowScreenModal, callAllScreenApi }) => {
                   </div>
                 
                 </div>
-            <div className="screenText">
-              Enter the ‘Screen Registration Code’ as shown on your signage
-              screen
-            </div>
+                <div className="using-webplayer-paragraph">
+                  <p>You are about to start using the webplayer</p>
+                </div>
+                <div className="webplayer-list">
+                  <ul>
+                    <li>Please note, Webplayer is designed to give you the overall idea of how screens are registered using ‘Registration Code’</li>
+                  <li>Use this Webplayer to check how the content generated from console will appear on TV screens.</li>
+                  </ul>
+                </div>
           </div>
         )}
       </Modal.Body>
