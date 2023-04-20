@@ -17,6 +17,9 @@ import Screen from "./components/screen";
 //Scroll To Top
 import ScrollToTop from './layouts/ScrollToTop';
 import Media from './components/media'
+import Settings from './components/settings'
+import Webplayer from './components/web-player'
+
 
 
 const Markup = () => {
@@ -31,6 +34,8 @@ const Markup = () => {
     { url: "", component: Screen },
     { url: "display", component: Screen },
     { url: "assets", component: Media },
+    {url: "settings", component: Settings},
+    {url: "web-player", component: Webplayer}
   ]
 
   return (
@@ -39,7 +44,7 @@ const Markup = () => {
             id={`${!pagePath ? 'main-wrapper' : ''}`}
             className={`${!pagePath ? 'show' : 'mh100vh'}`}
           >
-            {!pagePath && (
+            {!pagePath && path !== "web-player" && (
               <Nav
                 onClick={() => setActiveEvent(!activeEvent)}
                 activeEvent={activeEvent}
@@ -50,7 +55,7 @@ const Markup = () => {
             <div
               className={` ${!path && activeEvent ? 'rightside-event' : ''} ${
                 !pagePath ? 'content-body content-body-custom' : ''
-              }`}
+              } ${path === 'web-player' ? 'web-player-body' : ''}`}
             >
               <div
                 className={`${!pagePath ? 'container-fluid' : ''}`}
