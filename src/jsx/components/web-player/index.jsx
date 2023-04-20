@@ -2,27 +2,64 @@ import React, { useEffect, useState, useRef } from "react";
 import { addScreenCode, BASE_URL } from "../../../utils/api";
 import { Link, useLocation } from "react-router-dom";
 import { Col } from "react-bootstrap";
-import webPlayerImg from "../../../img/web-player-bg.png";
-
+import { io } from "socket.io-client";
 const Webplayer = () => {
-  const [content, setContent] = useState("");
+  const [media, setMedia] = useState("");
+  const [code, seCode] = useState("");
+  const [contentType, setContentType] = useState("");
+  // const [timeout, setApiTimeout] = useState("");
   const divRef = useRef(null);
 
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const id = searchParams.get("id");
   const getScreenCode = async () => {
+    let timeoutTimer;
     const getContent = await addScreenCode(id);
-    setContent(getContent);
+    if (getContent.isVerified) {
+      if (getContent?.content.length) {
+        const getMedia =
+          getContent?.content[getContent.content.length - 1].media;
+        setMedia(`${BASE_URL}${getMedia.title}`);
+        setContentType(getMedia.type);
+        clearTimeout(timeoutTimer)
+        timeoutTimer = setTimeout(() => {
+          getScreenCode();
+        }, 60000);
+      } else {
+        setContentType("default_media");
+      }
+    } else {
+      setContentType("code");
+      seCode(getContent.deviceCode);
+    }
   };
+
+
   const defaultMediaUrl = `${BASE_URL}/default/file_1681896290177.png`;
   useEffect(() => {
     getScreenCode();
+    const socket = io(BASE_URL, {
+      query: { deviceToken: "d1e61a0b-9cc9-487c-bbbd-d7a989a65d38" },
+      autoConnect: false,
+      transports: ["websocket"],
+      secure: true,
+    });
+    // no-op if the socket is already connected
+    socket.connect();
+    function onReceiveContent(value) {
+      getScreenCode();
+    }
+    socket.on("receiveContent", onReceiveContent);
+    return () => {
+      socket.disconnect();
+      socket.off("receiveContent", onReceiveContent);
+    };
   }, []);
+
   const onFullScreen = () => {
     if (divRef.current) {
       // divRef.current.requestFullscreen();
-
       if (divRef.current.requestFullscreen) {
         divRef.current.requestFullscreen();
       } else if (divRef.current.webkitRequestFullscreen) {
@@ -33,15 +70,6 @@ const Webplayer = () => {
     }
   };
 
-  if(content === "") return (<>loading</>)
-  let type = content?.content.length  ? content?.content[0].media.type : "code"
-  if(content.isVerified && type === "code"){
-    type = "default_media"
-  }
-
-
-
-console.log(type)
   return (
     <Col xl="12">
       <div>
@@ -60,14 +88,14 @@ console.log(type)
           </div>
         </div>
         <div ref={divRef}>
-          {type === "code" && (
-            <div className="basic-list-group " >
+          {contentType === "code" && (
+            <div className="basic-list-group ">
               <div className="main-block">
                 <div className="registration-block">
                   <p className="registration-title">
                     Screen Registration Code{" "}
                   </p>
-                  <p className="code">{content.deviceCode}</p>
+                  <p className="code">{code}</p>
                 </div>
               </div>
               <div className="webrowerTextSection">
@@ -75,11 +103,7 @@ console.log(type)
                   How to register this screen ?
                 </div>
                 <div className="guidelines-login">
-                  1. Login to{" "}
-                  <Link>
-                    <span className="white-color">console.pickcel.com</span>
-                  </Link>{" "}
-                  on your internet browser{" "}
+                  1. Login to on your internet browser{" "}
                 </div>
                 <div className="guidelines-login">
                   2. Go to 'Screen' section &gt; Click on{" "}
@@ -107,26 +131,26 @@ console.log(type)
               </div>
             </div>
           )}
-          {type === "image" && (
+          {contentType === "image" && (
             <div className="basic-list-group image-preview-container media-content">
               <img
                 className="webplayer-preview-img"
-                src={webPlayerImg}
+                src={media}
                 alt="media-img"
               />
             </div>
           )}
-          {type === "video" && (
+          {contentType === "video" && (
             <div className="basic-list-group video-container media-content">
               <iframe
                 title="video"
                 width="100%"
                 height="440px"
-                src={`${BASE_URL}${content?.content[0].media.title}`}
+                src={media}
               ></iframe>
             </div>
           )}
-          {type === "default_media" && (
+          {contentType === "default_media" && (
             <div className="basic-list-group image-preview-container media-content">
               <img
                 className="webplayer-preview-img"

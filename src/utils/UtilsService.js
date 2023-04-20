@@ -11,6 +11,7 @@ export const formattedDateString = (d) => {
 };
 
 export const humanReadableFormattedDateString = (date) => {
+    console.log(date)
     date = new Date(date);
     let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     let day = dateDigits(date.getDate());

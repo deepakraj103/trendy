@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Table, Dropdown } from "react-bootstrap";
 import AddNewTagModal from "../../modals/AddNewTagModal";
 import downArrow from "../../../img/down-arrow.png";
@@ -61,18 +61,18 @@ const ListMedia = ({ allMedia,callAllMediaApi }) => {
                         />
                       </span>
                       <span className="name-content d-flex flex-column flex-grow-1">
-                        <strong>{media.title}</strong>
-                        <span>Added by Gauri Batra</span>
+                        <strong>{media.title.split("/")[media.title.split("/").length -1]}</strong>
+                        <span>{media.createdBy.name}</span>
                       </span>
                     </span>
                   </td>
-                  <td>{media.type}</td>
+                  <td>{media.type.slice(0, 1).toUpperCase() + media.type.slice(1)}</td>
                   <td>
                     <span className="td-content">
                       <strong>
-                        {humanReadableFormattedDateString(media.uploadDate)}
+                        {humanReadableFormattedDateString(media.createdAt)}
                       </strong>
-                      <span>{getDatetimeIn12Hours(media.uploadDate)}</span>
+                      <span>{getDatetimeIn12Hours(media.createdAt)}</span>
                     </span>
                   </td>
                   <td>
@@ -112,7 +112,9 @@ const ListMedia = ({ allMedia,callAllMediaApi }) => {
                       </Dropdown.Toggle>
                       <Dropdown.Menu>
                         <Dropdown.Item href="#" className="dropdown-list-item">
-                          <div className="d-flex">
+                          <div className="d-flex" onClick={()=>{
+                                handlePublishcOpen(media)
+                              }}>
                             <div className="dropdown-list-icon">
                               <img
                                 className="dropdown-list-img img-fluid"
@@ -121,9 +123,7 @@ const ListMedia = ({ allMedia,callAllMediaApi }) => {
                               />
                             </div>
                             <div className="dropdown-menu-list">
-                              <span className="menu-heading" onClick={()=>{
-                                handlePublishcOpen(media)
-                              }}>
+                              <span className="menu-heading" >
                                 Publish on Screen
                               </span>
                               <span className="menu-description">
