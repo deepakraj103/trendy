@@ -1643,6 +1643,10 @@ button#Fullscreen {
 position: inherit;
 }
 
+:fullscreen  #consoleReg{
+  display: none;
+  }
+
 .error {
   color: #c02576;
 }

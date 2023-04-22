@@ -2,9 +2,8 @@ import { Button, Modal, Row, Col, Alert } from "react-bootstrap";
 import cancelIcon from "../../img/cancel-icon.png";
 import TagInputField from "../components/screen/tagInputField";
 import { useState } from "react";
-import DeviceBG from "../../img/DeviceBG.png";
 import webScreen from "../../img/webScreen.png";
-import { v4 as uuidv4 } from 'uuid';
+
 
 import { addScreen, validateScreenCode } from "../../utils/api";
 
@@ -73,7 +72,7 @@ const AddScreenModal = ({ setShowScreenModal, callAllScreenApi }) => {
       
     }
     if(step === 4){
-      window.open(`/web-player?id=${uuidv4()}`, '_blank');
+      window.open(`/web-player`, '_blank');
       setStep(1);
       return;
     }
