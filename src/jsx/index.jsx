@@ -37,7 +37,7 @@ const Markup = () => {
     { url: "assets", component: Media },
     {url: "settings", component: Settings},
     {url: "web-player", component: Webplayer},
-    {url: "display/:id", component: ScreenDetails}
+    {url: "display/:id", component: ScreenDetails},
   ]
 
   return (

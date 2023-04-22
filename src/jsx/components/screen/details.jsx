@@ -57,7 +57,7 @@ const ScreenDetails = () => {
       bg: "success",
     },
   ];
-
+if(!screen) return <></>
   return (
     <>
       <div className="custom-content-heading d-flex flex-wrap">
@@ -78,6 +78,14 @@ const ScreenDetails = () => {
         </span>
 
         <div className="search-textfield ml-auto d-flex flex-wrap align-items-center">
+        <a className=" btn btn-primary" variant="primary"
+                          href={`/web-player?id=${screen.device.deviceToken}`}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                        Launch Web Player
+                        </a>
+
           <Button className="ml-2 icon-btn btn btn-primary" variant="primary">
             <img
               className="dropdown-list-img-icon img-fluid"
