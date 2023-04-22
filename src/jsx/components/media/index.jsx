@@ -7,7 +7,7 @@ import searchIcon from "../../../img/search.png";
 import listIcon from "../../../img/list-icon.png";
 import uploadIcon from "../../../img/upload-icon.png";
 import canvaIcon from "../../../img/canva-icon.png";
-import { deleteMedia, getAllMedia } from "../../../utils/api";
+import {  getAllMedia } from "../../../utils/api";
 
 const Media = () => {
   const [showFilterModal, setFilterModal] = useState(false);

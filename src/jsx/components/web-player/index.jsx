@@ -3,6 +3,7 @@ import { addScreenCode, BASE_URL } from "../../../utils/api";
 import { Link, useLocation } from "react-router-dom";
 import { Col } from "react-bootstrap";
 import { io } from "socket.io-client";
+import WebVideoPlayer from "./WebVideoPlayer";
 const Webplayer = () => {
   const [media, setMedia] = useState("");
   const [code, seCode] = useState("");
@@ -36,7 +37,7 @@ const Webplayer = () => {
   };
 
 
-  const defaultMediaUrl = `${BASE_URL}/default/file_1681896290177.png`;
+   const defaultMediaUrl = `${BASE_URL}/default/file_1681896290177.png`;
   useEffect(() => {
     getScreenCode();
     const socket = io(BASE_URL, {
@@ -142,12 +143,13 @@ const Webplayer = () => {
           )}
           {contentType === "video" && (
             <div className="basic-list-group video-container media-content">
-              <iframe
+            <WebVideoPlayer media={media}></WebVideoPlayer>
+              {/* <video
                 title="video"
                 width="100%"
                 height="440px"
-                src={media}
-              ></iframe>
+                src={}
+              ></video> */}
             </div>
           )}
           {contentType === "default_media" && (

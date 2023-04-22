@@ -2,6 +2,8 @@ import { Button, Modal, Row, Col, Badge, Table } from "react-bootstrap";
 import cancelIcon from "../../img/cancel-icon.png";
 import { useEffect, useState } from "react";
 import { getAllScreens, publishMedia } from "../../utils/api";
+import TableLoader from "../components/TableLoader";
+import '../components/Table.css';
 // import tagCloseIcon from "../../img/tag-close-icon.png";
 
 const PublishMediaModal = ({ setShowPublishPopUp, selected }) => {
@@ -9,13 +11,16 @@ const PublishMediaModal = ({ setShowPublishPopUp, selected }) => {
   const [checkedItems, setCheckedItems] = useState({});
   const [checkedValues, setCheckedValues] = useState([]);
   const [published, setPublished] = useState(false);
+  const [loading, setLoading] = useState(false);
   // use effect
   useEffect(() => {
     callAllScreenApi();
   }, []);
 
   const callAllScreenApi = async () => {
+    setLoading(true);
     const list = await getAllScreens();
+    setLoading(false);
     setAllScreens(list);
   };
 
@@ -59,7 +64,9 @@ const PublishMediaModal = ({ setShowPublishPopUp, selected }) => {
     // setShowPublishPopUp(false);
   };
   return (
-    <Modal
+<>
+    
+      <Modal
       className={`fade bd-example-modal-lg mt-4 custom-modal ${
         published ? "custom-modal-medium" : "custom-modal-large"
       }`}
@@ -104,6 +111,9 @@ const PublishMediaModal = ({ setShowPublishPopUp, selected }) => {
                 <th>Current Schedule</th>
               </tr>
             </thead>
+            {loading  ? (
+          <TableLoader colSpan={5}/>
+        ) : (
             <tbody>
               {allScreens !== "" &&
                 allScreens.map((screen) => {
@@ -147,6 +157,7 @@ const PublishMediaModal = ({ setShowPublishPopUp, selected }) => {
                   );
                 })}
             </tbody>
+            )}
           </Table>
         </Modal.Body>
       )}
@@ -174,6 +185,9 @@ const PublishMediaModal = ({ setShowPublishPopUp, selected }) => {
         )}
       </Modal.Footer>
     </Modal>
+      
+
+    </>
   );
 };
 

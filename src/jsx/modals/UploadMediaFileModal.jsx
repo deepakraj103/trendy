@@ -7,13 +7,17 @@ import { addMedia } from "../../utils/api";
 const UploadMediaModal = ({ showUploadMediaModal, setUploadMediaModal, callAllMediaApi }) => {
   const [file, setFile] = useState(null);
   const [error, setShowError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const handleUpload = async () => {
+    setIsLoading(true)
     if (!file) {
+      setIsLoading(false)
       setShowError("Please select a File")
       return false;
     } 
 
     if (!file.type.includes('image') && !file.type.includes('video')) {
+      setIsLoading(false)
       setShowError("Please upload an image or video file.")
       return;
     }
@@ -29,6 +33,7 @@ const UploadMediaModal = ({ showUploadMediaModal, setUploadMediaModal, callAllMe
       return false;
     }
      await addMedia(formData)
+     setIsLoading(false)
      callAllMediaApi()
      setUploadMediaModal(false)
   };
@@ -53,21 +58,28 @@ const UploadMediaModal = ({ showUploadMediaModal, setUploadMediaModal, callAllMe
       </Modal.Header>
       <Modal.Body>
 
-        <FileUploadWithPreview file={file}  setFile={setFile} setShowError={setShowError}/>
+
+
+     <FileUploadWithPreview file={file}  setFile={setFile} setShowError={setShowError}/>
+    
         {error && <div className="error text-center font-weight-500">{error}</div>}
         <div class="add-screen-paragraph text-center font-weight-500">
           <p>We support JPEG, PNG, MP4.</p>
         </div>
       </Modal.Body>
       <Modal.Footer>
+      <div className="loader-button-container">
         <Button
           variant=""
           type="button"
-          className="btn btn-primary btn-block primary-btn"
+          disabled={isLoading}
+          className={`btn btn-primary btn-block primary-btn`}
           onClick={() => handleUpload()}
         >
-          Upload
+        {isLoading ? <div className="loader"></div> : 'Upload'}
+          
         </Button>
+        </div>
       </Modal.Footer>
     </Modal>
   );
