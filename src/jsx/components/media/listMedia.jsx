@@ -12,7 +12,7 @@ import {
   humanReadableFormattedDateString,
 } from "../../../utils/UtilsService";
 import DeleteConfirmation from "../../modals/DeleteConfirmation";
-import { deleteMedia } from "../../../utils/api";
+import { deleteMedia, BASE_URL } from "../../../utils/api";
 import PublishMediaModal from "../../modals/PublishMediaModal";
 
 const ListMedia = ({ allMedia,callAllMediaApi }) => {
@@ -54,11 +54,16 @@ const ListMedia = ({ allMedia,callAllMediaApi }) => {
                   <td>
                     <span className="td-content d-flex name-td-content">
                       <span className="name-img mr-2">
-                        <img
+                      {media.type === "image" && <img
                           className="media-img img-fluid"
-                          src={nameAvatar}
+                          src={`${BASE_URL}${media.title}`}
                           alt="media-img"
-                        />
+                        />}
+                         {media.type === "video" && <video
+                          className="media-img img-fluid"
+                          src={`${BASE_URL}${media.title}`}
+                          alt="media-img"
+                        />}
                       </span>
                       <span className="name-content d-flex flex-column flex-grow-1">
                         <strong>{media.title.split("/")[media.title.split("/").length -1]}</strong>

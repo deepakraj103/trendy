@@ -33,7 +33,7 @@ const ListScreen = ({ allScreens }) => {
                 <tr>
                   <td>
                     <span className="td-content">
-                      <strong>{screen.name}</strong>
+                      <strong><a href={`web-player?id=${screen.device.deviceToken}`} target="_blank" rel="noreferrer">{screen.name}</a></strong>
                       <span>{screen.screenLocation}</span>
                     </span>
                   </td>

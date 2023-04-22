@@ -40,7 +40,7 @@ const Webplayer = () => {
   useEffect(() => {
     getScreenCode();
     const socket = io(BASE_URL, {
-      query: { deviceToken: "d1e61a0b-9cc9-487c-bbbd-d7a989a65d38" },
+      query: { deviceToken: id },
       autoConnect: false,
       transports: ["websocket"],
       secure: true,
