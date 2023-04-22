@@ -39,6 +39,7 @@ const WebMain = ({id}) => {
       transports: ["websocket"],
       secure: true,
     });
+    getScreenCode();
     // no-op if the socket is already connected
     socket.connect();
     function onReceiveContent(value) {
