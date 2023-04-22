@@ -195,7 +195,7 @@ const ListMedia = ({ allMedia,callAllMediaApi }) => {
           setShowPublishPopUp={setShowPublishPopUp}
         />
       )}
-      {deleteModal && <DeleteConfirmation setDeleteModal={setDeleteModal} callbackFunction={handleDelete}/>}
+      {deleteModal && <DeleteConfirmation setDeleteModal={setDeleteModal} callbackFunction={handleDelete} text="Are you sure you want to delete?" yes={"Yes Deactivate"}/>}
     </>
   );
 };

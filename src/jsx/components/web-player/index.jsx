@@ -55,7 +55,7 @@ const Webplayer = () => {
     }
     function onDisconnectDevice(value) {
       setContentType(null);
-      console.log("onDisconnectDevice",value)
+      getScreenCode();
     }
     socket.on("disconnectDevice", onDisconnectDevice);
     

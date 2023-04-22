@@ -80,3 +80,10 @@ export async function publishMedia(postData) {
     return false;
   }
 }
+
+export async function  deleteScreen(id) {
+  return await fetchClient.delete(
+    `${BASE_URL}/vendor/display/screen?screenId=${id}`
+  );
+}
+

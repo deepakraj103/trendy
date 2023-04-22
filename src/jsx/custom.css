@@ -1682,5 +1682,30 @@ position: inherit;
 }
 
 
+.details-accordian{
 
 
+
+
+border: 0.8px solid #1A1A1A;
+border-radius: 16px;
+}
+
+/* .details-accordian .accordion__header{
+  width: 100%;
+  background: none !important;
+  border: none;
+} */
+
+/* .dropdown-toggle {
+  background-color: #b3005e !important;
+    border-color: #b3005e !important;
+    width: 48px;
+    height: 48px;
+    padding: 0 !important;
+    border-radius: 12px !important;
+}
+.dropdown-list-img-icon{
+  height: auto !important;
+  width: auto  !important;
+} */

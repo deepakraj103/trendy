@@ -7,6 +7,7 @@ import veiwDetailIcon from "../../../img/view-detail-icon.png";
 import defaultComparisonIcon from "../../../img/default-comparison-icon.png";
 import assignIcon from "../../../img/assign-icon.png";
 import takeScreenshotIcon from "../../../img/tack-screenshot-icon.png";
+import { Link } from "react-router-dom";
 
 const ListScreen = ({ allScreens }) => {
   const [showNewTagModal, setNewTagModal] = useState(false);
@@ -33,7 +34,15 @@ const ListScreen = ({ allScreens }) => {
                 <tr>
                   <td>
                     <span className="td-content">
-                      <strong><a href={`web-player?id=${screen.device.deviceToken}`} target="_blank" rel="noreferrer">{screen.name}</a></strong>
+                      <strong>
+                        <a
+                          href={`web-player?id=${screen.device.deviceToken}`}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {screen.name}
+                        </a>
+                      </strong>
                       <span>{screen.screenLocation}</span>
                     </span>
                   </td>
@@ -48,17 +57,21 @@ const ListScreen = ({ allScreens }) => {
                   </td>
                   <td>Default Compo. </td>
                   <td>No Schedule</td>
-                  <td style={{width:'180px'}}>
+                  <td style={{ width: "180px" }}>
                     <span className="tag-container">
-                    {screen.tags.map((tag) => {
-                      return <span className="my-phone-tag text-truncate ml-1 mr-1 mb-1">{tag}</span>;
-                    })}
+                      {screen.tags.map((tag) => {
+                        return (
+                          <span className="my-phone-tag text-truncate ml-1 mr-1 mb-1">
+                            {tag}
+                          </span>
+                        );
+                      })}
                     </span>
-                    
+
                     <span
                       className="down-arrow"
                       onClick={() => {
-                        setSelectedScreen(screen)
+                        setSelectedScreen(screen);
                         setNewTagModal(true);
                       }}
                     >
@@ -71,7 +84,11 @@ const ListScreen = ({ allScreens }) => {
                   </td>
                   <td>
                     {screen.groups.map((group) => {
-                      return <span className="my-phone-tag text-truncate ml-1">{group}</span>;
+                      return (
+                        <span className="my-phone-tag text-truncate ml-1">
+                          {group}
+                        </span>
+                      );
                     })}
                   </td>
                   <td>
@@ -87,21 +104,29 @@ const ListScreen = ({ allScreens }) => {
                       </Dropdown.Toggle>
                       <Dropdown.Menu>
                         <Dropdown.Item href="#" className="dropdown-list-item">
-                          <div className="d-flex">
-                            <div className="dropdown-list-icon">
-                              <img
-                                className="dropdown-list-img img-fluid"
-                                src={veiwDetailIcon}
-                                alt="menu-icon"
-                              />
+                          <Link
+                            to={{
+                              pathname: `/display/${screen._id}`,
+                            }}
+                          >
+                            <div className="d-flex">
+                              <div className="dropdown-list-icon">
+                                <img
+                                  className="dropdown-list-img img-fluid"
+                                  src={veiwDetailIcon}
+                                  alt="menu-icon"
+                                />
+                              </div>
+                              <div className="dropdown-menu-list">
+                                <span className="menu-heading">
+                                  View Details
+                                </span>
+                                <span className="menu-description">
+                                  Get to know more about screen info
+                                </span>
+                              </div>
                             </div>
-                            <div className="dropdown-menu-list">
-                              <span className="menu-heading">View Details</span>
-                              <span className="menu-description">
-                                Get to know more about screen info
-                              </span>
-                            </div>
-                          </div>
+                          </Link>
                         </Dropdown.Item>
                         <Dropdown.Item href="#" className="dropdown-list-item">
                           <div className="d-flex">
@@ -168,11 +193,13 @@ const ListScreen = ({ allScreens }) => {
             })}
         </tbody>
       </Table>
-     {showNewTagModal && <AddNewTagModal
-setNewTagModal={setNewTagModal}
-allScreens={allScreens}
-selected={selectedScreen}
-/>} 
+      {showNewTagModal && (
+        <AddNewTagModal
+          setNewTagModal={setNewTagModal}
+          allScreens={allScreens}
+          selected={selectedScreen}
+        />
+      )}
     </>
   );
 };

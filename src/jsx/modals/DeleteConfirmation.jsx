@@ -1,8 +1,7 @@
-import { Button, Modal, Row, Col, Badge } from "react-bootstrap";
-import cancelIcon from "../../img/cancel-icon.png";
-import tagCloseIcon from "../../img/tag-close-icon.png";
+import { Button, Modal} from "react-bootstrap";
 
-const DeleteConfirmation = ({ setDeleteModal, callbackFunction }) => {
+
+const DeleteConfirmation = ({ setDeleteModal, callbackFunction, text, yes }) => {
   return (
     <Modal className="fade" show={true}>
     <Modal.Header>
@@ -15,7 +14,7 @@ const DeleteConfirmation = ({ setDeleteModal, callbackFunction }) => {
           <span>&times;</span>
        </Button>
     </Modal.Header>
-    <Modal.Body>Are you sure you want to delete?</Modal.Body>
+    <Modal.Body>{text}</Modal.Body>
     <Modal.Footer>
        <Button
           onClick={() => setDeleteModal(false)}
@@ -23,7 +22,7 @@ const DeleteConfirmation = ({ setDeleteModal, callbackFunction }) => {
        >
           Close
        </Button>
-       <Button variant="danger" onClick={callbackFunction}>Yes Delete</Button>
+       <Button variant="danger" onClick={callbackFunction}>{yes}</Button>
     </Modal.Footer>
  </Modal>
   );
