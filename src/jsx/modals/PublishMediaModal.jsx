@@ -58,7 +58,7 @@ const PublishMediaModal = ({ setShowPublishPopUp, selected }) => {
    await publishMedia({
       mediaId: selected._id,
       screenIds: checkedValues,
-      duration: 1,
+      duration: 5,
     });
     setPublished(true);
     // setShowPublishPopUp(false);

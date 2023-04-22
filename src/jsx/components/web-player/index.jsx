@@ -16,6 +16,7 @@ const Webplayer = () => {
   const id = searchParams.get("id");
   const getScreenCode = async () => {
     let timeoutTimer;
+   
     const getContent = await addScreenCode(id);
     if (getContent.isVerified) {
       if (getContent?.content.length) {
@@ -49,8 +50,15 @@ const Webplayer = () => {
     // no-op if the socket is already connected
     socket.connect();
     function onReceiveContent(value) {
+      setContentType(null);
       getScreenCode();
     }
+    function onDisconnectDevice(value) {
+      setContentType(null);
+      console.log("onDisconnectDevice",value)
+    }
+    socket.on("disconnectDevice", onDisconnectDevice);
+    
     socket.on("receiveContent", onReceiveContent);
     return () => {
       socket.disconnect();
@@ -88,7 +96,7 @@ const Webplayer = () => {
             </button>
           </div>
         </div>
-        <div ref={divRef}>
+        {contentType !==null &&         <div ref={divRef}>
           {contentType === "code" && (
             <div className="basic-list-group ">
               <div className="main-block">
@@ -143,7 +151,7 @@ const Webplayer = () => {
           )}
           {contentType === "video" && (
             <div className="basic-list-group video-container media-content">
-            <WebVideoPlayer media={media}></WebVideoPlayer>
+            <WebVideoPlayer src={media}></WebVideoPlayer>
               {/* <video
                 title="video"
                 width="100%"
@@ -168,7 +176,8 @@ const Webplayer = () => {
               <em class="ti-arrow-circle-up"></em>
             </p>
           </div>
-        </div>
+        </div>}
+
       </div>
     </Col>
   );
