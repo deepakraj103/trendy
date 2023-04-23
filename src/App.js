@@ -1,4 +1,5 @@
-import { lazy, Suspense, useEffect } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
+import { io } from 'socket.io-client';
 /// Components
 import Index from './jsx/index';
 import { connect, useDispatch } from 'react-redux';
@@ -9,6 +10,8 @@ import { isAuthenticated } from './store/selectors/AuthSelectors';
 /// Style
 import "./vendor/bootstrap-select/dist/css/bootstrap-select.min.css";
 import "./css/style.css";
+import { BASE_URL } from './utils/api';
+// import { socket } from './utils/socket';
 
 
 const SignUp = lazy(() => import('./jsx/pages/Registration'));
@@ -19,11 +22,11 @@ const Login = lazy(() => {
 	});
 });
 function App (props) {
+    // const [isConnected, setIsConnected] = useState(socket.connected);
     const dispatch = useDispatch();
     useEffect(() => {
         checkAutoLogin(dispatch, props.history);
     }, [dispatch, props.history]);
-    
     let routes = (  
         <Switch>
             <Route path='/login' component={Login} />
