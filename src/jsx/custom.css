@@ -1977,3 +1977,26 @@ margin-bottom: 20px;
 .windows-modal .chris-imgbox{
 margin-bottom: 24px;
 }
+.location-field .search-location {
+  position: absolute;
+  right: 12px;
+  top: 45px;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+.location-field .search-location img {
+  width: 24px;
+  height: 24px;
+}
+.location-field .form-field.form-control {
+  padding-right: 40px;
+}
+.update-textfield-label {
+  font-style: normal;
+font-weight: 700;
+font-size: 16px;
+line-height: 22px;
+font-family: var(--font-manrope);
+color: var(--table-td-color);
+}

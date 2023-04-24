@@ -24,6 +24,7 @@ import { deleteScreen, getAllScreens } from "../../../utils/api";
 import DeleteConfirmation from "../../modals/DeleteConfirmation";
 import QuickPlayModal from "../../modals/QuickPlayModal";
 import WindowsModal from "../../modals/WindowsModal";
+import UpdateModal from "../../modals/UpdateModal";
 
 const ScreenDetails = () => {
   const history = useHistory();
@@ -33,6 +34,7 @@ const ScreenDetails = () => {
   const [deleteModal, setDeleteModal] = useState(false);
   const [showQuickPlayModal, setQuickPlayModal] = useState(false);
   const [showWindowsModal, setWindowsModal] = useState(false);
+  const [showUpdateModal, setUpdateModal] = useState(false);
   // use effect
   useEffect(() => {
     callAllScreenApi();
@@ -57,6 +59,10 @@ const ScreenDetails = () => {
   };
 
   const handleWindows = async () => {
+    setWindowsModal(false);
+  };
+
+  const handleUpdate = async () => {
     setWindowsModal(false);
   };
   const defaultAccordion = [
@@ -288,6 +294,9 @@ const ScreenDetails = () => {
         <Button
           className="edit-screen-btn d-flex align-items-center"
           variant="outline-light"
+          onClick={() => {
+            setUpdateModal(true);
+          }}
         >
           Edit Screen{" "}
           <span className="btn-icon-right">
@@ -421,6 +430,12 @@ const ScreenDetails = () => {
         showWindowsModal={showWindowsModal}
         setWindowsModal={setWindowsModal}
               handleWindows={handleWindows}
+            />
+
+<UpdateModal
+        showUpdateModal={showUpdateModal}
+        setUpdateModal={setUpdateModal}
+              handleUpdate={handleUpdate}
             />
       </div>
     </>
