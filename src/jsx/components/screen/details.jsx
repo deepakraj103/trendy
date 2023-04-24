@@ -23,6 +23,7 @@ import tagAddIcon from "../../../img/icon-tag-add.png";
 import { deleteScreen, getAllScreens } from "../../../utils/api";
 import DeleteConfirmation from "../../modals/DeleteConfirmation";
 import QuickPlayModal from "../../modals/QuickPlayModal";
+import WindowsModal from "../../modals/WindowsModal";
 
 const ScreenDetails = () => {
   const history = useHistory();
@@ -31,6 +32,7 @@ const ScreenDetails = () => {
   const [activeDefault, setActiveDefault] = useState("");
   const [deleteModal, setDeleteModal] = useState(false);
   const [showQuickPlayModal, setQuickPlayModal] = useState(false);
+  const [showWindowsModal, setWindowsModal] = useState(false);
   // use effect
   useEffect(() => {
     callAllScreenApi();
@@ -52,6 +54,10 @@ const ScreenDetails = () => {
 
   const handleQuickPlay = async () => {
     setDeleteModal(false);
+  };
+
+  const handleWindows = async () => {
+    setWindowsModal(false);
   };
   const defaultAccordion = [
     {
@@ -316,7 +322,10 @@ const ScreenDetails = () => {
             </Button>
             <Button
               className="ml-2 screen-icon-btn btn btn-primary"
-              variant="primary"
+              variant="primary" 
+              onClick={() => {
+                setWindowsModal(true);
+              }}
             >
               <img
                 className="dropdown-list-img-icon img-fluid screenshot-icon"
@@ -406,6 +415,12 @@ const ScreenDetails = () => {
         showQuickPlayModal={showQuickPlayModal}
               setQuickPlayModal={setQuickPlayModal}
               handleQuickPlay={handleQuickPlay}
+            />
+
+<WindowsModal
+        showWindowsModal={showWindowsModal}
+        setWindowsModal={setWindowsModal}
+              handleWindows={handleWindows}
             />
       </div>
     </>
