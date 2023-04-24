@@ -12,6 +12,7 @@ import {  getAllMedia } from "../../../utils/api";
 const Media = () => {
   const [showFilterModal, setFilterModal] = useState(false);
   const [showUploadMediaModal, setUploadMediaModal] = useState(false);
+  
   const [allMedia, setAllMedia] = useState("");
   // use effect
   useEffect(() => {

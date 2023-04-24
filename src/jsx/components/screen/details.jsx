@@ -22,6 +22,7 @@ import tagAddIcon from "../../../img/icon-tag-add.png";
 
 import { deleteScreen, getAllScreens } from "../../../utils/api";
 import DeleteConfirmation from "../../modals/DeleteConfirmation";
+import QuickPlayModal from "../../modals/QuickPlayModal";
 
 const ScreenDetails = () => {
   const history = useHistory();
@@ -29,6 +30,7 @@ const ScreenDetails = () => {
   const [screen, setScreen] = useState("");
   const [activeDefault, setActiveDefault] = useState("");
   const [deleteModal, setDeleteModal] = useState(false);
+  const [showQuickPlayModal, setQuickPlayModal] = useState(false);
   // use effect
   useEffect(() => {
     callAllScreenApi();
@@ -46,6 +48,10 @@ const ScreenDetails = () => {
     setDeleteModal(false);
     await deleteScreen(id);
     history.push("/display");
+  };
+
+  const handleQuickPlay = async () => {
+    setDeleteModal(false);
   };
   const defaultAccordion = [
     {
@@ -298,7 +304,9 @@ const ScreenDetails = () => {
 
             <Button
               className="ml-2 screen-icon-btn btn btn-primary"
-              variant="primary"
+              variant="primary" onClick={() => {
+                setQuickPlayModal(true);
+              }}
             >
               <img
                 className="dropdown-list-img-icon img-fluid"
@@ -393,6 +401,12 @@ const ScreenDetails = () => {
             />
           )}
         </div>
+
+        <QuickPlayModal
+        showQuickPlayModal={showQuickPlayModal}
+              setQuickPlayModal={setQuickPlayModal}
+              handleQuickPlay={handleQuickPlay}
+            />
       </div>
     </>
   );

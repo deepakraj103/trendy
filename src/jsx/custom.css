@@ -1955,3 +1955,22 @@ height: 25px;
 .accordion-overflow-scroll {
 padding-right: 30px;
 }
+.quickplay-search.search-textfield {
+max-width: 100%;
+margin-bottom: 20px;
+}
+.custom-modal-medium.quick-modal .modal-dialog {
+  max-width: 728px;
+}
+.quick-modal-table {
+
+}
+.quick-modal-table .table.custom-table .td-content {
+  display: flex;
+  flex-direction: column;
+  color: var(--table-td-color);
+}
+
+.quick-modal-table thead {
+  background-color: transparent;
+}
