@@ -18,7 +18,7 @@ const WebMain = ({id}) => {
         const getMedia =
           getContent?.content[getContent.content.length - 1].media;
         setMedia(`${BASE_URL}${getMedia.title}`);
-        setContentType(getMedia.type);
+        setContentType(getMedia.type); 
         clearTimeout(timeoutTimer)
         timeoutTimer = setTimeout(() => {
           getScreenCode();

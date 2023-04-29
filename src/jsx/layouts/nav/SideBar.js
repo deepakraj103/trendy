@@ -80,7 +80,7 @@ class SideBar extends Component {
               </Link>
             </li>
             <li className={`${layouts.includes(path) ? "mm-active" : ""}`}>
-              <Link to="/layouts" className="ai-icon" >
+              <Link to="/layout" className="ai-icon" >
                 <span className="nav-menu-icon"> <img className="sidebar-menu-icon" src={layoutIcon} alt="menu-icon" /></span>
                 <span className="nav-text">Layouts</span>
               </Link>
