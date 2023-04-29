@@ -22,6 +22,7 @@ import Settings from './components/settings'
 import ScreenDetails from './components/screen/details'
 import Layout from './components/layout/Layout'
 import ChooseLayout from './components/layout/ChooseLayout'
+import CreateComposition from './components/layout/CreateComposition'
 
 
 
@@ -40,6 +41,7 @@ const Markup = () => {
     {url: "settings", component: Settings},
     {url: "layout", component: Layout},
     {url: "chooselayout", component: ChooseLayout},
+    {url: "createComposition", component: CreateComposition},
     // {url: "web-player", component: Webplayer},
     {url: "display/:id", component: ScreenDetails},
   ]
