@@ -21,6 +21,7 @@ import Settings from './components/settings'
 // import Webplayer from './components/web-player'
 import ScreenDetails from './components/screen/details'
 import Layout from './components/layout/Layout'
+import ChooseLayout from './components/layout/ChooseLayout'
 
 
 
@@ -38,6 +39,7 @@ const Markup = () => {
     { url: "assets", component: Media },
     {url: "settings", component: Settings},
     {url: "layout", component: Layout},
+    {url: "chooselayout", component: ChooseLayout},
     // {url: "web-player", component: Webplayer},
     {url: "display/:id", component: ScreenDetails},
   ]

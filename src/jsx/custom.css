@@ -2000,7 +2000,13 @@ color: var(--table-td-color);
 .empty-media-img.layout-empty-img img {
   max-width: 300px;
 }
-
+@media (max-width: 1024px) {
+  html, body {
+    height: auto;
+    --vh: auto !important;
+    background-size: cover;
+  }
+}
 @media (max-width: 768px) {
 .empty-media-img.layout-empty-img img {
   max-width: 100%;
@@ -2008,4 +2014,94 @@ color: var(--table-td-color);
 .empty-media {
   margin-right: 0;
 }
+
+}
+
+.add-composition-btn {
+  display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 14px 20px;
+    min-height: 51px;
+    border-radius: 12px;
+    background: var(--primary);
+    border-color: var(--primary);
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15.5px;
+    line-height: 22px;
+    text-align: center;
+    font-family: var(--font-manrope);
+    color: var(--white);
+}
+.add-composition-btn:hover, .add-composition-btn:active, .add-composition-btn:focus {
+  color: var(--white);
+}
+.add-composition-btn .btn-icon-right {
+  padding: 0;
+  border: 0;
+}
+.add-composition-btn .btn-icon-right .glyph-icon {
+  font-size: 12px;
+}
+.add-composition-btn .btn-icon-right {
+  border-left: none;
+  padding: 1rem 0 1rem 0.6rem;
+  margin-left: 0;
+  color: var(--white);
+}
+.three-layout-paragrapgh {
+  font-style: normal;
+font-weight: 400;
+font-size: 17px;
+line-height: 26px;
+font-family: var(--font-stack);
+color: var(--table-td-color);
+}
+.layout-selected-column {
+  background: var(--white);
+box-shadow: 0px 4px 30px rgba(23, 23, 23, 0.04);
+border-radius: 28.5276px;
+padding: 15px;
+border: 2px solid var(--white);
+/* max-width: 347px; */
+width: 100%;
+margin-bottom: 20px;
+}
+.layout-row {
+  overflow-x: hidden;
+  overflow-y: auto;
+  margin-right: -32px;
+  padding-right: 32px;
+}
+.layout-selected-column.active {
+  border: 2px solid var(--primary);
+}
+.layout-selected-img {
+  margin-bottom: 20px;
+}
+.layout-selected-img img {
+max-width: 100%;
+/* width: 100%; */
+}
+img.single-time-zone {
+max-width: 159px;
+}
+.layout-selected-column h6 {
+  font-style: normal;
+font-weight: 600;
+font-size: 18px;
+line-height: normal;
+font-family: var(--font-stack);
+margin-bottom: 6px;
+}
+.layout-selected-column p {
+  font-style: normal;
+font-weight: 500;
+font-size: 15px;
+line-height: 23px;
+color: #1A1A1A;
+opacity: 0.6;
+margin-bottom: 0;
 }

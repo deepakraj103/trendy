@@ -57,7 +57,7 @@ class SideBar extends Component {
     let screen = [
         "", "display",
       ], media = ['assets'],
-      layouts = ['layouts'],
+      layout = ['layout'],
       push = ['push'],
       integrations = ['integrations'],
       reports = ['reports'],
@@ -79,7 +79,7 @@ class SideBar extends Component {
                 <span className="nav-text">Assets</span>
               </Link>
             </li>
-            <li className={`${layouts.includes(path) ? "mm-active" : ""}`}>
+            <li className={`${layout.includes(path) ? "mm-active" : ""}`}>
               <Link to="/layout" className="ai-icon" >
                 <span className="nav-menu-icon"> <img className="sidebar-menu-icon" src={layoutIcon} alt="menu-icon" /></span>
                 <span className="nav-text">Layouts</span>
