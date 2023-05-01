@@ -2221,3 +2221,57 @@ justify-content: center;
 .custom-comp-table .border-col {
   border-right: 0.8px solid #DEDEDE;
 }
+.push-column {
+  background: var(--white);
+box-shadow: 0px 3.6409px 21.8454px rgba(0, 0, 0, 0.05);
+border-radius: 10.9227px;
+padding: 18.2045px;
+margin-top: 10px;
+height: 100%;
+}
+.push-column-icon {
+  background: #F4F4F4;
+border-radius: 100%;
+width: 100px;
+height: 100px;
+margin: 0 auto 16px;
+display: block;
+}
+.push-column-icon img {
+  max-width: 38px;
+}
+.push-column h6 {
+  font-style: normal;
+font-weight: 700;
+font-size: 20px;
+line-height: 36px;
+color: var(--table-td-color);
+font-family: var(--font-manrope);
+}
+.push-column p {
+  font-style: normal;
+font-weight: 500;
+font-size: 15px;
+line-height: 24px;
+text-align: center;
+color: var(--table-td-color);
+font-family: var(--font-manrope);
+margin-bottom: 0;
+}
+.layout-row.push-row {
+overflow: visible;
+}
+.push-column:hover {
+  background: var(--primary);
+}
+.push-column:hover  p {
+  color: var(--white);
+}
+.push-column:hover h6 {
+  color: var(--white);
+}
+@media (max-width: 768px) {
+.push-column {
+  height: auto;
+}
+}
