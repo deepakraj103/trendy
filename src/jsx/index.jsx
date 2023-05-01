@@ -24,6 +24,7 @@ import Layout from './components/layout/Layout'
 import ChooseLayout from './components/layout/ChooseLayout'
 import CreateComposition from './components/layout/CreateComposition'
 import Push from './components/push/PushScreen'
+import SelectComparison from './components/push/SelectComparison'
 
 
 
@@ -44,6 +45,7 @@ const Markup = () => {
     {url: "chooselayout", component: ChooseLayout},
     {url: "createComposition", component: CreateComposition},
     { url: "push", component: Push },
+    { url: "SelectComparison", component: SelectComparison },
     // {url: "web-player", component: Webplayer},
     {url: "display/:id", component: ScreenDetails},
   ]

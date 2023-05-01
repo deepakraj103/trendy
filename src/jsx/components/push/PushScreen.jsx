@@ -3,9 +3,7 @@ import { Col, Row } from "react-bootstrap";
 import scheduleIcon from "../../../img/schedule-icon.png";
 import quickPlayIcon from "../../../img/quickplay-icon.png";
 import defaultComparisonIcon from "../../../img/comparison-icon.png";
-
-
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const PushScreen = () => {
   return (
@@ -19,6 +17,10 @@ const PushScreen = () => {
       <div className="layout-row push-row">
         <Row>
           <Col lg="4" md="4" sm="12" xs="12">
+          <Link
+          to={{
+            pathname: `/SelectComparison`,
+          }}>
             <div className="push-column text-center">
               <div className="push-column-icon d-flex align-items-center justify-content-center">
                 <img
@@ -30,6 +32,7 @@ const PushScreen = () => {
               <h6>Schedule</h6>
               <p>Scheduled content gets displayed only for time you choose</p>
             </div>
+            </Link>
           </Col>
           <Col lg="4" md="4" sm="12" xs="12">
             <div className="push-column text-center">
