@@ -10,8 +10,6 @@ import {
 } from "react-bootstrap";
 
 import { useParams, useHistory } from "react-router-dom";
-import assignIcon from "../../../img/path1299.png";
-import secndIcon from "../../../img/Group626051.png";
 import editIcon from "../../../img/edit-icon.png";
 import powerIcon from "../../../img/power-icon.png";
 import screenShotIcon from "../../../img/screenshot-icon.png";
@@ -289,13 +287,15 @@ const ScreenDetails = () => {
           <span className="screen-subheading">{screen.name}</span>
 
           <div className="ml-auto d-flex flex-wrap align-items-center">
-            <a className=" btn btn-primary" variant="primary"
-                          href={`/web-player?id=${screen.device.deviceToken}`}
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                        Launch Web Player
-                        </a>
+            <a
+              className=" btn btn-primary btn-xs"
+              variant="primary"
+              href={`/web-player?id=${screen.device.deviceToken}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Launch Web Player
+            </a>
 
             <Button
               className="ml-2 screen-icon-btn btn btn-primary"
@@ -327,7 +327,7 @@ const ScreenDetails = () => {
               <Dropdown.Item eventKey="2">Clear Cache</Dropdown.Item>
               <Dropdown.Item eventKey="3">Clear Data</Dropdown.Item>
               <Dropdown.Item eventKey="4">Reboot display</Dropdown.Item>
-              
+
               <Dropdown.Item
                 eventKey="5"
                 onClick={() => {
