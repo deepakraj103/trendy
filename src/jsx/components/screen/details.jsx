@@ -21,6 +21,9 @@ import tagAddIcon from "../../../img/icon-tag-add.png";
 
 import { deleteScreen, getAllScreens } from "../../../utils/api";
 import DeleteConfirmation from "../../modals/DeleteConfirmation";
+import QuickPlayModal from "../../modals/QuickPlayModal";
+import WindowsModal from "../../modals/WindowsModal";
+import UpdateModal from "../../modals/UpdateModal";
 
 const ScreenDetails = () => {
   const history = useHistory();
@@ -28,6 +31,9 @@ const ScreenDetails = () => {
   const [screen, setScreen] = useState("");
   const [activeDefault, setActiveDefault] = useState("");
   const [deleteModal, setDeleteModal] = useState(false);
+  const [showQuickPlayModal, setQuickPlayModal] = useState(false);
+  const [showWindowsModal, setWindowsModal] = useState(false);
+  const [showUpdateModal, setUpdateModal] = useState(false);
   // use effect
   useEffect(() => {
     callAllScreenApi();
@@ -45,6 +51,18 @@ const ScreenDetails = () => {
     setDeleteModal(false);
     await deleteScreen(id);
     history.push("/display");
+  };
+
+  const handleQuickPlay = async () => {
+    setDeleteModal(false);
+  };
+
+  const handleWindows = async () => {
+    setWindowsModal(false);
+  };
+
+  const handleUpdate = async () => {
+    setWindowsModal(false);
   };
   const defaultAccordion = [
     {
@@ -275,6 +293,9 @@ const ScreenDetails = () => {
         <Button
           className="edit-screen-btn d-flex align-items-center"
           variant="outline-light"
+          onClick={() => {
+            setUpdateModal(true);
+          }}
         >
           Edit Screen{" "}
           <span className="btn-icon-right">
@@ -299,7 +320,9 @@ const ScreenDetails = () => {
 
             <Button
               className="ml-2 screen-icon-btn btn btn-primary"
-              variant="primary"
+              variant="primary" onClick={() => {
+                setQuickPlayModal(true);
+              }}
             >
               <img
                 className="dropdown-list-img-icon img-fluid"
@@ -309,7 +332,10 @@ const ScreenDetails = () => {
             </Button>
             <Button
               className="ml-2 screen-icon-btn btn btn-primary"
-              variant="primary"
+              variant="primary" 
+              onClick={() => {
+                setWindowsModal(true);
+              }}
             >
               <img
                 className="dropdown-list-img-icon img-fluid screenshot-icon"
@@ -395,6 +421,24 @@ const ScreenDetails = () => {
             />
           )}
         </div>
+
+        <QuickPlayModal
+        showQuickPlayModal={showQuickPlayModal}
+              setQuickPlayModal={setQuickPlayModal}
+              handleQuickPlay={handleQuickPlay}
+            />
+
+<WindowsModal
+        showWindowsModal={showWindowsModal}
+        setWindowsModal={setWindowsModal}
+              handleWindows={handleWindows}
+            />
+
+<UpdateModal
+        showUpdateModal={showUpdateModal}
+        setUpdateModal={setUpdateModal}
+              handleUpdate={handleUpdate}
+            />
       </div>
     </>
   );
