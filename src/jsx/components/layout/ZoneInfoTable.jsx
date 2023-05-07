@@ -1,11 +1,41 @@
 import React from "react";
 import { Table } from "react-bootstrap";
-import downArrow from "../../../img/down-arrow.png";
+
 import avatarImg from "../../../img/assets-avatar-img.png";
 import editBtnImg from "../../../img/edit-btn.png";
 import deleteBtnImg from "../../../img/delete-btn.png";
+import { BASE_URL } from "../../../utils/api";
+const ZoneInfoTable = ({ compositions,setCompositions }) => {
+  const videoMetaDuration = (media)=>{
+    return JSON.parse(media.properties).length.toFixed(0)/60
+   }
 
-const ZoneInfoTable = () => {
+  const handleChange = (event,composition) => {
+    const newValue = event.target.value.replace(/[^\d]/g, '');
+
+      setCompositions((prev) => {      
+        const updateMedia = prev.map((val)=>{
+            if(val.id === composition.id){
+              val.duration = newValue;
+            }
+            return val;
+        });
+        return [...updateMedia];
+      });
+
+  };
+
+  const Duration = (composition)=>{
+    
+    return(  <div className="tag-container mediaDUrationTag"> <input onChange={(event)=>{ handleChange(event,composition)}}  value={Number(composition.duration)} disabled={composition.type === 'video'}/><span>sec</span></div>)
+  }
+  const TotalDuration = ()=>{
+    let total  =  0;
+    compositions.forEach(composition => {
+      total += Number(composition.duration);
+    });
+    return total.toFixed(0);
+  }
   return (
     <>
       <Table
@@ -19,38 +49,51 @@ const ZoneInfoTable = () => {
                 <span className="yellow-box"></span>
                 <span className="zone-section d-flex flex-column">
                   <span className="zone">Zone 1</span>
-                  <span className="duration">Duration : 10 sec</span>
+                  <span className="duration">Duration : {TotalDuration()} sec</span>
                 </span>
               </span>
             </th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1.</td>
-            <td>
-              <span class="td-content d-flex name-td-content">
-                <span class="name-img mr-2">
-                  <img className="search-icon" src={avatarImg} alt="search" />
-                </span>
-                <span class="name-content d-flex flex-column flex-grow-1">
-                  <strong>My_image_name</strong>
-                  <span>Added by Gauri Batra</span>
-                </span>
-              </span>
-            </td>
-            <td style={{ width: "180px" }}>
-              <span className="tag-container">10sec</span>
-            </td>
-            <td>
-              <span className="layout-edit-btn mr-2">
-                <img className="edit-icon" src={editBtnImg} alt="search" />
-              </span>
-              <span className="layout-edit-btn">
-                <img className="edit-icon" src={deleteBtnImg} alt="search" />
-              </span>
-            </td>
-          </tr>
+          {compositions.map((composition, index) => {
+            return (
+              <tr key={composition.id}>
+                <td>{index + 1}.</td>
+                <td>
+                    <span className="td-content d-flex name-td-content">
+                      <span className={`name-img mr-2  ${composition.type === "video" && "videotableName"}`}>
+                      {composition.type === "image" && <img
+                          className="media-img img-fluid"
+                          src={`${BASE_URL}${composition.title}`}
+                          alt="media-img"
+                        />}
+                         {composition.type === "video" && composition.duration}
+                      </span>
+                      <span className="name-content d-flex flex-column flex-grow-1">
+                        <strong>{composition.title.split("/")[composition.title.split("/").length -1]}</strong>
+                        <span>{composition.createdBy.name}</span>
+                      </span>
+                    </span>
+                  </td>
+                <td style={{ width: "180px" }}>
+                { Duration(composition)}
+                </td>
+                <td>
+                  <span className="layout-edit-btn mr-2">
+                    <img className="edit-icon" src={editBtnImg} alt="search" />
+                  </span>
+                  <span className="layout-edit-btn">
+                    <img
+                      className="edit-icon"
+                      src={deleteBtnImg}
+                      alt="search"
+                    />
+                  </span>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </Table>
     </>

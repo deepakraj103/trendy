@@ -49,7 +49,7 @@ const Markup = () => {
     // {url: "web-player", component: Webplayer},
     {url: "display/:id", component: ScreenDetails},
   ]
-
+console.log(path)
   return (
        <> 
           <div

@@ -63,7 +63,7 @@ export async function addMedia(formData) {
   );
 }
 export async function deleteMedia(id) {
-  const response = await fetchClient.delete(
+  await fetchClient.delete(
     `${BASE_URL}/vendor/display/media?mediaId=${id}`
   );
 }
@@ -86,4 +86,12 @@ export async function  deleteScreen(id) {
     `${BASE_URL}/vendor/display/screen?screenId=${id}`
   );
 }
+
+export async function  getLayouts() {
+  const response =  await fetchClient.get(
+    `${BASE_URL}/vendor/layouts`
+  );
+  return response.data.data;
+}
+
 

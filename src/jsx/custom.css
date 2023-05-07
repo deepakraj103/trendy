@@ -2297,3 +2297,34 @@ img.single-time-zone {
   width: 100%;
   object-fit: contain;
 }
+.videotableName {
+    background: black;
+    color: white !important;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+.mediaDUrationTag{
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  width: 60%;
+  align-items: center;
+}
+
+.mediaDUrationTag input{
+  width: 40px;
+    text-align: center;
+    border: none;
+    border-radius: 1rem;
+    transition: all 0.3s;
+    font-weight: 300;
+    color: #1e3131;
+    font-size: 14px;
+    height: 30px;
+    float: left;
+    padding: 0 3px;
+    box-shadow: none !important;
+    height: 24.3px !important;
+}

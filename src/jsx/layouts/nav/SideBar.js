@@ -53,11 +53,12 @@ class SideBar extends Component {
     let path = window.location.pathname;
     path = path.split("/");
     path = path[path.length - 1];
+
     /// Active menu
     let screen = [
         "", "display",
       ], media = ['assets'],
-      layout = ['layout'],
+      layout = ['layout','chooselayout','createcomposition'],
       push = ['push'],
       integrations = ['integrations'],
       reports = ['reports'],
