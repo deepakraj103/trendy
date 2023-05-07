@@ -12,7 +12,6 @@ const ZoneInfoTable = ({ compositions,setCompositions }) => {
 
   const handleChange = (event,composition) => {
     const newValue = event.target.value.replace(/[^\d]/g, '');
-
       setCompositions((prev) => {      
         const updateMedia = prev.map((val)=>{
             if(val.id === composition.id){
@@ -22,12 +21,10 @@ const ZoneInfoTable = ({ compositions,setCompositions }) => {
         });
         return [...updateMedia];
       });
-
   };
 
   const Duration = (composition)=>{
-    
-    return(  <div className="tag-container mediaDUrationTag"> <input onChange={(event)=>{ handleChange(event,composition)}}  value={Number(composition.duration)} disabled={composition.type === 'video'}/><span>sec</span></div>)
+    return(  <div className="tag-container mediaDUrationTag"> <input onChange={(event)=>{ handleChange(event,composition)}}  value={Number(composition.duration).toFixed(0)} disabled={composition.type === 'video'}/><span>sec</span></div>)
   }
   const TotalDuration = ()=>{
     let total  =  0;
@@ -35,6 +32,12 @@ const ZoneInfoTable = ({ compositions,setCompositions }) => {
       total += Number(composition.duration);
     });
     return total.toFixed(0);
+  }
+  const removeComposition =(composition)=>{
+    setCompositions((prev) => {      
+      const updateMedia = prev.filter((val)=> val.id !== composition.id);
+      return [...updateMedia];
+    });
   }
   return (
     <>
@@ -68,7 +71,7 @@ const ZoneInfoTable = ({ compositions,setCompositions }) => {
                           src={`${BASE_URL}${composition.title}`}
                           alt="media-img"
                         />}
-                         {composition.type === "video" && composition.duration}
+                         {composition.type === "video" && composition.duration.toFixed(0)/60}
                       </span>
                       <span className="name-content d-flex flex-column flex-grow-1">
                         <strong>{composition.title.split("/")[composition.title.split("/").length -1]}</strong>
@@ -80,12 +83,12 @@ const ZoneInfoTable = ({ compositions,setCompositions }) => {
                 { Duration(composition)}
                 </td>
                 <td>
-                  <span className="layout-edit-btn mr-2">
-                    <img className="edit-icon" src={editBtnImg} alt="search" />
+                  <span className="layout-edit-btn mr-2 ">
+                    <img className="edit-icon cursorPointer" src={editBtnImg} alt="search" />
                   </span>
-                  <span className="layout-edit-btn">
+                  <span className="layout-edit-btn " onClick={()=>{removeComposition(composition)}}>
                     <img
-                      className="edit-icon"
+                      className="edit-icon cursorPointer"
                       src={deleteBtnImg}
                       alt="search"
                     />

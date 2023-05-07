@@ -1940,6 +1940,9 @@ button#Fullscreen {
 .tag-added {
   cursor: pointer;
 }
+.cursorPointer{
+  cursor: pointer;
+}
 .tag-added img {
   width: 25px;
   height: 25px;
