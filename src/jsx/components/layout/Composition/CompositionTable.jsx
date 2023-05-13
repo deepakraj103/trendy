@@ -1,6 +1,6 @@
 import React from "react";
 import { Table } from "react-bootstrap";
-import { BASE_URL } from "../../../utils/api";
+import { BASE_URL } from "../../../../utils/api";
 
 const CompositionTable = ({allMedia,addComposition}) => {
 

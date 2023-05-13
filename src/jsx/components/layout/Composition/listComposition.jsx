@@ -1,26 +1,25 @@
 import React, { useState } from "react";
 import { Table, Dropdown } from "react-bootstrap";
-import AddNewTagModal from "../../modals/AddNewTagModal";
-import downArrow from "../../../img/down-arrow.png";
-import menuIcon from "../../../img/menu-icon.png";
-import veiwDetailIcon from "../../../img/view-detail-icon.png";
-import defaultComparisonIcon from "../../../img/default-comparison-icon.png";
-import assignIcon from "../../../img/assign-icon.png";
-import takeScreenshotIcon from "../../../img/tack-screenshot-icon.png";
-import edit from "../../../img/edit-composition.png";
-import deleteIcon from "../../../img/delete-icon.png";
-
+import AddNewTagModal from "../../../modals/AddNewTagModal";
+import downArrow from "../../../../img/down-arrow.png";
+import menuIcon from "../../../../img/menu-icon.png";
+import veiwDetailIcon from "../../../../img/view-detail-icon.png";
+import defaultComparisonIcon from "../../../../img/default-comparison-icon.png";
+import assignIcon from "../../../../img/assign-icon.png";
+import takeScreenshotIcon from "../../../../img/tack-screenshot-icon.png";
+import edit from "../../../../img/edit-composition.png";
+import deleteIcon from "../../../../img/delete-icon.png";
 
 import { Link } from "react-router-dom";
-import { deleteCompositionById } from "../../../utils/api";
+import { deleteCompositionById } from "../../../../utils/api";
 
-const ListComposition = ({ allComposition , mutate}) => {
+const ListComposition = ({ allComposition, mutate }) => {
   const [showNewTagModal, setNewTagModal] = useState(false);
   const [selectedScreen, setSelectedScreen] = useState("");
-  const deleteComposition =async (composition)=>{
-   await  deleteCompositionById(composition._id);
-   mutate();
-  }
+  const deleteComposition = async (composition) => {
+    await deleteCompositionById(composition._id);
+    mutate();
+  };
   return (
     <>
       <Table responsive className="custom-table screen-table">
@@ -35,17 +34,13 @@ const ListComposition = ({ allComposition , mutate}) => {
           </tr>
         </thead>
         <tbody>
-          {allComposition  &&
-          allComposition.map((composition) => {
+          {allComposition &&
+            allComposition.map((composition) => {
               return (
                 <tr id={composition._id}>
                   <td>
                     <span className="td-content">
-                      <strong>
-                        
-                          {composition.name}
-
-                      </strong>
+                      <strong>{composition.name}</strong>
                       {/* <span>{screen.screenLocation}</span> */}
                     </span>
                   </td>
@@ -62,13 +57,14 @@ const ListComposition = ({ allComposition , mutate}) => {
                   <td>No Schedule</td>
                   <td style={{ width: "180px" }}>
                     <span className="tag-container">
-                      {composition.tags && composition.tags.map((tag) => {
-                        return (
-                          <span className="my-phone-tag text-truncate ml-1 mr-1 mb-1">
-                            {tag}
-                          </span>
-                        );
-                      })}
+                      {composition.tags &&
+                        composition.tags.map((tag) => {
+                          return (
+                            <span className="my-phone-tag text-truncate ml-1 mr-1 mb-1">
+                              {tag}
+                            </span>
+                          );
+                        })}
                     </span>
 
                     <span
@@ -98,25 +94,21 @@ const ListComposition = ({ allComposition , mutate}) => {
                       </Dropdown.Toggle>
                       <Dropdown.Menu>
                         <Dropdown.Item href="#" className="dropdown-list-item">
-                          
-                            <div className="d-flex">
-                              <div className="dropdown-list-icon">
-                                <img
-                                  className="dropdown-list-img img-fluid"
-                                  src={veiwDetailIcon}
-                                  alt="menu-icon"
-                                />
-                              </div>
-                              <div className="dropdown-menu-list">
-                                <span className="menu-heading">
-                                  View Details
-                                </span>
-                                <span className="menu-description">
-                                  Get to know more about screen info
-                                </span>
-                              </div>
+                          <div className="d-flex">
+                            <div className="dropdown-list-icon">
+                              <img
+                                className="dropdown-list-img img-fluid"
+                                src={veiwDetailIcon}
+                                alt="menu-icon"
+                              />
                             </div>
-                          
+                            <div className="dropdown-menu-list">
+                              <span className="menu-heading">View Details</span>
+                              <span className="menu-description">
+                                Get to know more about screen info
+                              </span>
+                            </div>
+                          </div>
                         </Dropdown.Item>
                         <Dropdown.Item href="#" className="dropdown-list-item">
                           <div className="d-flex">
@@ -157,28 +149,22 @@ const ListComposition = ({ allComposition , mutate}) => {
                           </div>
                         </Dropdown.Item>
                         <Dropdown.Item href="#" className="dropdown-list-item">
-                        <Link
-                            to={{
-                              pathname: `/composition/edit?id=${composition._id}`,
-                            }}
-                          >
-                          <div className="d-flex">
-                            <div className="dropdown-list-icon">
-                              <img
-                                className="dropdown-list-img img-fluid"
-                                src={edit }
-                                alt="menu-icon"
-                              />
+                          <Link to={`/composition/edit?id=${composition._id}`}>
+                            <div className="d-flex">
+                              <div className="dropdown-list-icon">
+                                <img
+                                  className="dropdown-list-img img-fluid"
+                                  src={edit}
+                                  alt="menu-icon"
+                                />
+                              </div>
+                              <div className="dropdown-menu-list">
+                                <span className="menu-heading">Edit</span>
+                                <span className="menu-description">
+                                  Make changes to this composition
+                                </span>
+                              </div>
                             </div>
-                            <div className="dropdown-menu-list">
-                              <span className="menu-heading">
-                                Edit
-                              </span>
-                              <span className="menu-description">
-                              Make changes to this composition
-                              </span>
-                            </div>
-                          </div>
                           </Link>
                         </Dropdown.Item>
                         <Dropdown.Item href="#" className="dropdown-list-item">
@@ -191,18 +177,20 @@ const ListComposition = ({ allComposition , mutate}) => {
                               />
                             </div>
                             <div className="dropdown-menu-list">
-                              <span className="menu-heading">
-                              Duplicate
-                              </span>
+                              <span className="menu-heading">Duplicate</span>
                               <span className="menu-description">
-                              Create duplicate of your composition
+                                Create duplicate of your composition
                               </span>
                             </div>
                           </div>
                         </Dropdown.Item>
-                        <Dropdown.Item href="#" className="dropdown-list-item" onClick={()=>{
-                          deleteComposition(composition);
-                        }}>
+                        <Dropdown.Item
+                          href="#"
+                          className="dropdown-list-item"
+                          onClick={() => {
+                            deleteComposition(composition);
+                          }}
+                        >
                           <div className="d-flex">
                             <div className="dropdown-list-icon">
                               <img
@@ -211,13 +199,11 @@ const ListComposition = ({ allComposition , mutate}) => {
                                 alt="menu-icon"
                               />
                             </div>
-                            
+
                             <div className="dropdown-menu-list">
-                              <span className="menu-heading">
-                                Delete
-                              </span>
+                              <span className="menu-heading">Delete</span>
                               <span className="menu-description">
-                              Permanently delete this composition
+                                Permanently delete this composition
                               </span>
                             </div>
                           </div>

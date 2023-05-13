@@ -1,9 +1,9 @@
 import React from "react";
 import { Table } from "react-bootstrap";
 
-import editBtnImg from "../../../img/edit-btn.png";
-import deleteBtnImg from "../../../img/delete-btn.png";
-import { BASE_URL } from "../../../utils/api";
+import editBtnImg from "../../../../img/edit-btn.png";
+import deleteBtnImg from "../../../../img/delete-btn.png";
+import { BASE_URL } from "../../../../utils/api";
 const ZoneInfoTable = ({ compositions,setCompositions }) => {
 
   const handleChange = (event,composition) => {
@@ -29,9 +29,10 @@ const ZoneInfoTable = ({ compositions,setCompositions }) => {
     });
     return total.toFixed(0);
   }
-  const removeComposition =(composition)=>{
+  const removeComposition =(index)=>{
+
     setCompositions((prev) => {      
-      const updateMedia = prev.filter((val)=> val.id !== composition.id);
+      const updateMedia = prev.filter((val,key)=> key !== index);
       return [...updateMedia];
     });
   }
@@ -82,7 +83,7 @@ const ZoneInfoTable = ({ compositions,setCompositions }) => {
                   <span className="layout-edit-btn mr-2 ">
                     <img className="edit-icon cursorPointer" src={editBtnImg} alt="search" />
                   </span>
-                  <span className="layout-edit-btn " onClick={()=>{removeComposition(composition)}}>
+                  <span className="layout-edit-btn " onClick={()=>{removeComposition(index)}}>
                     <img
                       className="edit-icon cursorPointer"
                       src={deleteBtnImg}

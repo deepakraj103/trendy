@@ -61,9 +61,13 @@ const SaveCompositionName = ({
               variant=""
               type="button"
               className="btn btn-primary btn-block primary-btn"
-              onClick={() => saveComposition()}
+              onClick={() =>{
+                if(name.length){
+                  saveComposition()
+                }
+              }}
             >
-              Add Screen
+              Save
             </Button>
           </Col>
         </Row>

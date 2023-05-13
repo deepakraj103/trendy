@@ -6,7 +6,7 @@ import emptyMediaImg from "../../../img/layout-img.png";
 import { Link } from "react-router-dom";
 import useSWR from 'swr'
 import { getAllComposition } from "../../../utils/api";
-import ListComposition from "./listComposition";
+import ListComposition from "./Composition/listComposition";
 const Layout = () => {
   const { data: allComposition, mutate } = useSWR('/vendor/layouts/compositions', getAllComposition);
 

@@ -106,7 +106,19 @@ export async function postComposition(postData) {
       `${BASE_URL}/vendor/layouts/composition`,
       postData
     );
-    console.log(response)
+    return response.data.statusCode === 200;
+  } catch (error) {
+    return false;
+  }
+}
+
+export async function putComposition(postData) {
+
+  try {
+    const response = await fetchClient.put(
+      `${BASE_URL}/vendor/layouts/composition`,
+      postData
+    );
     return response.data.statusCode === 200;
   } catch (error) {
     return false;
@@ -117,6 +129,11 @@ export async function deleteCompositionById(id) {
   await fetchClient.delete(
     `${BASE_URL}/vendor/layouts/composition?compositionId=${id}`
   );
+}
+
+export async function getCompositionById(url) {
+  const response = await fetchClient.get(BASE_URL + `${url}`);
+  return response.data.data;
 }
 
 

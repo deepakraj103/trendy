@@ -1,32 +1,29 @@
 import React, { useState } from "react";
 import { Button, Row, Col } from "react-bootstrap";
-import searchIcon from "../../../img/search.png";
-import listIcon from "../../../img/list-icon.png";
-import emptyMediaImg from "../../../img/layout-img.png";
+import searchIcon from "../../../../img/search.png";
+import listIcon from "../../../../img/list-icon.png";
 import CompositionTable from "./CompositionTable";
 import ZoneInfoTable from "./ZoneInfoTable";
 import useSWR from "swr";
-import { getAllMedia, BASE_URL, postComposition } from "../../../utils/api";
-import UploadMediaModal from "../../modals/UploadMediaFileModal";
-import { v4 as uuidv4 } from "uuid";
-import PreviewComposition from "../../modals/previewComposition";
-import { useLocation, useHistory } from "react-router-dom";
-import SaveCompositionName from "../../modals/saveCompositionName";
-const CreateComposition = () => {
+import { getAllMedia,  postComposition, putComposition } from "../../../../utils/api";
+
+import PreviewComposition from "../../../modals/previewComposition";
+import {useHistory } from "react-router-dom";
+import SaveCompositionName from "../../../modals/saveCompositionName";
+import UploadMediaModal from "../../../modals/UploadMediaFileModal";
+const CommonComposition = ({type,layoutId, composition}) => {
   const [showUploadMediaModal, setUploadMediaModal] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
-  const [name, setName] = useState("");
+  const [name, setName] = useState(composition? composition.name : "");
   const [namePopUp, setOpenNamePopUp] = useState(false);
 
-  const [compositions, setCompositions] = useState([]);
+  const [compositions, setCompositions] = useState(composition? composition.zones[0].content : []);
   const { data: allMedia, mutate } = useSWR(
     "/vendor/display/media",
     getAllMedia
   );
-  const location = useLocation();
   const history = useHistory();
-  const queryParams = new URLSearchParams(location.search);
-  const id = queryParams.get('id');
+  
   const addComposition = (media) => {
     setCompositions((prev) => {   
       const meta = JSON.parse(media.properties);
@@ -45,7 +42,9 @@ const CreateComposition = () => {
   const saveComposition = async ()=>{
   const data =   {
       name: name,
-      layoutId: id,
+      ...(layoutId && { layoutId: layoutId }),
+      ...(composition && { compositionId: composition._id
+      }),
       zones: [
         {
           name: "zone1",
@@ -61,8 +60,13 @@ const CreateComposition = () => {
         "image4.jpg"
     ]
   }
- await postComposition(data);
- history.push("/layout");
+  if(type === "create"){
+    await postComposition(data);
+  } else {
+    await putComposition(data)
+  }
+
+  history.push("/layout");
 }
   const TotalDuration = ()=>{
     let total  =  0;
@@ -75,13 +79,14 @@ const CreateComposition = () => {
     return compositions.map((item) => {
 
       delete item["createdBy"];
+      delete item["_id"];
       return item;
     });
   }
   return (
     <>
       <div className="custom-content-heading d-flex flex-wrap">
-        <h1 className="mr-auto">Create Compostition</h1>
+        <h1 className="mr-auto">{type === "edit"? "Edit Compostition": "Create Compostition" }</h1>
         <div className="preview-composition d-flex flex-wrap">
           <Button onClick={()=>{
             if(compositions.length){
@@ -101,6 +106,7 @@ const CreateComposition = () => {
           </Button>
         </div>
       </div>
+
       <div className="form-head d-flex mb-3 align-items-start">
         <Button
           className="mr-2"
@@ -128,23 +134,6 @@ const CreateComposition = () => {
           </Button>
         </div>
       </div>
-
-      {/* Empty Layout */}
-      {/* <div className="empty-media text-center">
-        <div class="empty-media-img layout-empty-img mx-auto">
-          <img
-            className="media-img img-fluid"
-            src={emptyMediaImg}
-            alt="media-img"
-          />
-        </div>
-        <h3>Add Composition</h3>
-        <p>
-          Add Media files to composition, Lorem ipsum dolor is a dummy <br />{" "}
-          text. Dummy text.
-        </p>
-      </div> */}
-
       <div className="custom-comp-table flex-1">
         <Row className="h-100">
           <Col lg="6" md="6" sm="6" xs="12" className="pr-0 border-col">
@@ -169,4 +158,4 @@ const CreateComposition = () => {
   );
 };
 
-export default CreateComposition;
+export default CommonComposition;
