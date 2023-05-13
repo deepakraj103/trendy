@@ -2331,3 +2331,7 @@ img.single-time-zone {
     box-shadow: none !important;
     height: 24.3px !important;
 }
+
+.custom-modal-preview  .modal-body{
+  padding: 0;
+}

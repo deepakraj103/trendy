@@ -6,11 +6,13 @@ import emptyMediaImg from "../../../img/layout-img.png";
 import CompositionTable from "./CompositionTable";
 import ZoneInfoTable from "./ZoneInfoTable";
 import useSWR from "swr";
-import { getAllMedia } from "../../../utils/api";
+import { getAllMedia, BASE_URL } from "../../../utils/api";
 import UploadMediaModal from "../../modals/UploadMediaFileModal";
 import { v4 as uuidv4 } from "uuid";
+import PreviewComposition from "../../modals/previewComposition";
 const CreateComposition = () => {
   const [showUploadMediaModal, setUploadMediaModal] = useState(false);
+  const [showPreview, setShowPreview] = useState(false);
   const [compositions, setCompositions] = useState([]);
   const { data: allMedia, mutate } = useSWR(
     "/vendor/display/media",
@@ -22,7 +24,7 @@ const CreateComposition = () => {
       const content = {
           id:uuidv4(),
           title: media.title,
-          url: media.url,
+          url: `${BASE_URL}${media.title}`,
           type: media.type,
           maintainAspectRatio: false,
           fitToScreen: true,
@@ -39,7 +41,12 @@ const CreateComposition = () => {
       <div className="custom-content-heading d-flex flex-wrap">
         <h1 className="mr-auto">Create Compostition</h1>
         <div className="preview-composition d-flex flex-wrap">
-          <Button className="mr-2 preview-btn" variant="info">
+          <Button onClick={()=>{
+            if(compositions.length){
+              setShowPreview(true)
+            }
+            
+          }} className="mr-2 preview-btn" variant="info" disabled={!compositions.length}>
             Preview
           </Button>
           <Button className="save-composition-btn" variant="info">
@@ -108,6 +115,8 @@ const CreateComposition = () => {
           setUploadMediaModal={setUploadMediaModal}
           callAllMediaApi={mutate}
         />
+        {showPreview && <PreviewComposition setShowPreview={setShowPreview} compositions={compositions}/>}
+
       </div>
     </>
   );

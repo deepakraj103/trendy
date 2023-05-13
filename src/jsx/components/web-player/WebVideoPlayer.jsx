@@ -24,11 +24,10 @@ const WebVideoPlayer = (props) => {
 
   useEffect(() => {
     if (playerRef.current) {
-        console.log("playerRef.current.src", playerRef.current.src)
       playerRef.current.src({ src: props.src });
     }
   }, [props.src]);
-
+console.log(props)
   return (
     <div>
       <video ref={videoRef} className="video-js" />

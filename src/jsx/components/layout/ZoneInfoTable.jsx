@@ -1,14 +1,10 @@
 import React from "react";
 import { Table } from "react-bootstrap";
 
-import avatarImg from "../../../img/assets-avatar-img.png";
 import editBtnImg from "../../../img/edit-btn.png";
 import deleteBtnImg from "../../../img/delete-btn.png";
 import { BASE_URL } from "../../../utils/api";
 const ZoneInfoTable = ({ compositions,setCompositions }) => {
-  const videoMetaDuration = (media)=>{
-    return JSON.parse(media.properties).length.toFixed(0)/60
-   }
 
   const handleChange = (event,composition) => {
     const newValue = event.target.value.replace(/[^\d]/g, '');
