@@ -22,6 +22,12 @@ export async function getAllMedia() {
   const response = await fetchClient.get(BASE_URL + `/vendor/display/media`);
   return response.data.data.media;
 }
+export async function getAllComposition() {
+  const response = await fetchClient.get(BASE_URL + `/vendor/layouts/compositions`);
+
+  return response.data.data;
+}
+
 
 export function addScreen(data) {
   return fetchClient.post(`${BASE_URL}/vendor/display/screen`, data);
@@ -93,5 +99,26 @@ export async function  getLayouts() {
   );
   return response.data.data;
 }
+export async function postComposition(postData) {
+
+  try {
+    const response = await fetchClient.post(
+      `${BASE_URL}/vendor/layouts/composition`,
+      postData
+    );
+    console.log(response)
+    return response.data.statusCode === 200;
+  } catch (error) {
+    return false;
+  }
+}
+
+export async function deleteCompositionById(id) {
+  await fetchClient.delete(
+    `${BASE_URL}/vendor/layouts/composition?compositionId=${id}`
+  );
+}
+
+
 
 

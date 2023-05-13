@@ -6,36 +6,78 @@ import emptyMediaImg from "../../../img/layout-img.png";
 import CompositionTable from "./CompositionTable";
 import ZoneInfoTable from "./ZoneInfoTable";
 import useSWR from "swr";
-import { getAllMedia, BASE_URL } from "../../../utils/api";
+import { getAllMedia, BASE_URL, postComposition } from "../../../utils/api";
 import UploadMediaModal from "../../modals/UploadMediaFileModal";
 import { v4 as uuidv4 } from "uuid";
 import PreviewComposition from "../../modals/previewComposition";
+import { useLocation, useHistory } from "react-router-dom";
+import SaveCompositionName from "../../modals/saveCompositionName";
 const CreateComposition = () => {
   const [showUploadMediaModal, setUploadMediaModal] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
+  const [name, setName] = useState("");
+  const [namePopUp, setOpenNamePopUp] = useState(false);
+
   const [compositions, setCompositions] = useState([]);
   const { data: allMedia, mutate } = useSWR(
     "/vendor/display/media",
     getAllMedia
   );
+  const location = useLocation();
+  const history = useHistory();
+  const queryParams = new URLSearchParams(location.search);
+  const id = queryParams.get('id');
   const addComposition = (media) => {
     setCompositions((prev) => {   
       const meta = JSON.parse(media.properties);
       const content = {
-          id:uuidv4(),
-          title: media.title,
-          url: `${BASE_URL}${media.title}`,
+          url: `${media.title}`,
           type: media.type,
           maintainAspectRatio: false,
           fitToScreen: true,
           crop: false,
           duration: meta.length ? meta.length : 10,
-          createdBy: media.createdBy
+          createdBy: media.createdBy.name
       }
       return [...prev, { ...content }];
     });
   };
+  const saveComposition = async ()=>{
+  const data =   {
+      name: name,
+      layoutId: id,
+      zones: [
+        {
+          name: "zone1",
+          zoneId: "644a4d31c8a17ed73a5e3769",
+          content:  removeCreatedBy()
+        }
+      ],
+      duration: TotalDuration(), 
+      referenceUrl: [
+        "image.jpg",
+        "image2.jpg",
+        "imag3.jpg",
+        "image4.jpg"
+    ]
+  }
+ await postComposition(data);
+ history.push("/layout");
+}
+  const TotalDuration = ()=>{
+    let total  =  0;
+    compositions.forEach(composition => {
+      total += Number(composition.duration);
+    });
+    return total.toFixed(0);
+  }
+  function removeCreatedBy() {
+    return compositions.map((item) => {
 
+      delete item["createdBy"];
+      return item;
+    });
+  }
   return (
     <>
       <div className="custom-content-heading d-flex flex-wrap">
@@ -49,7 +91,12 @@ const CreateComposition = () => {
           }} className="mr-2 preview-btn" variant="info" disabled={!compositions.length}>
             Preview
           </Button>
-          <Button className="save-composition-btn" variant="info">
+          <Button onClick={()=>{
+            if(compositions.length){
+             setOpenNamePopUp(true)
+            }
+
+          }} className="save-composition-btn" variant="info">
             Save Composition
           </Button>
         </div>
@@ -116,7 +163,7 @@ const CreateComposition = () => {
           callAllMediaApi={mutate}
         />
         {showPreview && <PreviewComposition setShowPreview={setShowPreview} compositions={compositions}/>}
-
+        {namePopUp && <SaveCompositionName setModalState={setOpenNamePopUp} saveComposition={saveComposition} name={name} setName={setName} />}
       </div>
     </>
   );

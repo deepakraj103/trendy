@@ -64,14 +64,14 @@ const ZoneInfoTable = ({ compositions,setCompositions }) => {
                       <span className={`name-img mr-2  ${composition.type === "video" && "videotableName"}`}>
                       {composition.type === "image" && <img
                           className="media-img img-fluid"
-                          src={`${BASE_URL}${composition.title}`}
+                          src={`${BASE_URL}${composition.url}`}
                           alt="media-img"
                         />}
                          {composition.type === "video" && composition.duration.toFixed(0)/60}
                       </span>
                       <span className="name-content d-flex flex-column flex-grow-1">
-                        <strong>{composition.title.split("/")[composition.title.split("/").length -1]}</strong>
-                        <span>{composition.createdBy.name}</span>
+                        <strong>{composition.url.split("/")[composition.url.split("/").length -1]}</strong>
+                        <span>{composition.createdBy}</span>
                       </span>
                     </span>
                   </td>

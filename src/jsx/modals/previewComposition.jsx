@@ -2,19 +2,14 @@ import { Button, Modal } from "react-bootstrap";
 import cancelIcon from "../../img/cancel-icon.png";
 import { useEffect, useRef, useState } from "react";
 import WebVideoPlayer from "../components/web-player/WebVideoPlayer";
-
+import { BASE_URL } from "../../utils/api";
 const PreviewComposition = ({ setShowPreview, compositions }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const ref = useRef(true);
   const  timeoutRef =useRef("");;
-  const [timeoutId, setTimeoutId] = useState(null);
-
   useEffect(() => {
     if (compositions[currentIndex + 1]) {
       const timeoutDuration = compositions[currentIndex].duration * 1000;
-      console.log("currentIndex", currentIndex, timeoutDuration)
         timeoutRef.current = setTimeout(() => {
-          console.log("iside",currentIndex);
           setCurrentIndex((currentIndex) => currentIndex + 1);
         }, timeoutDuration);
     }
@@ -24,12 +19,12 @@ const PreviewComposition = ({ setShowPreview, compositions }) => {
 
   return (
     <Modal
-      className="fade bd-example-modal-lg mt-4 custom-modal custom-modal-preview"
+      className="fade bd-example-modal-lg mt-4 custom-modal custom-modal-large custom-modal-preview"
       show={true}
       size="xl"
     >
       <Modal.Header>
-        {/* <Modal.Title className="mr-auto">Upload Media Files</Modal.Title> */}
+        <Modal.Title className="mr-auto">Preview</Modal.Title>
         <Button
           variant=""
           className="close"
@@ -43,20 +38,15 @@ const PreviewComposition = ({ setShowPreview, compositions }) => {
             <div className="basic-list-group image-preview-container media-content">
               <img
                 className="webplayer-preview-img"
-                src={compositions[currentIndex].url}
+               
+                src= {`${BASE_URL}${compositions[currentIndex].url}`}
                 alt="media-img"
               />
             </div>
           )}
           {compositions[currentIndex] &&  compositions[currentIndex].type === "video" && (
             <div className="basic-list-group video-container media-content">
-            <WebVideoPlayer src={compositions[currentIndex].url}></WebVideoPlayer>
-              {/* <video
-                title="video"
-                width="100%"
-                height="440px"
-                src={}
-              ></video> */}
+            <WebVideoPlayer src= {`${BASE_URL}${compositions[currentIndex].url}`}></WebVideoPlayer>
             </div>
           )}</Modal.Body>
           <Modal.Footer>

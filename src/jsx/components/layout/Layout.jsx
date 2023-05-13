@@ -4,8 +4,12 @@ import searchIcon from "../../../img/search.png";
 import listIcon from "../../../img/list-icon.png";
 import emptyMediaImg from "../../../img/layout-img.png";
 import { Link } from "react-router-dom";
-
+import useSWR from 'swr'
+import { getAllComposition } from "../../../utils/api";
+import ListComposition from "./listComposition";
 const Layout = () => {
+  const { data: allComposition, mutate } = useSWR('/vendor/layouts/compositions', getAllComposition);
+
   return (
     <div>
       <div className="custom-content-heading d-flex flex-wrap">
@@ -36,8 +40,7 @@ const Layout = () => {
           </Button>
         </div>
       </div>
-
-      <div className="empty-media text-center">
+      {!allComposition &&   <div className="empty-media text-center">
         <div class="empty-media-img layout-empty-img mx-auto">
           <img
             className="media-img img-fluid"
@@ -50,7 +53,10 @@ const Layout = () => {
           Add Media files to composition, Lorem ipsum dolor is a dummy <br />{" "}
           text. Dummy text.
         </p>
-      </div>
+      </div>}
+    
+      {allComposition && <ListComposition allComposition={allComposition}  mutate={mutate}/>}
+      
     </div>
   );
 };
