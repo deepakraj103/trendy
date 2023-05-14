@@ -7,12 +7,10 @@ const EditComposition = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const id = queryParams.get('id');
-
   const fetcher = (url) => getCompositionById(url);
-
   const { data: composition  } = useSWR(id ? `/vendor/layouts/composition?compositionId=${id}` : null, fetcher);
-
- return (<>{composition && <CommonComposition type="edit" composition={composition}/>}</>)
+  const layout = composition ? composition.layout : {};
+  return (<>{composition && <CommonComposition type="edit" layout={layout} composition={composition}/>}</>)
 };
 
 export default EditComposition;

@@ -1,33 +1,33 @@
 import React, { useState } from "react";
+import useSWR from "swr";
 import { Button, Row, Col } from "react-bootstrap";
 import searchIcon from "../../../../img/search.png";
 import listIcon from "../../../../img/list-icon.png";
 import CompositionTable from "./CompositionTable";
 import ZoneInfoTable from "./ZoneInfoTable";
-import useSWR from "swr";
+
 import { getAllMedia,  postComposition, putComposition } from "../../../../utils/api";
 
 import PreviewComposition from "../../../modals/previewComposition";
 import {useHistory } from "react-router-dom";
 import SaveCompositionName from "../../../modals/saveCompositionName";
 import UploadMediaModal from "../../../modals/UploadMediaFileModal";
-const CommonComposition = ({type,layoutId, composition}) => {
+const CommonComposition = ({type, composition, layout}) => {
   const [showUploadMediaModal, setUploadMediaModal] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
   const [name, setName] = useState(composition? composition.name : "");
   const [namePopUp, setOpenNamePopUp] = useState(false);
-
-  const [compositions, setCompositions] = useState(composition? composition.zones[0].content : []);
+  const [content, setContent] = useState(composition? composition.zones[0].content : []);
   const { data: allMedia, mutate } = useSWR(
     "/vendor/display/media",
     getAllMedia
   );
+
   const history = useHistory();
-  
   const addComposition = (media) => {
-    setCompositions((prev) => {   
+    setContent((prev) => {   
       const meta = JSON.parse(media.properties);
-      const content = {
+      const createContent = {
           url: `${media.title}`,
           type: media.type,
           maintainAspectRatio: false,
@@ -36,22 +36,21 @@ const CommonComposition = ({type,layoutId, composition}) => {
           duration: meta.length ? meta.length : 10,
           createdBy: media.createdBy.name
       }
-      return [...prev, { ...content }];
+      return [...prev, { ...createContent }];
     });
   };
-  const saveComposition = async ()=>{
+const saveComposition = async ()=>{
+  let zones = [];
+  layout.zones.forEach((zone,index)=>{
+    zones.push({
+      name: zone.name,
+      zoneId: zone._id,
+      content:  removeCreatedBy(index)
+    })
+  })
   const data =   {
       name: name,
-      ...(layoutId && { layoutId: layoutId }),
-      ...(composition && { compositionId: composition._id
-      }),
-      zones: [
-        {
-          name: "zone1",
-          zoneId: "644a4d31c8a17ed73a5e3769",
-          content:  removeCreatedBy()
-        }
-      ],
+      zones: zones,
       duration: TotalDuration(), 
       referenceUrl: [
         "image.jpg",
@@ -61,23 +60,23 @@ const CommonComposition = ({type,layoutId, composition}) => {
     ]
   }
   if(type === "create"){
+    data.layoutId = layout._id;
     await postComposition(data);
   } else {
+    data.compositionId = composition._id;
     await putComposition(data)
   }
-
   history.push("/layout");
 }
   const TotalDuration = ()=>{
     let total  =  0;
-    compositions.forEach(composition => {
+    content.forEach(composition => {
       total += Number(composition.duration);
     });
     return total.toFixed(0);
   }
   function removeCreatedBy() {
-    return compositions.map((item) => {
-
+    return content.map((item) => {
       delete item["createdBy"];
       delete item["_id"];
       return item;
@@ -89,15 +88,15 @@ const CommonComposition = ({type,layoutId, composition}) => {
         <h1 className="mr-auto">{type === "edit"? "Edit Compostition": "Create Compostition" }</h1>
         <div className="preview-composition d-flex flex-wrap">
           <Button onClick={()=>{
-            if(compositions.length){
+            if(content.length){
               setShowPreview(true)
             }
             
-          }} className="mr-2 preview-btn" variant="info" disabled={!compositions.length}>
+          }} className="mr-2 preview-btn" variant="info" disabled={!content.length}>
             Preview
           </Button>
           <Button onClick={()=>{
-            if(compositions.length){
+            if(content.length){
              setOpenNamePopUp(true)
             }
 
@@ -143,7 +142,7 @@ const CommonComposition = ({type,layoutId, composition}) => {
             />
           </Col>
           <Col lg="6" md="6" sm="6" xs="12" className="pl-0">
-            <ZoneInfoTable compositions={compositions} setCompositions={setCompositions}/>
+            <ZoneInfoTable content={content} setContent={setContent}/>
           </Col>
         </Row>
         <UploadMediaModal
@@ -151,7 +150,7 @@ const CommonComposition = ({type,layoutId, composition}) => {
           setUploadMediaModal={setUploadMediaModal}
           callAllMediaApi={mutate}
         />
-        {showPreview && <PreviewComposition setShowPreview={setShowPreview} compositions={compositions}/>}
+        {showPreview && <PreviewComposition setShowPreview={setShowPreview} content={content}/>}
         {namePopUp && <SaveCompositionName setModalState={setOpenNamePopUp} saveComposition={saveComposition} name={name} setName={setName} />}
       </div>
     </>

@@ -3,12 +3,12 @@ import cancelIcon from "../../img/cancel-icon.png";
 import { useEffect, useRef, useState } from "react";
 import WebVideoPlayer from "../components/web-player/WebVideoPlayer";
 import { BASE_URL } from "../../utils/api";
-const PreviewComposition = ({ setShowPreview, compositions }) => {
+const PreviewComposition = ({ setShowPreview, content }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const  timeoutRef =useRef("");;
   useEffect(() => {
-    if (compositions[currentIndex + 1]) {
-      const timeoutDuration = compositions[currentIndex].duration * 1000;
+    if (content[currentIndex + 1]) {
+      const timeoutDuration = content[currentIndex].duration * 1000;
         timeoutRef.current = setTimeout(() => {
           setCurrentIndex((currentIndex) => currentIndex + 1);
         }, timeoutDuration);
@@ -34,19 +34,19 @@ const PreviewComposition = ({ setShowPreview, compositions }) => {
         </Button>
       </Modal.Header>
       <Modal.Body>          
-      {compositions[currentIndex] &&  compositions[currentIndex].type === "image" && (
+      {content[currentIndex] &&  content[currentIndex].type === "image" && (
             <div className="basic-list-group image-preview-container media-content">
               <img
                 className="webplayer-preview-img"
                
-                src= {`${BASE_URL}${compositions[currentIndex].url}`}
+                src= {`${BASE_URL}${content[currentIndex].url}`}
                 alt="media-img"
               />
             </div>
           )}
-          {compositions[currentIndex] &&  compositions[currentIndex].type === "video" && (
+          {content[currentIndex] &&  content[currentIndex].type === "video" && (
             <div className="basic-list-group video-container media-content">
-            <WebVideoPlayer src= {`${BASE_URL}${compositions[currentIndex].url}`}></WebVideoPlayer>
+            <WebVideoPlayer src= {`${BASE_URL}${content[currentIndex].url}`}></WebVideoPlayer>
             </div>
           )}</Modal.Body>
           <Modal.Footer>

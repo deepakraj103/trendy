@@ -5,14 +5,15 @@ import editBtnImg from "../../../../img/edit-btn.png";
 import deleteBtnImg from "../../../../img/delete-btn.png";
 import { BASE_URL } from "../../../../utils/api";
 import EditSelectedComposition from "../../../modals/editSelectedComposition";
+import PreviewComposition from "../../../modals/previewComposition";
 
 
-const ZoneInfoTable = ({ compositions,setCompositions }) => {
+const ZoneInfoTable = ({ content,setContent }) => {
 
   const [editSelected, setEditSelected] = useState(null);
   const handleChange = (event,index) => {
     const newValue = event.target.value.replace(/[^\d]/g, '');
-      setCompositions((prev) => {      
+    setContent((prev) => {      
         const updateMedia = prev.map((val,key)=>{
             if(key === index){
               val.duration = newValue;
@@ -28,13 +29,13 @@ const ZoneInfoTable = ({ compositions,setCompositions }) => {
   }
   const TotalDuration = ()=>{
     let total  =  0;
-    compositions.forEach(composition => {
+    content.forEach(composition => {
       total += Number(composition.duration);
     });
     return total.toFixed(0);
   }
   const removeComposition =(index)=>{
-    setCompositions((prev) => {      
+    setContent((prev) => {      
       const updateMedia = prev.filter((val,key)=> key !== index);
       return [...updateMedia];
     });
@@ -47,7 +48,7 @@ const ZoneInfoTable = ({ compositions,setCompositions }) => {
 
   const updateViewType = (data,viewImage) => {
    console.log(data,viewImage)
-      setCompositions((prev) => {      
+   setContent((prev) => {      
         const updateMedia = prev.map((val,key)=>{
             if(key === editSelected){
               val.fitToScreen = viewImage==="fitScreen";
@@ -59,8 +60,6 @@ const ZoneInfoTable = ({ compositions,setCompositions }) => {
         return [...updateMedia];
       });
   };
-
-  console.log(compositions)
   return (
     <>
       <Table
@@ -81,7 +80,7 @@ const ZoneInfoTable = ({ compositions,setCompositions }) => {
           </tr>
         </thead>
         <tbody>
-          {compositions.map((composition, index) => {
+          {content.map((composition, index) => {
             return (
               <tr key={composition.id}>
                 <td>{index + 1}.</td>
@@ -125,8 +124,8 @@ const ZoneInfoTable = ({ compositions,setCompositions }) => {
           })}
         </tbody>
       </Table>
-
-      {editSelected !== null && <EditSelectedComposition composition={compositions[editSelected]}  setEditSelected={setEditSelected} updateViewType={updateViewType} />}
+    
+      {editSelected !== null && <EditSelectedComposition composition={content[editSelected]}  setEditSelected={setEditSelected} updateViewType={updateViewType} />}
     </>
   );
 };

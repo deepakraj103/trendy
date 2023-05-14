@@ -1,11 +1,15 @@
+import useSWR from "swr";
 import { useLocation } from "react-router-dom";
 import CommonComposition from "./Common";
+import { getLayouts } from "../../../../utils/api";
 
 const CreateComposition = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const id = queryParams.get('id');
- return <CommonComposition type="create" layoutId={id}/>
+  const { data: layouts } = useSWR("/vendor/layouts", getLayouts);
+  const layout = layouts.find((layout)=> layout._id === id);
+ return <>{layout && <CommonComposition type="create" layout={layout}/>}</>
 };
 
 export default CreateComposition;

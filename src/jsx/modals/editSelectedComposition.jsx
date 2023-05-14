@@ -84,7 +84,7 @@ const EditSelectedComposition = ({ composition, setEditSelected , updateViewType
         </div>
         {composition && composition.type === "image" && (
           <div
-            className="basic-list-group image-preview-container media-content"
+            className="basic-list-group image-preview-container media-content image-preview-editable"
             style={{ border: "1px solid", margin: "1rem" }}
           >
             {viewImage === "crop" && (
@@ -94,11 +94,9 @@ const EditSelectedComposition = ({ composition, setEditSelected , updateViewType
               <img
                 className="webplayer-preview-img"
                 style={{
-                  maxWidth: "100%",
-                  maxHeight: "100%",
-                  height: "300px",
+               
                   objectFit: `${
-                    viewImage === "fitScreen" ? "cover" : "contain"
+                    viewImage === "fitScreen" ? "fill" : "contain"
                   }`,
                 }}
                 src={`${BASE_URL}${composition.url}`}
