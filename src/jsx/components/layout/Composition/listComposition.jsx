@@ -3,9 +3,10 @@ import { Table } from "react-bootstrap";
 import AddNewTagModal from "../../../modals/AddNewTagModal";
 import downArrow from "../../../../img/down-arrow.png";
 
-import { deleteCompositionById } from "../../../../utils/api";
+import { deleteCompositionById, BASE_URL } from "../../../../utils/api";
 import DeleteConfirmation from "../../../modals/DeleteConfirmation";
 import CompositionActions from "./CompositionActions";
+import { getDatetimeIn12Hours, humanReadableFormattedDateString } from "../../../../utils/UtilsService";
 
 const ListComposition = ({ allComposition, mutate }) => {
   const [deleteModal, setDeleteModal] = useState(false);
@@ -33,22 +34,34 @@ const ListComposition = ({ allComposition, mutate }) => {
         <tbody>
           {allComposition &&
             allComposition.map((composition) => {
+              const content = composition.zones[0].content[0];
               return (
                 <tr id={composition._id}>
-                  <td>
-                    <span className="td-content">
-                      <strong>{composition.name}</strong>
-                      {/* <span>{screen.screenLocation}</span> */}
+                <td>
+                    <span className="td-content d-flex name-td-content">
+                   
+                      <span className={`name-img mr-2  ${content.type === "video" && "videotableName"}`}>
+                      {content.type === "image" && <img
+                          className="media-img img-fluid"
+                          src={`${BASE_URL}${content.url}`}
+                          alt="media-img"
+                        />}
+                         {content.type === "video" && content.duration.toFixed(0)/60}
+                      </span>
+                      <span className="name-content d-flex flex-column flex-grow-1">
+                        <strong>{composition.name}</strong>
+                        <span>{composition.createdBy}</span>
+                      </span>
                     </span>
                   </td>
                   <td>
-                    <span className="d-flex align-items-center">
-                      <span className="status status-green"></span>
-                      <span className="td-content">
-                        {/* <strong>{screen.name}</strong>
-                        <span>{screen.screenLocation}</span> */}
-                      </span>
+                  <span className="td-content">
+                      <strong>
+                        {humanReadableFormattedDateString(composition.createdAt)}
+                      </strong>
+                      <span>{getDatetimeIn12Hours(composition.createdAt)}</span>
                     </span>
+            
                   </td>
                   <td> {composition.duration} Sec</td>
                   <td>No Schedule</td>
