@@ -11,7 +11,7 @@ const EditComposition = () => {
   const fetcher = (url) => getCompositionById(url);
 
   const { data: composition  } = useSWR(id ? `/vendor/layouts/composition?compositionId=${id}` : null, fetcher);
-console.log(composition)
+
  return (<>{composition && <CommonComposition type="edit" composition={composition}/>}</>)
 };
 

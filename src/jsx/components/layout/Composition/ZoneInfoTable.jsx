@@ -1,16 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { Table } from "react-bootstrap";
 
 import editBtnImg from "../../../../img/edit-btn.png";
 import deleteBtnImg from "../../../../img/delete-btn.png";
 import { BASE_URL } from "../../../../utils/api";
+import EditSelectedComposition from "../../../modals/editSelectedComposition";
+
+
 const ZoneInfoTable = ({ compositions,setCompositions }) => {
 
-  const handleChange = (event,composition) => {
+  const [editSelected, setEditSelected] = useState(null);
+  const handleChange = (event,index) => {
     const newValue = event.target.value.replace(/[^\d]/g, '');
       setCompositions((prev) => {      
-        const updateMedia = prev.map((val)=>{
-            if(val.id === composition.id){
+        const updateMedia = prev.map((val,key)=>{
+            if(key === index){
               val.duration = newValue;
             }
             return val;
@@ -19,8 +23,8 @@ const ZoneInfoTable = ({ compositions,setCompositions }) => {
       });
   };
 
-  const Duration = (composition)=>{
-    return(  <div className="tag-container mediaDUrationTag"> <input onChange={(event)=>{ handleChange(event,composition)}}  value={Number(composition.duration).toFixed(0)} disabled={composition.type === 'video'}/><span>sec</span></div>)
+  const Duration = (composition,index)=>{
+    return(  <div className="tag-container mediaDUrationTag"> <input onChange={(event)=>{ handleChange(event,index)}}  value={Number(composition.duration).toFixed(0)} disabled={composition.type === 'video'}/><span>sec</span></div>)
   }
   const TotalDuration = ()=>{
     let total  =  0;
@@ -30,12 +34,33 @@ const ZoneInfoTable = ({ compositions,setCompositions }) => {
     return total.toFixed(0);
   }
   const removeComposition =(index)=>{
-
     setCompositions((prev) => {      
       const updateMedia = prev.filter((val,key)=> key !== index);
       return [...updateMedia];
     });
   }
+
+  const editComposition = (index)=>{
+    setEditSelected(index);
+
+  }
+
+  const updateViewType = (data,viewImage) => {
+   console.log(data,viewImage)
+      setCompositions((prev) => {      
+        const updateMedia = prev.map((val,key)=>{
+            if(key === editSelected){
+              val.fitToScreen = viewImage==="fitScreen";
+              val.maintainAspectRatio = viewImage==="aspectRation";
+              val.crop = viewImage==="crop" ? data : false;
+            }
+            return val;
+        });
+        return [...updateMedia];
+      });
+  };
+
+  console.log(compositions)
   return (
     <>
       <Table
@@ -77,13 +102,17 @@ const ZoneInfoTable = ({ compositions,setCompositions }) => {
                     </span>
                   </td>
                 <td style={{ width: "180px" }}>
-                { Duration(composition)}
+                { Duration(composition,index)}
                 </td>
                 <td>
                   <span className="layout-edit-btn mr-2 ">
-                    <img className="edit-icon cursorPointer" src={editBtnImg} alt="search" />
+                    <img className="edit-icon cursorPointer" src={editBtnImg} alt="search" onClick={()=>{
+                      if(composition.type === "image"){
+                        editComposition(index)
+                      }
+                    }}/>
                   </span>
-                  <span className="layout-edit-btn " onClick={()=>{removeComposition(index)}}>
+                  <span className="layout-edit-btn" onClick={()=>{removeComposition(index)}}>
                     <img
                       className="edit-icon cursorPointer"
                       src={deleteBtnImg}
@@ -96,6 +125,8 @@ const ZoneInfoTable = ({ compositions,setCompositions }) => {
           })}
         </tbody>
       </Table>
+
+      {editSelected !== null && <EditSelectedComposition composition={compositions[editSelected]}  setEditSelected={setEditSelected} updateViewType={updateViewType} />}
     </>
   );
 };

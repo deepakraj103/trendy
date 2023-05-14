@@ -12,14 +12,18 @@ import deleteIcon from "../../../../img/delete-icon.png";
 
 import { Link } from "react-router-dom";
 import { deleteCompositionById } from "../../../../utils/api";
+import DeleteConfirmation from "../../../modals/DeleteConfirmation";
 
 const ListComposition = ({ allComposition, mutate }) => {
+  const [deleteModal, setDeleteModal] = useState(false);
   const [showNewTagModal, setNewTagModal] = useState(false);
-  const [selectedScreen, setSelectedScreen] = useState("");
-  const deleteComposition = async (composition) => {
-    await deleteCompositionById(composition._id);
+  const [selected, setSelected] = useState("");
+  
+  const handleDelete = async () => {
+    setDeleteModal(false)
+    await deleteCompositionById(selected._id);
     mutate();
-  };
+   };
   return (
     <>
       <Table responsive className="custom-table screen-table">
@@ -70,7 +74,7 @@ const ListComposition = ({ allComposition, mutate }) => {
                     <span
                       className="down-arrow"
                       onClick={() => {
-                        setSelectedScreen(composition);
+                        setSelected(composition);
                         setNewTagModal(true);
                       }}
                     >
@@ -188,7 +192,8 @@ const ListComposition = ({ allComposition, mutate }) => {
                           href="#"
                           className="dropdown-list-item"
                           onClick={() => {
-                            deleteComposition(composition);
+                            setSelected(composition);
+                            setDeleteModal(true)
                           }}
                         >
                           <div className="d-flex">
@@ -220,9 +225,10 @@ const ListComposition = ({ allComposition, mutate }) => {
         <AddNewTagModal
           setNewTagModal={setNewTagModal}
           allScreens={allComposition}
-          selected={selectedScreen}
+          selected={selected}
         />
       )}
+      {deleteModal && <DeleteConfirmation setDeleteModal={setDeleteModal} callbackFunction={handleDelete} text="Are you sure you want to delete?" yes={"Yes Delete"}/>}
     </>
   );
 };
