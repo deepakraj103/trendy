@@ -11,6 +11,7 @@ import deleteIcon from "../../../../img/delete-icon.png";
 import { Link } from "react-router-dom";
 import DuplicateComposition from "../../../modals/duplicateComposition";
 import { postComposition } from "../../../../utils/api";
+import ViewDetails from "../../../modals/layouts/viewDetails";
 
 const CompositionActions = ({
   composition,
@@ -19,7 +20,7 @@ const CompositionActions = ({
   setSelected,
 }) => {
   const [duplicateModal, setDuplicateModal] = useState(false);
-
+  const [viewDetailsModal, setViewDetailsModal] = useState(false);
   const createComposition = async (name) => {
    let setZone = [];
 
@@ -78,7 +79,7 @@ const CompositionActions = ({
           </span>
         </Dropdown.Toggle>
         <Dropdown.Menu>
-          <Dropdown.Item href="#" className="dropdown-list-item">
+          <Dropdown.Item href="#" className="dropdown-list-item" onClick={()=>{setViewDetailsModal(true)}}>
             <div className="d-flex">
               <div className="dropdown-list-icon">
                 <img
@@ -95,23 +96,7 @@ const CompositionActions = ({
               </div>
             </div>
           </Dropdown.Item>
-          <Dropdown.Item href="#" className="dropdown-list-item">
-            <div className="d-flex">
-              <div className="dropdown-list-icon">
-                <img
-                  className="dropdown-list-img img-fluid"
-                  src={defaultComparisonIcon}
-                  alt="menu-icon"
-                />
-              </div>
-              <div className="dropdown-menu-list">
-                <span className="menu-heading">Change Default Composition</span>
-                <span className="menu-description">
-                  Get to know more about screen info
-                </span>
-              </div>
-            </div>
-          </Dropdown.Item>
+
           <Dropdown.Item href="#" className="dropdown-list-item">
             <div className="d-flex">
               <div className="dropdown-list-icon">
@@ -204,6 +189,14 @@ const CompositionActions = ({
           createComposition={createComposition}
         />
       )}
+      {viewDetailsModal && (
+        <ViewDetails
+         
+          setViewDetailsModal={setViewDetailsModal}
+          composition={composition}
+        />
+      )}
+      
     </>
   );
 };

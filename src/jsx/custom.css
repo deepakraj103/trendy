@@ -2459,3 +2459,68 @@ input[type="radio"]:checked:after {
   max-width: 54vw !important;
   margin: 2.5vh auto;
 }
+
+.zoneName{
+  width: 193px;
+  height: 31px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 6px 10px !important;
+  gap: 10px;
+  border-radius: 0;
+  font-size: 14px;
+  margin: 10px 0 20px;
+  background: #b3005e;
+    color: #fff;
+}
+
+.new1{
+  border-top: 1px dashed #b1b1b1;
+}
+.item_number {
+  width: 40px;
+  float: left;
+  padding: 0 1%;
+  color: #1e3131;
+  font-weight: 600;
+  font-size: 14px;
+  margin-left: 1rem;
+}
+
+.img-block {
+  overflow: hidden;
+  float: left;
+  width: 55px;
+  height: 40px;
+  border-radius: 10px;
+  margin-right: 15px;
+  position: relative;
+  border: 1px solid #eee;
+  background-color: #dad0d01a;
+}
+
+.file-detail {
+  width: 30%;
+  padding-left: 3%;
+  float: left;
+}
+
+.name-content strong{
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 19px;
+  font-family: var(--font-manrope);
+  color: var(--table-td-color);
+  border: none;
+}
+.name-content span {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  font-family: var(--font-manrope);
+  color: #676d6d;
+}
