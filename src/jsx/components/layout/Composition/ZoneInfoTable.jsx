@@ -5,7 +5,6 @@ import editBtnImg from "../../../../img/edit-btn.png";
 import deleteBtnImg from "../../../../img/delete-btn.png";
 import { BASE_URL } from "../../../../utils/api";
 import EditSelectedComposition from "../../../modals/editSelectedComposition";
-import PreviewComposition from "../../../modals/previewComposition";
 
 
 const ZoneInfoTable = ({ content,setContent }) => {
@@ -60,6 +59,8 @@ const ZoneInfoTable = ({ content,setContent }) => {
         return [...updateMedia];
       });
   };
+
+  console.log(content)
   return (
     <>
       <Table

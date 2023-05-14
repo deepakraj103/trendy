@@ -2527,3 +2527,18 @@ input[type="radio"]:checked:after {
 thead {
   background-color: initial !important;
 }
+
+.landscape-view .modal-dialog{
+  margin: 1rem 8rem !important;
+  max-width: 85% !important;
+}
+.potrait-view .modal-dialog{
+  max-width: 480px !important;
+  margin: 1rem auto !important;
+}
+.custom-modal-preview .image-preview-container img {
+  max-width: 100%;
+  height: 100%;
+  width: 100%;
+
+}

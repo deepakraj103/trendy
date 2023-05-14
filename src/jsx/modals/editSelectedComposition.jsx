@@ -22,6 +22,7 @@ const EditSelectedComposition = ({ composition, setEditSelected , updateViewType
       zoom: zoom
     }
     updateViewType(data,viewImage)
+    setEditSelected(null)
   }
   const handleOptionChange = (e) => {
     setViewImage(e.target.value);

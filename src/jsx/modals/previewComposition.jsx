@@ -3,7 +3,7 @@ import cancelIcon from "../../img/cancel-icon.png";
 import { useEffect, useRef, useState } from "react";
 import WebVideoPlayer from "../components/web-player/WebVideoPlayer";
 import { BASE_URL } from "../../utils/api";
-const PreviewComposition = ({ setShowPreview, content }) => {
+const PreviewComposition = ({ setShowPreview, content, layout }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const  timeoutRef =useRef("");;
   useEffect(() => {
@@ -16,10 +16,16 @@ const PreviewComposition = ({ setShowPreview, content }) => {
     return ()=> clearTimeout(timeoutRef.current);
   }, [currentIndex]);
 
+  const viewImage = content[currentIndex].fitToScreen
+  ? "fitScreen"
+  : content[currentIndex].crop
+  ? "crop"
+  : "aspectRation";
 
+  console.log(content)
   return (
     <Modal
-      className="fade bd-example-modal-lg mt-4 custom-modal custom-modal-large custom-modal-preview"
+      className={`fade bd-example-modal-lg mt-4 custom-modal custom-modal-large custom-modal-preview ${layout.screenType}-view`}
       show={true}
       size="xl"
     >
@@ -38,7 +44,12 @@ const PreviewComposition = ({ setShowPreview, content }) => {
             <div className="basic-list-group image-preview-container media-content">
               <img
                 className="webplayer-preview-img"
+                style={{
                
+               objectFit: `${
+                 viewImage === "fitScreen" ? "fill" : "contain"
+               }`,
+             }}
                 src= {`${BASE_URL}${content[currentIndex].url}`}
                 alt="media-img"
               />

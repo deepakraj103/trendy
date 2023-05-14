@@ -150,7 +150,7 @@ const saveComposition = async ()=>{
           setUploadMediaModal={setUploadMediaModal}
           callAllMediaApi={mutate}
         />
-        {showPreview && <PreviewComposition setShowPreview={setShowPreview} content={content}/>}
+        {showPreview && <PreviewComposition setShowPreview={setShowPreview} content={content} layout={layout}/>}
         {namePopUp && <SaveCompositionName setModalState={setOpenNamePopUp} saveComposition={saveComposition} name={name} setName={setName} />}
       </div>
     </>
