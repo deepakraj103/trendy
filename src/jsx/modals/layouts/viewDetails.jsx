@@ -9,7 +9,7 @@ import layoutSelected from "../../../img/layout-select-img.png";
 import { BASE_URL } from "../../../utils/api";
 import { Link } from "react-router-dom";
 const ViewDetails = ({ setViewDetailsModal, composition }) => {
-  console.log(composition);
+
   return (
     <>
       <Modal

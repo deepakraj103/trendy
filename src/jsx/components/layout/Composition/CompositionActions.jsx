@@ -12,15 +12,17 @@ import { Link } from "react-router-dom";
 import DuplicateComposition from "../../../modals/duplicateComposition";
 import { postComposition } from "../../../../utils/api";
 import ViewDetails from "../../../modals/layouts/viewDetails";
+import PublishMediaModal from "../../../modals/PublishMediaModal";
 
 const CompositionActions = ({
   composition,
   mutate,
   setDeleteModal,
-  setSelected,
+  setSelected
 }) => {
   const [duplicateModal, setDuplicateModal] = useState(false);
   const [viewDetailsModal, setViewDetailsModal] = useState(false);
+  const [showPublishPopUp, setShowPublishPopUp] = useState(false);
   const createComposition = async (name) => {
    let setZone = [];
 
@@ -97,7 +99,9 @@ const CompositionActions = ({
             </div>
           </Dropdown.Item>
 
-          <Dropdown.Item href="#" className="dropdown-list-item">
+          <Dropdown.Item href="#" className="dropdown-list-item" onClick={()=>{
+            setShowPublishPopUp(true)
+          }}>
             <div className="d-flex">
               <div className="dropdown-list-icon">
                 <img
@@ -197,6 +201,13 @@ const CompositionActions = ({
         />
       )}
       
+      {showPublishPopUp && (
+        <PublishMediaModal
+          selected={composition}
+          setShowPublishPopUp={setShowPublishPopUp}
+          type="composition"
+        />
+      )}
     </>
   );
 };

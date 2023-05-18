@@ -23,7 +23,7 @@ const PreviewComposition = ({ setShowPreview, content, layout, referenceUrl }) =
   ? "crop"
   : "aspectRation";
   const url  = isBlobUrl(referenceUrl[currentIndex]) ? referenceUrl[currentIndex] : `${BASE_URL}${referenceUrl[currentIndex]}`
-  console.log(content)
+
   return (
     <Modal
       className={`fade bd-example-modal-lg mt-4 custom-modal custom-modal-large custom-modal-preview ${layout.screenType}-view`}

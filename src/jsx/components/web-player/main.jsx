@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useRef } from "react";
-import { addScreenCode, BASE_URL } from "../../../utils/api";
+import { addScreenCode, BASE_URL, getCompositionById } from "../../../utils/api";
 import { Link } from "react-router-dom";
 import { Col } from "react-bootstrap";
 import { io } from "socket.io-client";
 import WebVideoPlayer from "./WebVideoPlayer";
+import CompositionPlayer from "./compositionPlayer";
+import useSWR from 'swr'
 const WebMain = ({id}) => {
   const [media, setMedia] = useState("");
   const [code, seCode] = useState("");
@@ -17,12 +19,21 @@ const WebMain = ({id}) => {
       if (getContent?.content.length) {
         const getMedia =
           getContent?.content[getContent.content.length - 1].media;
-        setMedia(`${BASE_URL}${getMedia.title}`);
-        setContentType(getMedia.type); 
-        clearTimeout(timeoutTimer)
-        timeoutTimer = setTimeout(() => {
-          getScreenCode();
-        }, 60000);
+          const mediaType =
+          getContent?.content[getContent.content.length - 1].type;
+          
+        if(mediaType === "composition"){
+          setMedia(getMedia);
+          setContentType("composition"); 
+        } else {
+          setMedia(`${BASE_URL}${getMedia.title}`);
+          setContentType(getMedia.type); 
+          clearTimeout(timeoutTimer)
+          timeoutTimer = setTimeout(() => {
+            getScreenCode();
+          }, 60000);
+        }
+
       } else {
         setContentType("default_media");
       }
@@ -43,7 +54,6 @@ const WebMain = ({id}) => {
     // no-op if the socket is already connected
     socket.connect();
     function onReceiveContent(value) {
-        console.log("value:", value)
       setContentType(null);
       getScreenCode();
     }
@@ -164,6 +174,10 @@ const WebMain = ({id}) => {
             </div>
           )}
 
+          {contentType !==null &&  contentType === "composition" && (
+           <GetCompositionPlayer id={media}/>
+          )}
+
           <div class="console-reg" id="consoleReg">
             <p>
               Copy paste above Screen Registration Code in console{" "}
@@ -178,3 +192,17 @@ const WebMain = ({id}) => {
 };
 
 export default WebMain;
+
+
+
+const GetCompositionPlayer = ({id})=>{
+  const fetcher = (url) => getCompositionById(url);
+  const { data: composition  } = useSWR(id ? `/vendor/layouts/composition?compositionId=${id}` : null, fetcher);
+console.log(composition.zones[0].content)
+
+    return (<>
+    {composition && <CompositionPlayer  content={composition.zones[0].content} referenceUrl={composition.referenceUrl}/>}
+    </>)
+ 
+  
+}

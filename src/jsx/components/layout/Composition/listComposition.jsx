@@ -8,10 +8,12 @@ import DeleteConfirmation from "../../../modals/DeleteConfirmation";
 import CompositionActions from "./CompositionActions";
 import { getDatetimeIn12Hours, humanReadableFormattedDateString } from "../../../../utils/UtilsService";
 
+
 const ListComposition = ({ allComposition, mutate }) => {
   const [deleteModal, setDeleteModal] = useState(false);
   const [showNewTagModal, setNewTagModal] = useState(false);
   const [selected, setSelected] = useState("");
+
   
   const handleDelete = async () => {
     setDeleteModal(false)
@@ -92,7 +94,7 @@ const ListComposition = ({ allComposition, mutate }) => {
                     </span>
                   </td>
                   <td>
-                    <CompositionActions composition={composition} mutate={mutate} setSelected={setSelected} setDeleteModal={setDeleteModal}/>
+                    <CompositionActions composition={composition} mutate={mutate} setSelected={setSelected} setDeleteModal={setDeleteModal}  />
                   </td>
                 </tr>
               );
@@ -106,6 +108,7 @@ const ListComposition = ({ allComposition, mutate }) => {
           selected={selected}
         />
       )}
+
       {deleteModal && <DeleteConfirmation setDeleteModal={setDeleteModal} callbackFunction={handleDelete} text="Are you sure you want to delete?" yes={"Yes Delete"}/>}
     </>
   );
