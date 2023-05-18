@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import cancelIcon from "../../img/cancel-icon.png";
 import WebVideoPlayer from "../components/web-player/WebVideoPlayer";
 import { BASE_URL } from "../../utils/api";
 import ImageCroper from "../components/cropImage";
+import getCroppedImg from "../components/cropImage/cropImage";
 
 const EditSelectedComposition = ({ composition, setEditSelected , updateViewType}) => {
   const getDefault = composition.fitToScreen
@@ -15,15 +16,28 @@ const EditSelectedComposition = ({ composition, setEditSelected , updateViewType
   const [isLoading, setIsLoading] = useState(false);
   const [zoom, setZoom] = useState(composition.crop ? composition.crop.zoom : 1);
 
+
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(composition.crop ? composition.crop : null);
   const handleUpload = async () => {
     const data = {
       ...croppedAreaPixels,
       zoom: zoom
     }
-    updateViewType(data,viewImage)
+    let ImgUrl = ""
+    if(viewImage === "crop"){
+      const getData = await getCroppedImg(
+        `${BASE_URL}/vendor/display/mediaFile?path=${composition.url}`,
+         croppedAreaPixels,
+       ) 
+       ImgUrl =  getData;
+    } else {
+      ImgUrl =  composition.url;
+    }
+     
+    updateViewType(data,viewImage,ImgUrl)
     setEditSelected(null)
   }
+
   const handleOptionChange = (e) => {
     setViewImage(e.target.value);
   };
@@ -89,7 +103,7 @@ const EditSelectedComposition = ({ composition, setEditSelected , updateViewType
             style={{ border: "1px solid", margin: "1rem" }}
           >
             {viewImage === "crop" && (
-              <ImageCroper imgSrc={`${BASE_URL}${composition.url}`} zoom={zoom}  setZoom={setZoom} croppedAreaPixels={croppedAreaPixels} setCroppedAreaPixels={setCroppedAreaPixels}/>
+              <ImageCroper imgSrc={`${composition.url}`} zoom={zoom}  setZoom={setZoom} croppedAreaPixels={croppedAreaPixels} setCroppedAreaPixels={setCroppedAreaPixels}/>
             )}
             {viewImage !== "crop" && (
               <img

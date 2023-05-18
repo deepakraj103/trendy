@@ -6,18 +6,30 @@ import listIcon from "../../../../img/list-icon.png";
 import CompositionTable from "./CompositionTable";
 import ZoneInfoTable from "./ZoneInfoTable";
 
-import { getAllMedia,  postComposition, putComposition } from "../../../../utils/api";
+import {
+  getAllMedia,
+  postComposition,
+  putComposition,
+  uploadBlob,
+} from "../../../../utils/api";
 
 import PreviewComposition from "../../../modals/previewComposition";
-import {useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import SaveCompositionName from "../../../modals/saveCompositionName";
 import UploadMediaModal from "../../../modals/UploadMediaFileModal";
-const CommonComposition = ({type, composition, layout}) => {
+import { isBlobUrl } from "../../../../utils/UtilsService";
+const CommonComposition = ({ type, composition, layout }) => {
   const [showUploadMediaModal, setUploadMediaModal] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
-  const [name, setName] = useState(composition? composition.name : "");
+  const [name, setName] = useState(composition ? composition.name : "");
   const [namePopUp, setOpenNamePopUp] = useState(false);
-  const [content, setContent] = useState(composition? composition.zones[0].content : []);
+  const [content, setContent] = useState(
+    composition ? composition.zones[0].content : []
+  );
+  const [referenceUrl, setReferenceUrl] = useState(
+    composition ? composition.referenceUrl : []
+  );
+
   const { data: allMedia, mutate } = useSWR(
     "/vendor/display/media",
     getAllMedia
@@ -25,56 +37,63 @@ const CommonComposition = ({type, composition, layout}) => {
 
   const history = useHistory();
   const addComposition = (media) => {
-    setContent((prev) => {   
+    setContent((prev) => {
       const meta = JSON.parse(media.properties);
       const createContent = {
-          url: `${media.title}`,
-          type: media.type,
-          maintainAspectRatio: false,
-          fitToScreen: true,
-          crop: false,
-          duration: meta.length ? meta.length : 10,
-          createdBy: media.createdBy.name
-      }
+        url: `${media.title}`,
+        type: media.type,
+        maintainAspectRatio: false,
+        fitToScreen: true,
+        crop: false,
+        duration: meta.length ? meta.length : 10,
+        createdBy: media.createdBy.name,
+      };
       return [...prev, { ...createContent }];
     });
+
+    setReferenceUrl((prev) => {
+      return [...prev, media.title];
+    });
   };
-const saveComposition = async ()=>{
-  let zones = [];
-  layout.zones.forEach((zone,index)=>{
-    zones.push({
-      name: zone.name,
-      zoneId: zone._id,
-      content:  removeCreatedBy(index)
-    })
-  })
-  const data =   {
+  const saveComposition = async () => {
+    const updateFiles = referenceUrl.map(async (url) => {
+      if (isBlobUrl(url)) {
+        return await uploadBlob(url);
+      }
+      return url;
+    });
+    const results = await Promise.all(updateFiles);
+
+    let zones = [];
+    layout.zones.forEach((zone, index) => {
+      zones.push({
+        name: zone.name,
+        zoneId: zone._id,
+        content: removeCreatedBy(index),
+      });
+    });
+    const data = {
       name: name,
       zones: zones,
-      duration: TotalDuration(), 
-      referenceUrl: [
-        "image.jpg",
-        "image2.jpg",
-        "imag3.jpg",
-        "image4.jpg"
-    ]
-  }
-  if(type === "create"){
-    data.layoutId = layout._id;
-    await postComposition(data);
-  } else {
-    data.compositionId = composition._id;
-    await putComposition(data)
-  }
-  history.push("/layout");
-}
-  const TotalDuration = ()=>{
-    let total  =  0;
-    content.forEach(composition => {
+      duration: TotalDuration(),
+      referenceUrl: results,
+    };
+    if (type === "create") {
+      data.layoutId = layout._id;
+      await postComposition(data);
+    } else {
+      data.compositionId = composition._id;
+      await putComposition(data);
+    }
+    history.push("/layout");
+  };
+  const TotalDuration = () => {
+    let total = 0;
+    content.forEach((composition) => {
       total += Number(composition.duration);
     });
     return total.toFixed(0);
-  }
+  };
   function removeCreatedBy() {
     return content.map((item) => {
       delete item["createdBy"];
@@ -85,22 +104,31 @@ const saveComposition = async ()=>{
   return (
     <>
       <div className="custom-content-heading d-flex flex-wrap">
-        <h1 className="mr-auto">{type === "edit"? "Edit Compostition": "Create Compostition" }</h1>
+        <h1 className="mr-auto">
+          {type === "edit" ? "Edit Compostition" : "Create Compostition"}
+        </h1>
         <div className="preview-composition d-flex flex-wrap">
-          <Button onClick={()=>{
-            if(content.length){
-              setShowPreview(true)
-            }
-            
-          }} className="mr-2 preview-btn" variant="info" disabled={!content.length}>
+          <Button
+            onClick={() => {
+              if (content.length) {
+                setShowPreview(true);
+              }
+            }}
+            className="mr-2 preview-btn"
+            variant="info"
+            disabled={!content.length}
+          >
             Preview
           </Button>
-          <Button onClick={()=>{
-            if(content.length){
-             setOpenNamePopUp(true)
-            }
-
-          }} className="save-composition-btn" variant="info">
+          <Button
+            onClick={() => {
+              if (content.length) {
+                setOpenNamePopUp(true);
+              }
+            }}
+            className="save-composition-btn"
+            variant="info"
+          >
             Save Composition
           </Button>
         </div>
@@ -142,7 +170,11 @@ const saveComposition = async ()=>{
             />
           </Col>
           <Col lg="6" md="6" sm="6" xs="12" className="pl-0">
-            <ZoneInfoTable content={content} setContent={setContent}/>
+            <ZoneInfoTable
+              content={content}
+              setContent={setContent}
+              setReferenceUrl={setReferenceUrl}
+            />
           </Col>
         </Row>
         <UploadMediaModal
@@ -150,8 +182,22 @@ const saveComposition = async ()=>{
           setUploadMediaModal={setUploadMediaModal}
           callAllMediaApi={mutate}
         />
-        {showPreview && <PreviewComposition setShowPreview={setShowPreview} content={content} layout={layout}/>}
-        {namePopUp && <SaveCompositionName setModalState={setOpenNamePopUp} saveComposition={saveComposition} name={name} setName={setName} />}
+        {showPreview && (
+          <PreviewComposition
+            setShowPreview={setShowPreview}
+            content={content}
+            referenceUrl={referenceUrl}
+            layout={layout}
+          />
+        )}
+        {namePopUp && (
+          <SaveCompositionName
+            setModalState={setOpenNamePopUp}
+            saveComposition={saveComposition}
+            name={name}
+            setName={setName}
+          />
+        )}
       </div>
     </>
   );

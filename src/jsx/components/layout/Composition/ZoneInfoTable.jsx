@@ -7,7 +7,7 @@ import { BASE_URL } from "../../../../utils/api";
 import EditSelectedComposition from "../../../modals/editSelectedComposition";
 
 
-const ZoneInfoTable = ({ content,setContent }) => {
+const ZoneInfoTable = ({ content,setContent,setReferenceUrl }) => {
 
   const [editSelected, setEditSelected] = useState(null);
   const handleChange = (event,index) => {
@@ -38,6 +38,11 @@ const ZoneInfoTable = ({ content,setContent }) => {
       const updateMedia = prev.filter((val,key)=> key !== index);
       return [...updateMedia];
     });
+
+    setReferenceUrl((prev) => {      
+      const updateUrl = prev.filter((val,key)=> key !== index);
+      return [...updateUrl];
+    })
   }
 
   const editComposition = (index)=>{
@@ -45,22 +50,35 @@ const ZoneInfoTable = ({ content,setContent }) => {
 
   }
 
-  const updateViewType = (data,viewImage) => {
-   console.log(data,viewImage)
+  const updateViewType = (data,viewImage, ImgUrl) => {
+ 
    setContent((prev) => {      
         const updateMedia = prev.map((val,key)=>{
             if(key === editSelected){
               val.fitToScreen = viewImage==="fitScreen";
               val.maintainAspectRatio = viewImage==="aspectRation";
-              val.crop = viewImage==="crop" ? data : false;
+              val.crop = viewImage==="crop" ? true : false;
             }
             return val;
         });
         return [...updateMedia];
       });
+
+      setReferenceUrl((prev) => {      
+        const updateMedia = prev.map((val,key)=>{
+          if(key === editSelected){
+            return ImgUrl;
+          } else {
+            return val;
+          }
+        });
+        return [...updateMedia];
+      })
+
+
   };
 
-  console.log(content)
+
   return (
     <>
       <Table

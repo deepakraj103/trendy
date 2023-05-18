@@ -3,7 +3,8 @@ import cancelIcon from "../../img/cancel-icon.png";
 import { useEffect, useRef, useState } from "react";
 import WebVideoPlayer from "../components/web-player/WebVideoPlayer";
 import { BASE_URL } from "../../utils/api";
-const PreviewComposition = ({ setShowPreview, content, layout }) => {
+import { isBlobUrl } from "../../utils/UtilsService";
+const PreviewComposition = ({ setShowPreview, content, layout, referenceUrl }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const  timeoutRef =useRef("");;
   useEffect(() => {
@@ -21,7 +22,7 @@ const PreviewComposition = ({ setShowPreview, content, layout }) => {
   : content[currentIndex].crop
   ? "crop"
   : "aspectRation";
-
+  const url  = isBlobUrl(referenceUrl[currentIndex]) ? referenceUrl[currentIndex] : `${BASE_URL}${referenceUrl[currentIndex]}`
   console.log(content)
   return (
     <Modal
@@ -41,6 +42,7 @@ const PreviewComposition = ({ setShowPreview, content, layout }) => {
       </Modal.Header>
       <Modal.Body>          
       {content[currentIndex] &&  content[currentIndex].type === "image" && (
+       
             <div className="basic-list-group image-preview-container media-content">
               <img
                 className="webplayer-preview-img"
@@ -50,14 +52,14 @@ const PreviewComposition = ({ setShowPreview, content, layout }) => {
                  viewImage === "fitScreen" ? "fill" : "contain"
                }`,
              }}
-                src= {`${BASE_URL}${content[currentIndex].url}`}
+                src= {url}
                 alt="media-img"
               />
             </div>
           )}
           {content[currentIndex] &&  content[currentIndex].type === "video" && (
             <div className="basic-list-group video-container media-content">
-            <WebVideoPlayer src= {`${BASE_URL}${content[currentIndex].url}`}></WebVideoPlayer>
+            <WebVideoPlayer src= {url}></WebVideoPlayer>
             </div>
           )}</Modal.Body>
           <Modal.Footer>

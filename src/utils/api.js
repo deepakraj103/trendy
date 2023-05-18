@@ -136,6 +136,42 @@ export async function getCompositionById(url) {
   return response.data.data;
 }
 
+export async function getMedia(path) {
+  const response = await fetchClient.get(`${BASE_URL}/vendor/display/mediaFile?path=${path}`);
+  return response.data.data;
+}
+
+
+export async function uploadBlob(blob) {
+
+
+  const imageResponse = await fetchClient.get(blob, { responseType: 'blob' });
+  const blobData = imageResponse.data;
+
+
+  const formData = new FormData();
+  // Extract filename and extension from the Blob URL
+const url = new URL(blob);
+const pathnameParts = url.pathname.split('/');
+const filenameWithExtension = pathnameParts[pathnameParts.length - 1];
+
+// Append the Blob to the FormData object
+formData.append('file', blobData, filenameWithExtension);
+
+
+const response = await fetchClient.post(
+  `${BASE_URL}/vendor/layouts/upload`,
+  formData,
+  {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  }
+);
+return response.data.data;
+
+}
+
 
 
 

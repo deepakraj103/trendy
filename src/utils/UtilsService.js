@@ -137,3 +137,6 @@ export const getDatetimeIn12Hours = (datetimeString) =>{
     const options = { hour: 'numeric', minute: 'numeric', hour12: true };
     return  date.toLocaleTimeString('en-US', options);
 }
+export const isBlobUrl = (url)=> {
+    return url.startsWith('blob:');
+  }
