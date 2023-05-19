@@ -29,9 +29,9 @@ const WebVideoPlayer = (props) => {
   }, [props.src]);
 
   return (
-    <div>
-      <video ref={videoRef} className="video-js" />
-    </div>
+  <> <video ref={videoRef} className="video-js" /></>
+     
+
   );
 };
 

@@ -45,7 +45,7 @@ const CompositionPlayer = ({ content, referenceUrl }) => {
         </div>
       )}
       {content[currentIndex] && content[currentIndex].type === "video" && (
-        <div className="basic-list-group video-container media-content">
+        <div className={`basic-list-group video-container media-content ${viewImage === "fitScreen" ? "fitImage" : "containImage"}`}>
           <WebVideoPlayer src={url}></WebVideoPlayer>
         </div>
       )}
