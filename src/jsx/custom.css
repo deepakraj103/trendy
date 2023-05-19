@@ -2406,7 +2406,9 @@ img.single-time-zone {
   max-height: 300px;
   overflow: auto;
 }
-
+.custom-modal-preview {
+  overflow: hidden  !important;
+}
 
 
 .basic-list-group.image-preview-container.media-content {
@@ -2531,7 +2533,7 @@ thead {
 
 .landscape-view .modal-dialog{
   margin: 1rem 8rem !important;
-  max-width: 85% !important;
+  max-width: 100% !important;
 }
 .potrait-view .modal-dialog{
   max-width: 480px !important;
@@ -2591,5 +2593,11 @@ thead {
 :fullscreen .media-content .video-js {
   height: 100%;
 }
-
+:fullscreen.landscape-view .modal-dialog{
+  /* margin: 0px !important; */
+  max-width: 100% !important;
+}
+:fullscreen.custom-modal-preview .modal-content{
+  background: radial-gradient(black, transparent);
+}
 
