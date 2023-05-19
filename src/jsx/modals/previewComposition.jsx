@@ -24,14 +24,15 @@ const PreviewComposition = ({
   }, [currentIndex]);
 
   const onFullScreen = () => {
-    if (divRef.current) {
+    const element = document.getElementsByClassName("custom-modal-preview")[0]
+    if (element) {
       // divRef.current.requestFullscreen();
-      if (divRef.current.requestFullscreen) {
-        divRef.current.requestFullscreen();
-      } else if (divRef.current.webkitRequestFullscreen) {
-        divRef.current.webkitRequestFullscreen();
-      } else if (divRef.current.msRequestFullscreen) {
-        divRef.current.msRequestFullscreen();
+      if (element.requestFullscreen) {
+        element.requestFullscreen();
+      } else if (element.webkitRequestFullscreen) {
+        element.webkitRequestFullscreen();
+      } else if (element.msRequestFullscreen) {
+        element.msRequestFullscreen();
       }
     }
   };
