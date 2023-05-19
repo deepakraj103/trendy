@@ -334,7 +334,7 @@ body {
 }
 .content-body-custom .table-responsive {
   overflow: auto;
-  min-height: 300px;
+  min-height: calc(100% - 100px);
 }
 .content-body-custom .table-responsive {
   flex: 1;
@@ -1627,7 +1627,8 @@ button#Fullscreen {
 
 :fullscreen .media-content {
   object-fit: contain;
-  height: 100vh;
+  height: 100vh !important;
+  max-height: 100vh  !important;
 }
 :fullscreen .media-content video {
   object-fit: contain;
@@ -2542,3 +2543,42 @@ thead {
   width: 100%;
 
 }
+
+
+.image-preview-editable .react-thumbnail-generator{
+  width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+
+.image-preview-editable .react-thumbnail-generator img{
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.fitImage img{
+  object-fit: fill;
+}
+.containImage img{
+  object-fit: contain;
+}
+
+.fitImage video{
+  object-fit: fill;
+}
+.containImage video{
+  object-fit: contain;
+}
+
+.fullscreenbtn{
+  right: 1rem;
+  cursor: pointer;
+  font-size: 18px !important;
+}
+
+.potrait-view{
+  height: 450px !important;
+  max-width: 350px !important;
+}
+

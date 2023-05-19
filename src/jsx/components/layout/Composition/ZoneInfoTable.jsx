@@ -125,9 +125,9 @@ const ZoneInfoTable = ({ content,setContent,setReferenceUrl }) => {
                 <td>
                   <span className="layout-edit-btn mr-2 ">
                     <img className="edit-icon cursorPointer" src={editBtnImg} alt="search" onClick={()=>{
-                      if(composition.type === "image"){
+                      // if(composition.type === "image"){
                         editComposition(index)
-                      }
+                      // }
                     }}/>
                   </span>
                   <span className="layout-edit-btn" onClick={()=>{removeComposition(index)}}>

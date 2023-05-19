@@ -27,7 +27,7 @@ const WebVideoPlayer = (props) => {
       playerRef.current.src({ src: props.src });
     }
   }, [props.src]);
-console.log(props)
+
   return (
     <div>
       <video ref={videoRef} className="video-js" />

@@ -6,12 +6,12 @@ import { io } from "socket.io-client";
 import WebVideoPlayer from "./WebVideoPlayer";
 import CompositionPlayer from "./compositionPlayer";
 import useSWR from 'swr'
-const WebMain = ({id}) => {
+const WebMain = ({id, handleAddClass, onFullScreen}) => {
   const [media, setMedia] = useState("");
   const [code, seCode] = useState("");
   const [contentType, setContentType] = useState("");
   // const [timeout, setApiTimeout] = useState("");
-  const divRef = useRef(null);
+
   const getScreenCode = async () => {
     let timeoutTimer;
     const getContent = await addScreenCode(id);
@@ -70,21 +70,10 @@ const WebMain = ({id}) => {
     };
   }, []);
 
-  const onFullScreen = () => {
-    if (divRef.current) {
-      // divRef.current.requestFullscreen();
-      if (divRef.current.requestFullscreen) {
-        divRef.current.requestFullscreen();
-      } else if (divRef.current.webkitRequestFullscreen) {
-        divRef.current.webkitRequestFullscreen();
-      } else if (divRef.current.msRequestFullscreen) {
-        divRef.current.msRequestFullscreen();
-      }
-    }
-  };
+
 
   return (
-    <Col xl="12">
+    <Col xl="12" >
       <div>
         <div>
           <div>
@@ -100,7 +89,7 @@ const WebMain = ({id}) => {
             </button>
           </div>
         </div>
-        {<div ref={divRef}>
+        {<div >
           {contentType === "code" && (
             <div className="basic-list-group ">
               <div className="main-block">
@@ -175,7 +164,7 @@ const WebMain = ({id}) => {
           )}
 
           {contentType !==null &&  contentType === "composition" && (
-           <GetCompositionPlayer id={media}/>
+           <GetCompositionPlayer id={media} handleAddClass={handleAddClass}/>
           )}
 
           <div class="console-reg" id="consoleReg">
@@ -195,11 +184,15 @@ export default WebMain;
 
 
 
-const GetCompositionPlayer = ({id})=>{
+const GetCompositionPlayer = ({id,handleAddClass})=>{
   const fetcher = (url) => getCompositionById(url);
   const { data: composition  } = useSWR(id ? `/vendor/layouts/composition?compositionId=${id}` : null, fetcher);
-console.log(composition.zones[0].content)
-
+  useEffect(()=>{
+    if(composition && composition?.layout?.screenType){
+      handleAddClass(composition.layout.screenType)
+    }
+  
+  },[composition])
     return (<>
     {composition && <CompositionPlayer  content={composition.zones[0].content} referenceUrl={composition.referenceUrl}/>}
     </>)
