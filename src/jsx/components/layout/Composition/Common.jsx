@@ -161,7 +161,7 @@ const CommonComposition = ({ type, composition, layout }) => {
           </Button>
         </div>
       </div>
-      <div className="custom-comp-table flex-1">
+      <div className="custom-comp-table flex-1 editComposition">
         <Row className="h-100">
           <Col lg="6" md="6" sm="6" xs="12" className="pr-0 border-col">
             <CompositionTable

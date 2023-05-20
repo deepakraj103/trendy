@@ -2610,8 +2610,15 @@ thead {
 }
 
 .content-body.content-body-custom.web-player-body .container-fluid {
-  /* background: transparent; */
+  background: transparent;
   border-radius: 0;
   padding: 5px;
   box-shadow:none;
 }
+
+
+  .table-responsive {
+    overflow: auto;
+    max-height: calc(100vh - 250px);
+}
+ 

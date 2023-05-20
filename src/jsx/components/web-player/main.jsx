@@ -74,9 +74,8 @@ const WebMain = ({id, handleAddClass, onFullScreen}) => {
 
   return (
     <Col xl="12" >
-      <div>
         <div>
-          <div>
+    
             {" "}
             <button id="Fullscreen" onClick={() => onFullScreen()}>
               <div class="full-text">
@@ -87,9 +86,9 @@ const WebMain = ({id, handleAddClass, onFullScreen}) => {
                 </div>
               </div>
             </button>
-          </div>
+          
         </div>
-        {<div >
+        {< >
           {contentType === "code" && (
             <div className="basic-list-group ">
               <div className="main-block">
@@ -173,9 +172,7 @@ const WebMain = ({id, handleAddClass, onFullScreen}) => {
               <em class="ti-arrow-circle-up"></em>
             </p>
           </div>
-        </div>}
-
-      </div>
+        </>}
     </Col>
   );
 };
@@ -194,7 +191,7 @@ const GetCompositionPlayer = ({id,handleAddClass})=>{
   
   },[composition])
     return (<>
-    {composition && <CompositionPlayer  content={composition.zones[0].content} referenceUrl={composition.referenceUrl}/>}
+    {composition && composition.referenceUrl && <CompositionPlayer  content={composition.zones[0].content} referenceUrl={composition.referenceUrl}/>}
     </>)
  
   

@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 
 import WebVideoPlayer from "./WebVideoPlayer";
-import { isBlobUrl } from "../../../utils/UtilsService";
 import {  BASE_URL } from "../../../utils/api";
 const CompositionPlayer = ({ content, referenceUrl }) => {
 
@@ -17,17 +16,11 @@ const CompositionPlayer = ({ content, referenceUrl }) => {
     return () => clearTimeout(timeoutRef.current);
   }, [currentIndex]);
 
-
-
-  
   const viewImage = content[currentIndex].fitToScreen
     ? "fitScreen"
     : content[currentIndex].crop
     ? "crop"
     : "aspectRation";
-  const url = isBlobUrl(referenceUrl[currentIndex])
-    ? referenceUrl[currentIndex]
-    : `${BASE_URL}${referenceUrl[currentIndex]}`;
 
   return (
     <>
@@ -39,14 +32,14 @@ const CompositionPlayer = ({ content, referenceUrl }) => {
             style={{
               objectFit: `${viewImage === "fitScreen" ? "fill" : "contain"}`,
             }}
-            src={url}
+            src={`${BASE_URL}${referenceUrl[currentIndex]}`}
             alt="media-img"
           />
         </div>
       )}
       {content[currentIndex] && content[currentIndex].type === "video" && (
         <div className={`basic-list-group video-container media-content ${viewImage === "fitScreen" ? "fitImage" : "containImage"}`}>
-          <WebVideoPlayer src={url}></WebVideoPlayer>
+          <WebVideoPlayer src={`${BASE_URL}${referenceUrl[currentIndex]}`}></WebVideoPlayer>
         </div>
       )}
     </>
