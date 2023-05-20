@@ -2344,6 +2344,11 @@ img.single-time-zone {
   grid-gap: 20px;
 }
 
+.login-form-bx .container {
+  display: block;
+ 
+}
+
 .column {
   background-color: #f2f2f2;
   padding: 10px;
