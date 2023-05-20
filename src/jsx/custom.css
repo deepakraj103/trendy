@@ -2371,7 +2371,7 @@ img.single-time-zone {
     display: flex;
     align-items: center;
     width: 75%;
-    margin: 15px auto;
+    /* margin: 15px auto; */
 }
 
 .controls input{
@@ -2626,4 +2626,6 @@ thead {
     overflow: auto;
     max-height: calc(100vh - 250px);
 }
+
+
  

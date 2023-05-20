@@ -14,12 +14,16 @@ const PreviewComposition = ({
   const timeoutRef = useRef("");
   const divRef = useRef(null);
   useEffect(() => {
-    if (content[currentIndex + 1]) {
+    if (content[currentIndex]) {
       const timeoutDuration = content[currentIndex].duration * 1000;
       timeoutRef.current = setTimeout(() => {
-        setCurrentIndex((currentIndex) => currentIndex + 1);
+        if(currentIndex === (content.length -1) ){
+          setCurrentIndex(0);
+        } else {
+          setCurrentIndex((currentIndex) => currentIndex + 1);
+        }
       }, timeoutDuration);
-    }
+    } 
     return () => clearTimeout(timeoutRef.current);
   }, [currentIndex]);
 

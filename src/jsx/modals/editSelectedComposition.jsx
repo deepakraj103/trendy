@@ -113,32 +113,49 @@ const EditSelectedComposition = ({
           )}
         </div>
         {composition && composition.type === "image" && (
-          <div
-            className="basic-list-group image-preview-container media-content image-preview-editable"
-            style={{ border: "1px solid", margin: "1rem" }}
-          >
-            {viewImage === "crop" && (
-              <ImageCroper
-                imgSrc={`${composition.url}`}
-                zoom={zoom}
-                setZoom={setZoom}
-                croppedAreaPixels={croppedAreaPixels}
-                setCroppedAreaPixels={setCroppedAreaPixels}
-              />
-            )}
-            {viewImage !== "crop" && (
-              <img
-                className="webplayer-preview-img"
-                style={{
-                  objectFit: `${
-                    viewImage === "fitScreen" ? "fill" : "contain"
-                  }`,
+          <>
+            {" "}
+            <div
+              className="basic-list-group image-preview-container media-content image-preview-editable"
+              style={{ border: "1px solid", margin: "1rem" }}
+            >
+              {viewImage === "crop" && (
+                <ImageCroper
+                  imgSrc={`${composition.url}`}
+                  zoom={zoom}
+                  setZoom={setZoom}
+                  croppedAreaPixels={croppedAreaPixels}
+                  setCroppedAreaPixels={setCroppedAreaPixels}
+                />
+              )}
+              {viewImage !== "crop" && (
+                <img
+                  className="webplayer-preview-img"
+                  style={{
+                    objectFit: `${
+                      viewImage === "fitScreen" ? "fill" : "contain"
+                    }`,
+                  }}
+                  src={`${BASE_URL}${composition.url}`}
+                  alt="media-img"
+                />
+              )}
+            </div>{" "}
+            {viewImage === "crop" && ( <div className="controls">
+              <input
+                type="range"
+                value={zoom}
+                min={1}
+                max={3}
+                step={0.1}
+                aria-labelledby="Zoom"
+                onChange={(e) => {
+                  setZoom(e.target.value);
                 }}
-                src={`${BASE_URL}${composition.url}`}
-                alt="media-img"
+                className="zoom-range"
               />
-            )}
-          </div>
+            </div>)}
+          </>
         )}
         {composition && composition.type === "video" && (
           <div

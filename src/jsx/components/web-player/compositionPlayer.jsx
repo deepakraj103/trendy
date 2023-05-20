@@ -7,15 +7,21 @@ const CompositionPlayer = ({ content, referenceUrl }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const timeoutRef = useRef("");
   useEffect(() => {
-    if (content[currentIndex + 1]) {
+    
+    if (content[currentIndex]) {
+     
       const timeoutDuration = content[currentIndex].duration * 1000;
       timeoutRef.current = setTimeout(() => {
-        setCurrentIndex((currentIndex) => currentIndex + 1);
+        if(currentIndex === (content.length -1) ){
+          setCurrentIndex(0);
+        } else {
+          setCurrentIndex((currentIndex) => currentIndex + 1);
+        }
       }, timeoutDuration);
-    }
+    } 
     return () => clearTimeout(timeoutRef.current);
   }, [currentIndex]);
-
+console.log(currentIndex, content.length)
   const viewImage = content[currentIndex].fitToScreen
     ? "fitScreen"
     : content[currentIndex].crop
