@@ -10,6 +10,7 @@ const WebMain = ({id, handleAddClass, onFullScreen}) => {
   const [media, setMedia] = useState("");
   const [code, seCode] = useState("");
   const [contentType, setContentType] = useState("");
+  const initiaload = useRef(true)
   // const [timeout, setApiTimeout] = useState("");
 
   const getScreenCode = async () => {
@@ -54,8 +55,13 @@ const WebMain = ({id, handleAddClass, onFullScreen}) => {
     // no-op if the socket is already connected
     socket.connect();
     function onReceiveContent(value) {
+    if(initiaload.current === true){
+      initiaload.current = false
+    } else {
       setContentType(null);
       getScreenCode();
+    }
+     
     }
     function onDisconnectDevice(value) {
       setContentType(null);
@@ -64,6 +70,7 @@ const WebMain = ({id, handleAddClass, onFullScreen}) => {
     socket.on("disconnectDevice", onDisconnectDevice);
     
     socket.on("receiveContent", onReceiveContent);
+    socket.on("receiveComposition", onReceiveContent);
     return () => {
       socket.disconnect();
       socket.off("receiveContent", onReceiveContent);
@@ -163,7 +170,7 @@ const WebMain = ({id, handleAddClass, onFullScreen}) => {
           )}
 
           {contentType !==null &&  contentType === "composition" && (
-           <GetCompositionPlayer id={media} handleAddClass={handleAddClass}/>
+           <GetCompositionPlayer composition={media} handleAddClass={handleAddClass}/>
           )}
 
           <div class="console-reg" id="consoleReg">
@@ -181,9 +188,10 @@ export default WebMain;
 
 
 
-const GetCompositionPlayer = ({id,handleAddClass})=>{
-  const fetcher = (url) => getCompositionById(url);
-  const { data: composition  } = useSWR(id ? `/vendor/layouts/composition?compositionId=${id}` : null, fetcher);
+const GetCompositionPlayer = ({composition,handleAddClass})=>{
+  // const fetcher = (url) => getCompositionById(url);
+  // const { data: composition  } = useSWR(id ? `/vendor/layouts/composition?compositionId=${id}` : null, fetcher);
+ 
   useEffect(()=>{
     if(composition && composition?.layout?.screenType){
       handleAddClass(composition.layout.screenType)
